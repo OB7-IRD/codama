@@ -8,6 +8,8 @@ creation_references(path_references, output_path)
 }
 \arguments{
 \item{path_references}{Unique object of type \code{\link[base]{character}} expected. A préciser...}
+
+\item{output_path}{Chemin d'enregistrement des tables de references}
 }
 \description{
 Creation references

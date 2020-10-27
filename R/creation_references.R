@@ -3,7 +3,7 @@
 #' @param path_references Unique object of type \code{\link[base]{character}} expected. A préciser...
 #' @param output_path Chemin d'enregistrement des tables de references
 #' @importFrom dplyr last
-#' @export #Lafonction est visible par l'utilisateur
+#' @export
 creation_references <- function(path_references,
                                 output_path) {
   if (missing(path_references)
