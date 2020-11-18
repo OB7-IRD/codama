@@ -7,9 +7,9 @@
 creation_references(path_references, output_path)
 }
 \arguments{
-\item{path_references}{Unique object of type \code{\link[base]{character}} expected. A préciser...}
+\item{path_references}{Unique object of type \code{\link[base]{character}} with xlsx extension expected. A préciser...}
 
-\item{output_path}{Chemin d'enregistrement des tables de references}
+\item{output_path}{Unique object of type \code{\link[base]{character}} expected. Chemin d'enregistrement des tables de references.}
 }
 \description{
 Creation references

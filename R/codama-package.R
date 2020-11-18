@@ -3,7 +3,6 @@
 #'@section Process for data model initialisation:
 #'\itemize{
 #' \item{\code{\link{creation_references}}}
-#' \item{\code{\link{data_model_initialisation}}}
 #' }
 #'@section Process for level 1 (logbooks standardisation):
 #'\itemize{
