@@ -44,6 +44,8 @@ check_specimen_lwr <- function(data,
         data_final <- dplyr::left_join(x = data_final,
                                        y = data_specie_lwr[,c("fish_identifier", "output_check_specimen_lwr")],
                                        by = "fish_identifier")
+      } else if (specie == "BOB") {
+
       } else {
         cat(format(x = Sys.time(),
                    format = "%Y-%m-%d %H:%M:%S"),

@@ -12,7 +12,6 @@ The multi-species nature of tropical tuna surface fisheries gives rise to a seri
 
 \itemize{
 \item{\code{\link{creation_references}}}
-\item{\code{\link{data_model_initialisation}}}
 }
 }
 
