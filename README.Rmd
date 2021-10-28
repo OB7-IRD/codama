@@ -14,14 +14,14 @@ knitr::opts_chunk$set(
 options(tibble.print_min = 5, tibble.print_max = 5)
 ```
 
-# codama R package <a href='https://ob7-ird.github.io/codama/'><img src='man/figures/logo_codama.png' align="right" /></a>
+# codama, Common prOcesses for Data quAlity Monitoring <a href='https://ob7-ird.github.io/codama/'><img src='man/figures/logo_codama.png' align="right" /></a>
 
 <!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/codama)](https://cran.r-project.org/package=codama)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-***Common prOcesses for Data quAlity Monitoring***
+***R package***
 
 ## Warning
 Package and documentation still in construction !

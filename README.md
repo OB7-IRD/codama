@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file and click on Knit button at the end. -->
 
-# codama R package <a href='https://ob7-ird.github.io/codama/'><img src='man/figures/logo_codama.png' align="right" /></a>
+# codama, Common prOcesses for Data quAlity Monitoring <a href='https://ob7-ird.github.io/codama/'><img src='man/figures/logo_codama.png' align="right" /></a>
 
 <!-- badges: start -->
 
@@ -10,7 +10,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-***Common prOcesses for Data quAlity Monitoring***
+***R package***
 
 ## Warning
 
