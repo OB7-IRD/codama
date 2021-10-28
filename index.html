@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COrrection DAta processes for MAnagement of large pelagic biology • codama</title>
+<title>Common prOcesses for Data quAlity Monitoring • codama</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="COrrection DAta processes for MAnagement of large pelagic biology">
-<meta property="og:description" content="What the package does (one paragraph).">
+<script src="pkgdown.js"></script><meta property="og:title" content="Common prOcesses for Data quAlity Monitoring">
+<meta property="og:description" content="This package aims is to provide a series of standardised and generic controls processes for data quality assessment and monitoring.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -66,45 +66,67 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-<div id="r-package-codama" class="section level1">
+<div id="codama-r-package-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#r-package-codama" class="anchor"></a>R package codama</h1></div>
-<div id="correction-data-processes-for-management-of-large-pelagic-biology" class="section level2">
-<h2 class="hasAnchor">
-<a href="#correction-data-processes-for-management-of-large-pelagic-biology" class="anchor"></a>COrrection DAta processes for MAnagement of large pelagic biology</h2>
-<div id="package-initilization-on-r" class="section level3">
-<h3 class="hasAnchor">
-<a href="#package-initilization-on-r" class="anchor"></a>Package initilization on R</h3>
-<p>```R</p>
-</div>
-</div>
-</div>
-<div id="devtools-package-is-necessary-for-codama-package-compilation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#devtools-package-is-necessary-for-codama-package-compilation" class="anchor"></a>devtools package is necessary for codama package compilation</h1>
-</div>
-<div id="for-install-it-run-the-following-line" class="section level1">
-<h1 class="hasAnchor">
-<a href="#for-install-it-run-the-following-line" class="anchor"></a>for install it, run the following line</h1>
-<p>install.packages(“devtools”)</p>
-</div>
-<div id="download-the-last-package-release-stable-from-github" class="section level1">
-<h1 class="hasAnchor">
-<a href="#download-the-last-package-release-stable-from-github" class="anchor"></a>download the last package release stable from GitHub</h1>
-<p>devtools::install_github(“<a href="https://github.com/OB7-IRD/codama" class="uri">https://github.com/OB7-IRD/codama</a>”)</p>
-</div>
-<div id="load-the-library" class="section level1">
-<h1 class="hasAnchor">
-<a href="#load-the-library" class="anchor"></a>load the library</h1>
-<p>library(codama)</p>
-</div>
-<div id="package-documentation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#package-documentation" class="anchor"></a>package documentation</h1>
-<p>?codama</p>
-</div>
+<a href="#codama-r-package-" class="anchor"></a>codama R package <a href="https://ob7-ird.github.io/codama/"><img src="reference/figures/logo_codama.png" align="right"></a>
+</h1></div>
+<!-- badges: start -->
 
+<p><strong><em>Common prOcesses for Data quAlity Monitoring</em></strong></p>
+<div id="warning" class="section level2">
+<h2 class="hasAnchor">
+<a href="#warning" class="anchor"></a>Warning</h2>
+<p>Package and documentation still in construction !</p>
+</div>
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>This package aims is to provide a series of standardised and generic controls processes for data quality assessment and monitoring.</p>
+<ul>
+<li>Process transparency: the code is fully documented and the <a href="https://ob7-ird.github.io/codama/">documentation</a> of how works the program will be available.</li>
+<li>Open access and Open source: the code source is hosted on a github repository <a href="https://github.com/OB7-IRD/codama/">codama</a> under a GPL version 3 license. In the end, it would be available on the Comprehensive R Archive Network (CRAN).</li>
+<li>Referencing of the software : enable result reproducibility and versioning</li>
+</ul>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>Working in progress for this section. Be patient.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># pak installs R packages from CRAN, Bioconductor, GitHub, and local files and directories. Check https://pak.r-lib.org/ for more information.</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span>, repos <span class="op">=</span> <span class="st">"https://r-lib.github.io/p/pak/dev/"</span><span class="op">)</span>
+<span class="fu">pak</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"ob7-ird/codama"</span><span class="op">)</span></code></pre></div>
+<div id="development-version" class="section level3">
+<h3 class="hasAnchor">
+<a href="#development-version" class="anchor"></a>Development version</h3>
+<p>To get a bug fix or to use a feature from the development version, you can install the development version of furdeb from GitHub.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">pak</span><span class="fu">::</span><span class="fu">pkg_install</span><span class="op">(</span><span class="st">"ob7-ird/codama@development"</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="cheatsheet" class="section level2">
+<h2 class="hasAnchor">
+<a href="#cheatsheet" class="anchor"></a>Cheatsheet</h2>
+<p>Working in progress for this section. Be patient.</p>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/OB7-IRD/codama">codama</a></span><span class="op">)</span>
+<span class="co"># Next steps example will be added later</span></code></pre></div>
+</div>
+<div id="getting-help" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-help" class="anchor"></a>Getting help</h2>
+<p>If you encounter a clear bug, please file an issue with a minimal reproducible example on <a href="https://github.com/OB7-IRD/codama/issues">GitHub issues page</a>. This link is also available if you have any questions and improvement propositions.</p>
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>Working in progress for this section.</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -127,17 +149,23 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems <br><small class="roles"> Maintainer, copyright holder </small>  </li>
-<li>Aurelie Guillou <br><small class="roles"> Author </small>  </li>
 <li>Mathieu Depetris <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=codama"><img src="https://www.r-pkg.org/badges/version/codama" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems, Aurelie Guillou, Mathieu Depetris.</p>
+  <p>Developed by Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems, Mathieu Depetris.</p>
 </div>
 
 <div class="pkgdown">
