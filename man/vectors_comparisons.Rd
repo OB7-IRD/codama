@@ -16,5 +16,11 @@ vectors_comparisons(first_vector, second_vector, comparison_type, output)
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 }
 \description{
-Identify similarities and differences between two R vectors
+Identify similarities and differences between two R vectors.
+}
+\examples{
+vectors_comparisons(first_vector = c(1, 2, 3, 5),
+                    second_vector = c(1, 2, 4, 3),
+                    comparison_type = "difference",
+                    output = "report")
 }

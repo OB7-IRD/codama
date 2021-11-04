@@ -1,10 +1,15 @@
 #' @name vectors_comparisons
 #' @title Vectors comparisons
-#' @description Identify similarities and differences between two R vectors
+#' @description Identify similarities and differences between two R vectors.
 #' @param first_vector {\link[base]{vector}} expected.
 #' @param second_vector {\link[base]{vector}} expected.
 #' @param comparison_type {\link[base]{character}} expected. Type of comparison expected, you can choose between "difference" or "equality". "Difference" highlight element(s) of the first vector not present in the second, and "equality" check if two vectors are exactly the same.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
+#' @examples
+#' vectors_comparisons(first_vector = c(1, 2, 3, 5),
+#'                     second_vector = c(1, 2, 4, 3),
+#'                     comparison_type = "difference",
+#'                     output = "report")
 #' @export
 #' @importFrom dplyr tibble left_join mutate case_when
 vectors_comparisons <- function(first_vector,
