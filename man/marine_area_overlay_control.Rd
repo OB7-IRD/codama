@@ -28,8 +28,8 @@ Control processes associated to the function {\link[furdeb]{marine_area_overlay}
 }
 \examples{
 \dontrun{
-marine_area_overlay_control(data_longitude = as.character(c(1.09, 8.37, 12.43, 49.72, 67.21, 19.35, -4.04, -4.54)),
-                            data_latitude = as.character(c(2.47, -3.19, -2.03, -25.72, -34.70, 24.55, 5.22, 49.73)),
+marine_area_overlay_control(data_longitude = as.character(c(1.09, 8.37, 19.35, -4.04, -4.54)),
+                            data_latitude = as.character(c(2.47, -3.19, 24.55, 5.22, 49.73)),
                             overlay_expected = "ices_area",
                             area_file_path = "ICES_Statistical_Rectangles_Eco.RData",
                             output = "report")

@@ -8,8 +8,8 @@
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
 #' @examples
 #' \dontrun{
-#' marine_area_overlay_control(data_longitude = as.character(c(1.09, 8.37, 12.43, 49.72, 67.21, 19.35, -4.04, -4.54)),
-#'                             data_latitude = as.character(c(2.47, -3.19, -2.03, -25.72, -34.70, 24.55, 5.22, 49.73)),
+#' marine_area_overlay_control(data_longitude = as.character(c(1.09, 8.37, 19.35, -4.04, -4.54)),
+#'                             data_latitude = as.character(c(2.47, -3.19, 24.55, 5.22, 49.73)),
 #'                             overlay_expected = "ices_area",
 #'                             area_file_path = "ICES_Statistical_Rectangles_Eco.RData",
 #'                             output = "report")
@@ -22,6 +22,8 @@ marine_area_overlay_control <- function(data_longitude,
                                         overlay_expected,
                                         area_file_path,
                                         output) {
+  # global variables assignement ----
+  longitude <- latitude <- marine_area_overlay_control_output <- NULL
   # arguments verifications ----
   if (missing(data_longitude)
       || class(output) != "character") {

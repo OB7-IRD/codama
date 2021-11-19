@@ -1,6 +1,9 @@
 template:
   params:
     bootswatch: cerulean
+    docsearch:
+      api_key: 70e95458ae7f8e8798d9f81849cf6d4d
+      index_name: codam
 
 url: https://ob7-ird.github.io/codama
 
