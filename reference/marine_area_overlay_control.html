@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • codama</title>
+<title>Marine area overlay control function — marine_area_overlay_control • codama</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,19 +33,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 <!-- docsearch -->
-<script src="docsearch.js"></script>
+<script src="../docsearch.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
-<link href="docsearch.css" rel="stylesheet">
+<link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Marine area overlay control function — marine_area_overlay_control" />
+<meta property="og:description" content="Control processes associated to the function marine_area_overlay (consistent spatial marine area overlay for points, grids and polygons)." />
 
 
 
@@ -64,7 +65,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -76,7 +77,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">codama</a>
+        <a class="navbar-link" href="../index.html">codama</a>
         <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
       </span>
     </div>
@@ -84,16 +85,16 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -120,26 +121,67 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Marine area overlay control function</h1>
+    <small class="dont-index">Source: <a href='https://github.com/OB7-IRD/codama/blob/master/R/marine_area_overlay_control.R'><code>R/marine_area_overlay_control.R</code></a></small>
+    <div class="hidden name"><code>marine_area_overlay_control.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems</strong>. Maintainer, copyright holder. 
-        </p>
-      </li>
-      <li>
-        <p><strong>Mathieu Depetris</strong>. Author. 
-        </p>
-      </li>
-    </ul>
+    <div class="ref-description">
+    <p>Control processes associated to the function <a href='https://rdrr.io/pkg/furdeb/man/marine_area_overlay.html'>marine_area_overlay</a> (consistent spatial marine area overlay for points, grids and polygons).</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>marine_area_overlay_control</span><span class='op'>(</span>
+  <span class='va'>data_longitude</span>,
+  <span class='va'>data_latitude</span>,
+  <span class='va'>overlay_expected</span>,
+  <span class='va'>area_file_path</span>,
+  <span class='va'>output</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data_longitude</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> expected. Vector of longitude values.</p></td>
+    </tr>
+    <tr>
+      <th>data_latitude</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> expected. Vector of latitude values.</p></td>
+    </tr>
+    <tr>
+      <th>overlay_expected</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> expected. Type of overlay output. You can choose between "fao_area", "eez_area" or "ices_area".</p></td>
+    </tr>
+    <tr>
+      <th>area_file_path</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> expected. File path of the area shape. You can provide a .shp or a .RData file.</p></td>
+    </tr>
+    <tr>
+      <th>output</th>
+      <td><p><a href='https://rdrr.io/r/base/character.html'>character</a> expected. Kind of expected output. You can choose between "message", "report" or "logical".</p></td>
+    </tr>
+    </table>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'>marine_area_overlay_control</span><span class='op'>(</span>data_longitude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1.09</span>, <span class='fl'>8.37</span>, <span class='fl'>19.35</span>, <span class='op'>-</span><span class='fl'>4.04</span>, <span class='op'>-</span><span class='fl'>4.54</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                            data_latitude <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2.47</span>, <span class='op'>-</span><span class='fl'>3.19</span>, <span class='fl'>24.55</span>, <span class='fl'>5.22</span>, <span class='fl'>49.73</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span class='r-in'>                            overlay_expected <span class='op'>=</span> <span class='st'>"ices_area"</span>,</span>
+<span class='r-in'>                            area_file_path <span class='op'>=</span> <span class='st'>"ICES_Statistical_Rectangles_Eco.RData"</span>,</span>
+<span class='r-in'>                            output <span class='op'>=</span> <span class='st'>"report"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
 </div>
-
 
 
       <footer>
