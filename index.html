@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,12 +42,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -54,7 +50,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/OB7-IRD/codama/">
+  <a href="https://github.com/OB7-IRD/codama/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -77,64 +73,64 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="codama-r-package-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#codama-r-package-" class="anchor"></a>codama R package <a href="https://ob7-ird.github.io/codama/"><img src="reference/figures/logo_codama.png" align="right"></a>
+<div class="section level1">
+<div class="page-header"><h1 id="codama-r-package-">codama R package <a href="https://ob7-ird.github.io/codama/"><img src="reference/figures/logo_codama.png" align="right"></a>
+<a class="anchor" aria-label="anchor" href="#codama-r-package-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p><strong><em>Common prOcesses for Data quAlity Monitoring</em></strong></p>
-<div id="warning" class="section level2">
-<h2 class="hasAnchor">
-<a href="#warning" class="anchor"></a>Warning</h2>
+<div class="section level2">
+<h2 id="warning">Warning<a class="anchor" aria-label="anchor" href="#warning"></a>
+</h2>
 <p>Package and documentation still in construction !</p>
 </div>
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
 <p>This package aims is to provide a series of standardised and generic controls processes for data quality assessment and monitoring.</p>
 <ul>
 <li>Process transparency: the code is fully documented and the <a href="https://ob7-ird.github.io/codama/">documentation</a> of how works the program will be available.</li>
-<li>Open access and Open source: the code source is hosted on a github repository <a href="https://github.com/OB7-IRD/codama/">codama</a> under a GPL version 3 license. In the end, it would be available on the Comprehensive R Archive Network (CRAN).</li>
+<li>Open access and Open source: the code source is hosted on a github repository <a href="https://github.com/OB7-IRD/codama/" class="external-link">codama</a> under a GPL version 3 license. In the end, it would be available on the Comprehensive R Archive Network (CRAN).</li>
 <li>Referencing of the software : enable result reproducibility and versioning</li>
 </ul>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Working in progress for this section. Be patient.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># pak installs R packages from CRAN, Bioconductor, GitHub, and local files and directories. Check https://pak.r-lib.org/ for more information.</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span>, repos <span class="op">=</span> <span class="st">"https://r-lib.github.io/p/pak/dev/"</span><span class="op">)</span>
-<span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html">pkg_install</a></span><span class="op">(</span><span class="st">"ob7-ird/codama"</span><span class="op">)</span></code></pre></div>
-<div id="development-version" class="section level3">
-<h3 class="hasAnchor">
-<a href="#development-version" class="anchor"></a>Development version</h3>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span>, repos <span class="op">=</span> <span class="st">"https://r-lib.github.io/p/pak/dev/"</span><span class="op">)</span>
+<span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ob7-ird/codama"</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="development-version">Development version<a class="anchor" aria-label="anchor" href="#development-version"></a>
+</h3>
 <p>To get a bug fix or to use a feature from the development version, you can install the development version of furdeb from GitHub.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html">pkg_install</a></span><span class="op">(</span><span class="st">"ob7-ird/codama@development"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"ob7-ird/codama@development"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="cheatsheet" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cheatsheet" class="anchor"></a>Cheatsheet</h2>
+<div class="section level2">
+<h2 id="cheatsheet">Cheatsheet<a class="anchor" aria-label="anchor" href="#cheatsheet"></a>
+</h2>
 <p>Working in progress for this section. Be patient.</p>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/OB7-IRD/codama">codama</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/OB7-IRD/codama" class="external-link">codama</a></span><span class="op">)</span>
 <span class="co"># Next steps example will be added later</span></code></pre></div>
 </div>
-<div id="getting-help" class="section level2">
-<h2 class="hasAnchor">
-<a href="#getting-help" class="anchor"></a>Getting help</h2>
-<p>If you encounter a clear bug, please file an issue with a minimal reproducible example on <a href="https://github.com/OB7-IRD/codama/issues">GitHub issues page</a>. This link is also available if you have any questions and improvement propositions.</p>
+<div class="section level2">
+<h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
+</h2>
+<p>If you encounter a clear bug, please file an issue with a minimal reproducible example on <a href="https://github.com/OB7-IRD/codama/issues" class="external-link">GitHub issues page</a>. This link is also available if you have any questions and improvement propositions.</p>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>Working in progress for this section.</p>
 </div>
 </div>
@@ -142,47 +138,58 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/OB7-IRD/codama/">https://​github.com/​OB7-IRD/​codama/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/OB7-IRD/codama/issues">https://​github.com/​OB7-IRD/​codama/​issues</a>
-</li>
+<li><a href="https://github.com/OB7-IRD/codama/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/OB7-IRD/codama/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing codama</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems <br><small class="roles"> Maintainer, copyright holder </small>  </li>
 <li>Mathieu Depetris <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=codama"><img src="https://www.r-pkg.org/badges/version/codama" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://cran.r-project.org/package=codama" class="external-link"><img src="https://www.r-pkg.org/badges/version/codama" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
-</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems, Mathieu Depetris.</p>
+  <p></p>
+<p>Developed by Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems, Mathieu Depetris.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>

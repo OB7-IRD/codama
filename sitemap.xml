@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ob7-ird.github.io/codama/404.html</loc>
+  </url>
+  <url>
+    <loc>https://ob7-ird.github.io/codama/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://ob7-ird.github.io/codama/authors.html</loc>
+  </url>
+  <url>
     <loc>https://ob7-ird.github.io/codama/index.html</loc>
   </url>
   <url>
+    <loc>https://ob7-ird.github.io/codama/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://ob7-ird.github.io/codama/reference/codama-package.html</loc>
+  </url>
+  <url>
+    <loc>https://ob7-ird.github.io/codama/reference/index.html</loc>
   </url>
   <url>
     <loc>https://ob7-ird.github.io/codama/reference/marine_area_overlay_control.html</loc>
