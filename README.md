@@ -8,6 +8,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/codama)](https://cran.r-project.org/package=codama)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/OB7-IRD/codama/workflows/R-CMD-check/badge.svg)](https://github.com/OB7-IRD/codama/actions)
 <!-- badges: end -->
 
 ***Common prOcesses for Data quAlity Monitoring***
@@ -36,9 +37,8 @@ controls processes for data quality assessment and monitoring.
 Working in progress for this section. Be patient.
 
 ``` r
-# pak installs R packages from CRAN, Bioconductor, GitHub, and local files and directories. Check https://pak.r-lib.org/ for more information.
-install.packages("pak", repos = "https://r-lib.github.io/p/pak/dev/")
-pak::pkg_install("ob7-ird/codama")
+devtools::install_github("https://github.com/OB7-IRD/codama",
+                         INSTALL_opts=c("--no-multiarch"))
 ```
 
 ### Development version
@@ -47,7 +47,9 @@ To get a bug fix or to use a feature from the development version, you
 can install the development version of furdeb from GitHub.
 
 ``` r
-pak::pkg_install("ob7-ird/codama@development")
+devtools::install_github("https://github.com/OB7-IRD/codama",
+                         ref = "development",
+                         INSTALL_opts=c("--no-multiarch"))
 ```
 
 ## Cheatsheet
