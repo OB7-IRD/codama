@@ -19,6 +19,9 @@
     <loc>https://ob7-ird.github.io/codama/reference/codama-package.html</loc>
   </url>
   <url>
+    <loc>https://ob7-ird.github.io/codama/reference/file_path_checking.html</loc>
+  </url>
+  <url>
     <loc>https://ob7-ird.github.io/codama/reference/index.html</loc>
   </url>
   <url>
@@ -26,6 +29,9 @@
   </url>
   <url>
     <loc>https://ob7-ird.github.io/codama/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://ob7-ird.github.io/codama/reference/r_type_checking.html</loc>
   </url>
   <url>
     <loc>https://ob7-ird.github.io/codama/reference/vectors_comparisons.html</loc>
