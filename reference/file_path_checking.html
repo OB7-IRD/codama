@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0</span>
       </span>
     </div>
 
@@ -58,17 +58,22 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">file_path_checking</span><span class="op">(</span><span class="va">file_path</span>, <span class="va">extension</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">file_path_checking</span><span class="op">(</span><span class="va">file_path</span>, <span class="va">extension</span>, output <span class="op">=</span> <span class="st">"message"</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>file_path</dt>
 <dd><p>Object of class <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></code> expected. File location on your system.</p></dd>
+
+
 <dt>extension</dt>
 <dd><p>Object of class <code><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></code> expected. Type of extension expected (avoid the . before the extension).</p></dd>
-<dt>silent</dt>
-<dd><p>Object of class <code><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></code> expected. By default TRUE. Display output message when process ran  Display output message when process ran  Display output message when process ran sucessfully.</p></dd>
+
+
+<dt>output</dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Kind of expected output. By default "message". You can choose between "message" or "logical".</p></dd>
+
 </dl></div>
 
   </div>
@@ -83,7 +88,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
