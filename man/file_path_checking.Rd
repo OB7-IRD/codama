@@ -4,14 +4,14 @@
 \alias{file_path_checking}
 \title{Checking for file path}
 \usage{
-file_path_checking(file_path, extension, silent = TRUE)
+file_path_checking(file_path, extension, output = "message")
 }
 \arguments{
 \item{file_path}{Object of class \code{\link[base]{character}} expected. File location on your system.}
 
 \item{extension}{Object of class \code{\link[base]{character}} expected. Type of extension expected (avoid the . before the extension).}
 
-\item{silent}{Object of class \code{\link[base]{logical}} expected. By default TRUE. Display output message when process ran  Display output message when process ran  Display output message when process ran sucessfully.}
+\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
 }
 \description{
 Checking for file path before import in R.

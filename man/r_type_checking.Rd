@@ -4,18 +4,24 @@
 \alias{r_type_checking}
 \title{Checking for r object type}
 \usage{
-r_type_checking(r_object, type, length, allowed_values = NULL, silent = TRUE)
+r_type_checking(
+  r_object,
+  type,
+  length = NULL,
+  allowed_values = NULL,
+  output = "message"
+)
 }
 \arguments{
 \item{r_object}{R object expected.}
 
-\item{type}{Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "numeric", "integer" or "logical".}
+\item{type}{Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "numeric", "integer", "logical" or "NULL".}
 
-\item{length}{Object of class \code{\link[base]{integer}} expected. Specify the vector length expected.}
+\item{length}{Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.}
 
 \item{allowed_values}{Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.}
 
-\item{silent}{Object of class \code{\link[base]{logical}} expected. By default TRUE. Display output message when process ran  Display output message when process ran  Display output message when process ran sucessfully.}
+\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
 }
 \description{
 Typing and structure checking for r object.

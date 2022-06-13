@@ -17,46 +17,55 @@ vectors_comparisons <- function(first_vector,
                                 comparison_type,
                                 output) {
   # arguments verifications ----
-  if (missing(first_vector)) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"first_vector\" argument\n")
-    stop()
+  if (missing(x = first_vector)) {
+    stop(format(x = Sys.time(),
+                "%Y-%m-%d %H:%M:%S"),
+         " - Error, missing \"first_vector\" argument.\n")
   }
-  if (missing(second_vector)) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"second_vector\" argument\n")
-    stop()
+  if (missing(x = second_vector)) {
+    stop(format(x = Sys.time(),
+                "%Y-%m-%d %H:%M:%S"),
+         " - Error, missing \"second_vector\" argument.\n")
   }
-  if (class(first_vector) != class(second_vector)) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid data, different classes between vectors\n")
-    stop()
+  if (missing(x = comparison_type)) {
+    stop(format(x = Sys.time(),
+                "%Y-%m-%d %H:%M:%S"),
+         " - Error, missing \"comparison_type\" argument.\n")
   }
-  if (missing(comparison_type)
-      || class(comparison_type) != "character"
-      || length(comparison_type) != 1
-      || (! comparison_type %in% c("difference",
-                                   "equality"))) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"comparison_type\" argument\n")
-    stop()
+  if (class(x = first_vector) != class(x = second_vector)) {
+    stop(cat(format(x = Sys.time(),
+                    "%Y-%m-%d %H:%M:%S"),
+             " Error - invalid data, different classes between vectors\n"))
   }
-  if (missing(output)
-      || class(output) != "character"
-      || length(output) != 1
-      || (! output %in% c("message",
-                                   "report",
-                                   "logical"))) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"output\" argument")
-    stop()
+  if (r_type_checking(r_object = comparison_type,
+                      type = "character",
+                      length = 1L,
+                      allowed_values = c("difference",
+                                         "equality"),
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = comparison_type,
+                           type = "character",
+                           length = 1L,
+                           allowed_values = c("difference",
+                                              "equality"),
+                           output = "message"))
   }
-  # processes ----
+  if (r_type_checking(r_object = output,
+                      type = "character",
+                      length = 1L,
+                      allowed_values = c("message",
+                                         "report",
+                                         "logical"),
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = output,
+                           type = "character",
+                           length = 1L,
+                           allowed_values = c("message",
+                                              "report",
+                                              "logical"),
+                           output = "message"))
+  }
+  # global process ----
   data <- dplyr::tibble("first_vector" = first_vector)
   if (comparison_type == "difference") {
     if (length(x = setdiff(x = first_vector,
@@ -64,13 +73,13 @@ vectors_comparisons <- function(first_vector,
       if (output == "message") {
         mismatch_element <- length(x = setdiff(x = first_vector,
                                                y = second_vector))
-        cat(format(x = Sys.time(),
-                   "%Y-%m-%d %H:%M:%S"),
-            "- Failure,",
-            mismatch_element,
-            ifelse(test = mismatch_element == 1,
-                   yes = "element of the first vector is not present in the second sector.\n",
-                   no = "elements of the first vector are not present in the second sector.\n"))
+        return(cat(format(x = Sys.time(),
+                          "%Y-%m-%d %H:%M:%S"),
+                   "- Failure,",
+                   mismatch_element,
+                   ifelse(test = mismatch_element == 1,
+                          yes = "element of the first vector is not present in the second sector.\n",
+                          no = "elements of the first vector are not present in the second sector.\n")))
       } else if (output == "logical") {
         return(FALSE)
       } else if (output == "report") {
@@ -87,9 +96,9 @@ vectors_comparisons <- function(first_vector,
       }
     } else {
       if (output == "message") {
-        cat(format(x = Sys.time(),
-                   "%Y-%m-%d %H:%M:%S"),
-            "- Success, all elements of the first vector are present in the second sector.\n")
+        return(cat(format(x = Sys.time(),
+                          "%Y-%m-%d %H:%M:%S"),
+                   "- Success, all elements of the first vector are present in the second sector.\n"))
       } else if (output == "logical") {
         return(TRUE)
       } else if (output == "report") {
@@ -99,29 +108,39 @@ vectors_comparisons <- function(first_vector,
       }
     }
   } else if (comparison_type == "equality") {
+    if (length(x = first_vector) != length(x = second_vector)) {
+
+    }
     if (identical(x = first_vector,
                   y = second_vector)) {
       if (output == "message") {
-        cat(format(x = Sys.time(),
-                   "%Y-%m-%d %H:%M:%S"),
-            "- Success, the two vectors are identical.\n")
+        return(cat(format(x = Sys.time(),
+                          "%Y-%m-%d %H:%M:%S"),
+                   "- Success, the two vectors are identical.\n"))
       } else if (output == "logical") {
         return(TRUE)
       } else if (output == "report") {
         data_final <- dplyr::mutate(.data = data,
+                                    second_vector = second_vector,
                                     vectors_comparisons_detail = "equality")
         return(data_final)
       }
     } else {
       if (output == "message") {
-        cat(format(x = Sys.time(),
-                   "%Y-%m-%d %H:%M:%S"),
-            "- Failure, the two vectors are not identical.\n")
+        return(cat(format(x = Sys.time(),
+                          "%Y-%m-%d %H:%M:%S"),
+                   "- Failure, the two vectors are not identical.\n"))
       } else if (output == "logical") {
         return(FALSE)
       } else if (output == "report") {
+        browser()
+        data_final <- dplyr::full_join(x = )
+
         data_final <- dplyr::mutate(.data = data,
-                                    vectors_comparisons_detail = "no equality")
+                                    second_vector = second_vector,
+                                    vectors_comparisons_detail = dplyr::case_when(
+                                      first_vector == second_vector ~ "equality",
+                                      TRUE ~ "no equality"))
         return(data_final)
       }
     }
