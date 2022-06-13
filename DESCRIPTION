@@ -17,5 +17,5 @@ Imports:
     furdeb (>= 0.9.0),
     magrittr
 Remotes: 
-    OB7-IRD/furdeb,
-    OB7-IRD/fishi
+    OB7-IRD/fishi,
+    OB7-IRD/furdeb
