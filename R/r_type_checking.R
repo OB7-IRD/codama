@@ -2,7 +2,7 @@
 #' @title Checking for r object type
 #' @description Typing and structure checking for r object.
 #' @param r_object R object expected.
-#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "numeric", "integer", "logical" or "NULL".
+#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "numeric", "integer", "PostgreSQLConnection", "logical" or "NULL".
 #' @param length Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.
 #' @param allowed_values Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".
@@ -24,6 +24,7 @@ r_type_checking <- function(r_object,
                               "list",
                               "numeric",
                               "integer",
+                              "PostgreSQLConnection",
                               "logical",
                               "NULL")) {
     stop(format(x = Sys.time(),
@@ -34,6 +35,7 @@ r_type_checking <- function(r_object,
          ", \"list\"",
          ", \"numeric\"",
          ", \"integer\"",
+         ", \"PostgreSQLConnection\"",
          ", \"logical\"",
          " or \"NULL\".\n")
   } else if (! is.null(x = length)
@@ -75,7 +77,9 @@ r_type_checking <- function(r_object,
         return(cat(paste0(format(x = Sys.time(),
                                  "%Y-%m-%d %H:%M:%S"),
                           " - Failure,",
-                          " invalid \"r_object\" argument.\n",
+                          " invalid \"r_object\" argument: ",
+                          deparse(expr = substitute(expr = r_object)),
+                          "\n",
                           "Argument of type \"",
                           type,
                           "\" is expected.\n")))
@@ -89,7 +93,9 @@ r_type_checking <- function(r_object,
           return(cat(paste0(format(x = Sys.time(),
                                    "%Y-%m-%d %H:%M:%S"),
                             " - Failure,",
-                            " invalid \"r_object\" argument.\n",
+                            " invalid \"r_object\" argument: ",
+                            deparse(expr = substitute(expr = r_object)),
+                            "\n",
                             "argument with a length ",
                             length,
                             " is expected.\n")))
@@ -104,7 +110,9 @@ r_type_checking <- function(r_object,
           return(cat(paste0(format(x = Sys.time(),
                                    "%Y-%m-%d %H:%M:%S"),
                             " - Failure,",
-                            " invalid \"r_object\" argument.\n",
+                            " invalid \"r_object\" argument: ",
+                            deparse(expr = substitute(expr = r_object)),
+                            "\n",
                             ifelse(test = length(x = allowed_values) == 1,
                                    yes = "value expected is ",
                                    no = "values expected are "),

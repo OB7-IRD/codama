@@ -44,8 +44,12 @@ file_path_checking <- function(file_path,
       return(cat(paste0(format(x = Sys.time(),
                                "%Y-%m-%d %H:%M:%S"),
                         " - Failure,",
-                        " invalid \"extension\" argument.\n",
-                        "File extension(s) expected is not identical to the \"file_path\" argument extension.\n")))
+                        " invalid \"extension\" argument: ",
+                        deparse(expr = substitute(expr = extension)),
+                        "\n",
+                        "file extension(s) expected is not identical to the \"file_path\" argument extension (",
+                        deparse(expr = substitute(expr = file_path)),
+                        ").\n")))
     } else if (output == "logical") {
       return(FALSE)
     }
