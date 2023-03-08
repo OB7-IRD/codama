@@ -25,7 +25,6 @@ r_type_checking <- function(r_object,
                               "PostgreSQLConnection",
                               "numeric",
                               "integer",
-                              "PostgreSQLConnection",
                               "logical",
                               "NULL")) {
     stop(format(x = Sys.time(),
@@ -37,7 +36,6 @@ r_type_checking <- function(r_object,
          ", \"PostgreSQLConnection\"",
          ", \"numeric\"",
          ", \"integer\"",
-         ", \"PostgreSQLConnection\"",
          ", \"logical\"",
          " or \"NULL\".\n")
   } else if (! is.null(x = length)
