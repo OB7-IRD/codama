@@ -5,7 +5,6 @@ SELECT
     s.topiaid::text AS specie_id,
     s.label1::text AS specie_name, 
     o.label1::text AS ocean_name
-
 FROM 
     ps_logbook.catch c 
     INNER JOIN common.species s ON c.species = s.topiaid 

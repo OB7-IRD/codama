@@ -31,6 +31,18 @@ check_specie_catch_ocean <- function(data_connection,
       length = 2L,
       output = "message"
     ))
+  } else {
+    if (!is.data.frame(data_connection[[1]]) && r_type_checking(
+      r_object = data_connection[[2]],
+      type = "PostgreSQLConnection",
+      output = "logical"
+    ) != TRUE) {
+      return(r_type_checking(
+        r_object = data_connection,
+        type = "PostgreSQLConnection",
+        output = "message"
+      ))
+    }
   }
   # Checks the type and values of output
   if (r_type_checking(
@@ -63,11 +75,11 @@ check_specie_catch_ocean <- function(data_connection,
     }
     # Checks the type of select according to type_select
     if (type_select == "trip" &&
-      r_type_checking(
-        r_object = select,
-        type = "character",
-        output = "logical"
-      ) != TRUE) {
+        r_type_checking(
+          r_object = select,
+          type = "character",
+          output = "logical"
+        ) != TRUE) {
       return(r_type_checking(
         r_object = select,
         type = "character",
@@ -75,32 +87,31 @@ check_specie_catch_ocean <- function(data_connection,
       ))
     }
     if (type_select == "year" &&
-      r_type_checking(
-        r_object = select,
-        type = "numeric",
-        output = "logical"
-      ) != TRUE) {
+        r_type_checking(
+          r_object = select,
+          type = "numeric",
+          output = "logical"
+        ) != TRUE) {
       return(r_type_checking(
         r_object = select,
         type = "numeric",
         output = "message"
       ))
     }
-    # fishi:::dbconnection_control(dbconnection = data_connection)
     # 2 - Data extraction ----
     # Species and their associated ocean
     specie_ocean_sql <- paste(
       readLines(con = system.file("sql",
-        "specie_ocean.sql",
-        package = "codama"
+                                  "specie_ocean.sql",
+                                  package = "codama"
       )),
       collapse = "\n"
     )
     # Species caught during the trip, ocean declared
     specie_catch_ocean_sql <- paste(
       readLines(con = system.file("sql",
-        "specie_catch_ocean.sql",
-        package = "codama"
+                                  "specie_catch_ocean.sql",
+                                  package = "codama"
       )),
       collapse = "\n"
     )
@@ -123,15 +134,14 @@ check_specie_catch_ocean <- function(data_connection,
         fixed = TRUE
       )
     }
-    specie_ocean_sql <- DBI::sqlInterpolate(
-      conn = data_connection[[2]],
-      sql = specie_ocean_sql
+    specie_ocean_sql <- DBI::SQL(
+      x = specie_ocean_sql
     )
     specie_catch_ocean_sql <- DBI::sqlInterpolate(
       conn = data_connection[[2]],
       sql = specie_catch_ocean_sql,
       select_item = DBI::SQL(paste(select,
-        collapse = ", "
+                                   collapse = ", "
       ))
     )
     specie_ocean_data <- dplyr::tibble(DBI::dbGetQuery(
@@ -164,9 +174,9 @@ check_specie_catch_ocean <- function(data_connection,
   specie_ocean_data$ocean_idspecie_id <- paste0(specie_ocean_data$ocean_id, specie_ocean_data$specie_id)
   # Search for the pair species, ocean of capture in the associations species, ocean possible
   comparison <- vectors_comparisons(specie_catch_ocean_data$ocean_idspecie_id,
-    specie_ocean_data$ocean_idspecie_id,
-    comparison_type = "difference",
-    output = "report"
+                                    specie_ocean_data$ocean_idspecie_id,
+                                    comparison_type = "difference",
+                                    output = "report"
   )
   comparison$logical <- FALSE
   comparison$logical[comparison$vectors_comparisons_output == "no difference"] <- TRUE

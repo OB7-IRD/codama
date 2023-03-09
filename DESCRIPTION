@@ -20,3 +20,6 @@ Imports:
 Remotes: 
     OB7-IRD/fishi,
     OB7-IRD/furdeb
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
