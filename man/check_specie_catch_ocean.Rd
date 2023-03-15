@@ -16,7 +16,7 @@ check_specie_catch_ocean(data_connection, type_select, select, output)
 \item{output}{{\link[base]{character}} expected.Kind of expected output. You can choose between "message", "report" or "logical".}
 }
 \value{
-The function returns a data.frame tibble
+The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 }
 \description{
 The purpose of the check_specie_catch_ocean function is to provide a table of data that contains an inconsistency between the species caught during the trip and the ocean reported for the trip with the ocean for which the species are associated

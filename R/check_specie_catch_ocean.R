@@ -5,11 +5,10 @@
 #' @param type_select {\link[base]{character}} expected. Choose the study unit, you can choose between: "trip" or "year".
 #' @param select {\link[base]{character}} expected with type_select is "trip". Then give unique identifier for the trip. {\link[base]{numeric}} expected with type_select is "year".Then give year for the trip.
 #' @param output {\link[base]{character}} expected.Kind of expected output. You can choose between "message", "report" or "logical".
-#' @return The function returns a data.frame tibble
+#' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 #' @export
 #' @importFrom DBI dbGetQuery sqlInterpolate SQL
 #' @importFrom dplyr tibble
-#' @importFrom furdeb configuration_file postgresql_dbconnection
 check_specie_catch_ocean <- function(data_connection,
                                      type_select,
                                      select,
@@ -38,7 +37,7 @@ check_specie_catch_ocean <- function(data_connection,
       output = "logical"
     ) != TRUE) {
       return(r_type_checking(
-        r_object = data_connection,
+        r_object = data_connection[[2]],
         type = "PostgreSQLConnection",
         output = "message"
       ))
@@ -179,7 +178,8 @@ check_specie_catch_ocean <- function(data_connection,
                                     output = "report"
   )
   comparison$logical <- FALSE
-  comparison$logical[comparison$vectors_comparisons_output == "no difference"] <- TRUE
+  colnames_comparison <- grep("vectors_comparisons_", colnames(comparison))
+  comparison$logical[comparison[, colnames_comparison] == "no difference"] <- TRUE
   specie_catch_ocean_data <- cbind(specie_catch_ocean_data, comparison)
   if ((sum(specie_catch_ocean_data$logical) + sum(!specie_catch_ocean_data$logical)) != nrow_first) {
     stop(
