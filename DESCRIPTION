@@ -14,10 +14,10 @@ BugReports: https://github.com/OB7-IRD/codama/issues
 Imports: 
     DBI (>= 1.1.3),
     dplyr (>= 1.0.7),
+    furdeb (>= 0.9.0),
     magrittr
 Remotes:
     OB7-IRD/furdeb
 Suggests: 
-    testthat (>= 3.0.0),
-    furdeb (>= 0.9.0)
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
