@@ -82,17 +82,6 @@ vector_comparison <- function(first_vector,
                           no = "elements of the first vector are not present in the second sector.\n")))
       } else if (output == "logical") {
         return(FALSE)
-      } else if (output == "report") {
-        data_final <- dplyr::left_join(x = data,
-                                       y = (dplyr::tibble("first_vector" = setdiff(x = first_vector,
-                                                                                   y = second_vector)) %>%
-                                              dplyr::mutate(vectors_comparisons_output = "data not present in the second sector")),
-                                       by = "first_vector") %>%
-          dplyr::mutate(vectors_comparisons_output = dplyr::case_when(
-            is.na(vectors_comparisons_output) ~ "no difference",
-            TRUE ~ vectors_comparisons_output
-          ))
-        return(data_final)
       }
     } else {
       if (output == "message") {
@@ -101,16 +90,22 @@ vector_comparison <- function(first_vector,
                    "- Success, all elements of the first vector are present in the second sector.\n"))
       } else if (output == "logical") {
         return(TRUE)
-      } else if (output == "report") {
-        data_final <- dplyr::mutate(.data = data,
-                                    vectors_comparisons_detail = "no difference")
-        return(data_final)
-      }
+       }
+     }
+    if (output == "report") {
+      data_final <- dplyr::left_join(x = data,
+                                     y = (dplyr::tibble("first_vector" = setdiff(x = first_vector,
+                                                                                 y = second_vector)) %>%
+                                            dplyr::mutate(logical = FALSE)),
+                                     by = "first_vector") %>%
+        dplyr::mutate(logical = dplyr::case_when(
+          is.na(logical) ~ TRUE,
+          TRUE ~ logical
+        ))
+      return(data_final)
     }
   } else if (comparison_type == "equality") {
-    if (length(x = first_vector) != length(x = second_vector)) {
 
-    }
     if (identical(x = first_vector,
                   y = second_vector)) {
       if (output == "message") {
@@ -119,11 +114,6 @@ vector_comparison <- function(first_vector,
                    "- Success, the two vectors are identical.\n"))
       } else if (output == "logical") {
         return(TRUE)
-      } else if (output == "report") {
-        data_final <- dplyr::mutate(.data = data,
-                                    second_vector = second_vector,
-                                    vectors_comparisons_detail = "equality")
-        return(data_final)
       }
     } else {
       if (output == "message") {
@@ -132,17 +122,15 @@ vector_comparison <- function(first_vector,
                    "- Failure, the two vectors are not identical.\n"))
       } else if (output == "logical") {
         return(FALSE)
-      } else if (output == "report") {
-        browser()
-        data_final <- dplyr::full_join(x = )
-
-        data_final <- dplyr::mutate(.data = data,
-                                    second_vector = second_vector,
-                                    vectors_comparisons_detail = dplyr::case_when(
-                                      first_vector == second_vector ~ "equality",
-                                      TRUE ~ "no equality"))
-        return(data_final)
-      }
+       }
+    }
+    if (output == "report") {
+      data_final <- dplyr::mutate(.data = data,
+                                  second_vector = second_vector,
+                                  logical = dplyr::case_when(
+                                    first_vector == second_vector ~ TRUE,
+                                    TRUE ~ FALSE))
+      return(data_final)
     }
   }
 }
