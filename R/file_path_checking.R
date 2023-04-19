@@ -28,13 +28,13 @@ file_path_checking <- function(file_path,
   if (r_type_checking(r_object = output,
                       type = "character",
                       length = 1L,
-                      allowed_values = c("message",
+                      allowed_value = c("message",
                                          "logical"),
                       output = "logical") != TRUE) {
     return(r_type_checking(r_object = output,
                            type = "character",
                            length = 1L,
-                           allowed_values = c("message",
+                           allowed_value = c("message",
                                               "logical"),
                            output = "message"))
   }

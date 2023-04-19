@@ -4,13 +4,13 @@
 #' @param r_object R object expected.
 #' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "numeric", "integer", "logical" or "NULL".
 #' @param length Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.
-#' @param allowed_values Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
+#' @param allowed_value Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".
 #' @export
 r_type_checking <- function(r_object,
                             type,
                             length = NULL,
-                            allowed_values = NULL,
+                            allowed_value = NULL,
                             output = "message") {
   # arguments verification ----
   if (missing(x = r_object)) {
@@ -46,15 +46,15 @@ r_type_checking <- function(r_object,
                 "%Y-%m-%d %H:%M:%S"),
          " - Error, invalid \"length\" argument.\n",
          "Argument of type \"integer\" with a length 1 and a value equal or superior to 0 is expected.\n")
-  } else if (! is.null(x = allowed_values)
-             & ((length(x = allowed_values) == 0)
-                || ! class(x = allowed_values) %in% c("character",
+  } else if (! is.null(x = allowed_value)
+             & ((length(x = allowed_value) == 0)
+                || ! class(x = allowed_value) %in% c("character",
                                                       "numeric",
                                                       "integer",
                                                       "logical"))) {
     stop(format(x = Sys.time(),
                 "%Y-%m-%d %H:%M:%S"),
-         " - Error, invalid \"allowed_values\" argument.\n",
+         " - Error, invalid \"allowed_value\" argument.\n",
          "NULL argument expected or vector of type ",
          " \"character\"",
          ", \"numeric\"",
@@ -104,8 +104,8 @@ r_type_checking <- function(r_object,
         }
       }
     }
-    if (! is.null(x = allowed_values)) {
-      if (! all(r_object %in% allowed_values)) {
+    if (! is.null(x = allowed_value)) {
+      if (! all(r_object %in% allowed_value)) {
         if (output == "message") {
           return(cat(paste0(format(x = Sys.time(),
                                    "%Y-%m-%d %H:%M:%S"),
@@ -113,11 +113,11 @@ r_type_checking <- function(r_object,
                             " invalid \"r_object\" argument: ",
                             deparse(expr = substitute(expr = r_object)),
                             "\n",
-                            ifelse(test = length(x = allowed_values) == 1,
+                            ifelse(test = length(x = allowed_value) == 1,
                                    yes = "value expected is ",
                                    no = "values expected are "),
                             paste0("\"",
-                                   allowed_values,
+                                   allowed_value,
                                    "\"",
                                    collapse = ", "),
                             ".\n")))
