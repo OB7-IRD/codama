@@ -16,7 +16,7 @@
     <loc>https://ob7-ird.github.io/codama/news/index.html</loc>
   </url>
   <url>
-    <loc>https://ob7-ird.github.io/codama/reference/check_specie_catch_ocean.html</loc>
+    <loc>https://ob7-ird.github.io/codama/reference/check_species_catch_ocean.html</loc>
   </url>
   <url>
     <loc>https://ob7-ird.github.io/codama/reference/codama-package.html</loc>
@@ -37,6 +37,6 @@
     <loc>https://ob7-ird.github.io/codama/reference/r_type_checking.html</loc>
   </url>
   <url>
-    <loc>https://ob7-ird.github.io/codama/reference/vectors_comparisons.html</loc>
+    <loc>https://ob7-ird.github.io/codama/reference/vector_comparison.html</loc>
   </url>
 </urlset>
