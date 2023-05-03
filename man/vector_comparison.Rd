@@ -11,7 +11,7 @@ vector_comparison(first_vector, second_vector, comparison_type, output)
 
 \item{second_vector}{{\link[base]{vector}} expected.}
 
-\item{comparison_type}{{\link[base]{character}} expected. Type of comparison expected, you can choose between "difference" or "equality". "Difference" highlight element(s) of the first vector not present in the second, and "equality" check if two vectors are exactly the same.}
+\item{comparison_type}{{\link[base]{character}} expected. Type of comparison expected, you can choose between "difference", "equal", "less", "greater", "less_equal" or "greater_equal". "Difference" highlight element(s) of the first vector not present in the second, "equal" check if two vectors are exactly the same, "less" check if the elements of the first vector are strictly less than their pair in the second vector , "greater" check if the elements of the first vector are strictly greater than their pair in the second vector, "less_equal" check if the elements of the first vector are less than or equal to their pair in the second vector or "greater_equal" check if the elements of the first vector are greater than or equal to their pair in the second vector.}
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 }
