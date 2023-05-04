@@ -6,46 +6,65 @@
 #' @param comparison_type {\link[base]{character}} expected. Type of comparison expected, you can choose between "difference", "equal", "less", "greater", "less_equal" or "greater_equal". "Difference" highlight element(s) of the first vector not present in the second, "equal" check if two vectors are exactly the same, "less" check if the elements of the first vector are strictly less than their pair in the second vector , "greater" check if the elements of the first vector are strictly greater than their pair in the second vector, "less_equal" check if the elements of the first vector are less than or equal to their pair in the second vector or "greater_equal" check if the elements of the first vector are greater than or equal to their pair in the second vector.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
 #' @examples
-#' vector_comparison(first_vector = c(1, 2, 3, 5),
-#'                     second_vector = c(1, 2, 4, 3),
-#'                     comparison_type = "difference",
-#'                     output = "report")
+#' vector_comparison(
+#'   first_vector = c(1, 2, 3, 5),
+#'   second_vector = c(1, 2, 4, 3),
+#'   comparison_type = "difference",
+#'   output = "report"
+#' )
 #' @export
 #' @importFrom dplyr tibble left_join mutate case_when
 vector_comparison <- function(first_vector,
-                                second_vector,
-                                comparison_type,
-                                output) {
+                              second_vector,
+                              comparison_type,
+                              output) {
   # arguments verifications ----
   if (missing(x = first_vector)) {
-    stop(format(x = Sys.time(),
-                "%Y-%m-%d %H:%M:%S"),
-         " - Error, missing \"first_vector\" argument.\n")
+    stop(
+      format(
+        x = Sys.time(),
+        "%Y-%m-%d %H:%M:%S"
+      ),
+      " - Error, missing \"first_vector\" argument.\n"
+    )
   }
   if (missing(x = second_vector)) {
-    stop(format(x = Sys.time(),
-                "%Y-%m-%d %H:%M:%S"),
-         " - Error, missing \"second_vector\" argument.\n")
+    stop(
+      format(
+        x = Sys.time(),
+        "%Y-%m-%d %H:%M:%S"
+      ),
+      " - Error, missing \"second_vector\" argument.\n"
+    )
   }
   if (missing(x = comparison_type)) {
-    stop(format(x = Sys.time(),
-                "%Y-%m-%d %H:%M:%S"),
-         " - Error, missing \"comparison_type\" argument.\n")
+    stop(
+      format(
+        x = Sys.time(),
+        "%Y-%m-%d %H:%M:%S"
+      ),
+      " - Error, missing \"comparison_type\" argument.\n"
+    )
   }
   if (class(x = first_vector) != class(x = second_vector)) {
-    stop(cat(format(x = Sys.time(),
-                    "%Y-%m-%d %H:%M:%S"),
-             " Error - invalid data, different classes between vectors\n"))
+    stop(cat(
+      format(
+        x = Sys.time(),
+        "%Y-%m-%d %H:%M:%S"
+      ),
+      " Error - invalid data, different classes between vectors\n"
+    ))
   }
-  if (r_type_checking(r_object = comparison_type,
-                      type = "character",
-                      length = 1L,
-                      allowed_value = c(
-                                "equal",
-                                "less",
-                                "greater",
-                                "less_equal",
-                                "greater_equal"
+  if (r_type_checking(
+    r_object = comparison_type,
+    type = "character",
+    length = 1L,
+    allowed_value = c(
+      "equal",
+      "less",
+      "greater",
+      "less_equal",
+      "greater_equal"
     ),
     output = "logical"
   ) == TRUE && length(x = first_vector) != length(x = second_vector)) {
@@ -56,7 +75,7 @@ vector_comparison <- function(first_vector,
       ),
       " Error - invalid data, different sizes between vectors\n"
     ))
-   }
+  }
   if (r_type_checking(
     r_object = comparison_type,
     type = "character",
@@ -85,7 +104,7 @@ vector_comparison <- function(first_vector,
       ),
       output = "message"
     ))
-   }
+  }
   if (r_type_checking(
     r_object = comparison_type,
     type = "character",
@@ -112,20 +131,28 @@ vector_comparison <- function(first_vector,
       ))
     }
   }
-  if (r_type_checking(r_object = output,
-                      type = "character",
-                      length = 1L,
-                      allowed_value = c("message",
-                                         "report",
-                                         "logical"),
-                      output = "logical") != TRUE) {
-    return(r_type_checking(r_object = output,
-                           type = "character",
-                           length = 1L,
-                           allowed_value = c("message",
-                                              "report",
-                                              "logical"),
-                           output = "message"))
+  if (r_type_checking(
+    r_object = output,
+    type = "character",
+    length = 1L,
+    allowed_value = c(
+      "message",
+      "report",
+      "logical"
+    ),
+    output = "logical"
+  ) != TRUE) {
+    return(r_type_checking(
+      r_object = output,
+      type = "character",
+      length = 1L,
+      allowed_value = c(
+        "message",
+        "report",
+        "logical"
+      ),
+      output = "message"
+    ))
   }
   # global process ----
   data <- dplyr::tibble("first_vector" = first_vector)
@@ -221,7 +248,7 @@ vector_comparison <- function(first_vector,
     } else if (output == "logical") {
       return(TRUE)
     }
-  }  else {
+  } else {
     # Output if the comparison is not respected
     if (output == "message") {
       mismatch_element <- sum(!data_final$logical)
