@@ -72,7 +72,7 @@
 
 
 <dt>comparison_type</dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Type of comparison expected, you can choose between "difference" or "equality". "Difference" highlight element(s) of the first vector not present in the second, and "equality" check if two vectors are exactly the same.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Type of comparison expected, you can choose between "difference", "equal", "less", "greater", "less_equal" or "greater_equal". "Difference" highlight element(s) of the first vector not present in the second, "equal" check if two vectors are exactly the same, "less" check if the elements of the first vector are strictly less than their pair in the second vector , "greater" check if the elements of the first vector are strictly greater than their pair in the second vector, "less_equal" check if the elements of the first vector are less than or equal to their pair in the second vector or "greater_equal" check if the elements of the first vector are greater than or equal to their pair in the second vector.</p></dd>
 
 
 <dt>output</dt>
@@ -82,10 +82,12 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">vector_comparison</span><span class="op">(</span>first_vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                    second_vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                    comparison_type <span class="op">=</span> <span class="st">"difference"</span>,</span></span>
-<span class="r-in"><span>                    output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">vector_comparison</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  first_vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  second_vector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  comparison_type <span class="op">=</span> <span class="st">"difference"</span>,</span></span>
+<span class="r-in"><span>  output <span class="op">=</span> <span class="st">"report"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   first_vector logical</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>  </span>
