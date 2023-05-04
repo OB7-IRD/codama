@@ -19,8 +19,10 @@ vector_comparison(first_vector, second_vector, comparison_type, output)
 Identify similarities and differences between two R vectors.
 }
 \examples{
-vector_comparison(first_vector = c(1, 2, 3, 5),
-                    second_vector = c(1, 2, 4, 3),
-                    comparison_type = "difference",
-                    output = "report")
+vector_comparison(
+  first_vector = c(1, 2, 3, 5),
+  second_vector = c(1, 2, 4, 3),
+  comparison_type = "difference",
+  output = "report"
+)
 }

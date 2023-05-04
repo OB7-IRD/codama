@@ -1,5 +1,5 @@
 #' @name vector_comparison
-#' @title Vectors comparisons
+#' @title Vector comparison
 #' @description Identify similarities and differences between two R vectors.
 #' @param first_vector {\link[base]{vector}} expected.
 #' @param second_vector {\link[base]{vector}} expected.
