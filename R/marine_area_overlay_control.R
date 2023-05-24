@@ -26,14 +26,14 @@ marine_area_overlay_control <- function(data_longitude,
   longitude <- latitude <- marine_area_overlay_control_output <- NULL
   # arguments verifications ----
   if (missing(data_longitude)
-      || class(output) != "character") {
+      || !inherits(x = output, what = "character")) {
     cat(format(x = Sys.time(),
                "%Y-%m-%d %H:%M:%S"),
         "- invalid \"data_longitude\" argument")
     stop()
   }
   if (missing(data_longitude)
-      || class(output) != "character") {
+      || !inherits(x = output, what = "character")) {
     cat(format(x = Sys.time(),
                "%Y-%m-%d %H:%M:%S"),
         "- invalid \"data_longitude\" argument")
@@ -46,7 +46,7 @@ marine_area_overlay_control <- function(data_longitude,
     stop()
   }
   if (missing(overlay_expected)
-      || class(overlay_expected) != "character"
+      || !inherits(x = overlay_expected, what = "character")
       || length(overlay_expected) != 1
       || (! overlay_expected %in% c("fao_area",
                           "eez_area",
@@ -57,7 +57,7 @@ marine_area_overlay_control <- function(data_longitude,
     stop()
   }
   if (missing(area_file_path)
-      || class(area_file_path) != "character"
+      || !inherits(x = area_file_path, what = "character")
       || length(area_file_path) != 1) {
     cat(format(x = Sys.time(),
                "%Y-%m-%d %H:%M:%S"),
@@ -65,7 +65,7 @@ marine_area_overlay_control <- function(data_longitude,
     stop()
   }
   if (missing(output)
-      || class(output) != "character"
+      || !inherits(x = output, what = "character")
       || length(output) != 1
       || (! output %in% c("message",
                           "report",

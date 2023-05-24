@@ -2,7 +2,7 @@
 % Please edit documentation in R/vector_comparison.R
 \name{vector_comparison}
 \alias{vector_comparison}
-\title{Vectors comparisons}
+\title{Vector comparison}
 \usage{
 vector_comparison(first_vector, second_vector, comparison_type, output)
 }

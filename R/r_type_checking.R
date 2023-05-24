@@ -18,7 +18,7 @@ r_type_checking <- function(r_object,
                 "%Y-%m-%d %H:%M:%S"),
          " - Error, missing \"r_object\" argument.\n")
   } else if (missing(x = type)
-             || class(x = type) != "character"
+             || !inherits(x = type, what = "character")
              || length(x = type) != 1
              || ! type %in% c("character",
                               "list",
@@ -39,7 +39,7 @@ r_type_checking <- function(r_object,
          ", \"logical\"",
          " or \"NULL\".\n")
   } else if (! is.null(x = length)
-             & (class(x = length) != "integer"
+             && !(inherits(x = length, what = "integer")
                 || length(x = length) != 1
                 || length < 0L)) {
     stop(format(x = Sys.time(),
@@ -47,7 +47,7 @@ r_type_checking <- function(r_object,
          " - Error, invalid \"length\" argument.\n",
          "Argument of type \"integer\" with a length 1 and a value equal or superior to 0 is expected.\n")
   } else if (! is.null(x = allowed_value)
-             & ((length(x = allowed_value) == 0)
+             && ((length(x = allowed_value) == 0)
                 || ! class(x = allowed_value) %in% c("character",
                                                       "numeric",
                                                       "integer",
@@ -60,7 +60,7 @@ r_type_checking <- function(r_object,
          ", \"numeric\"",
          ", \"integer\"",
          " or \"logical\" with at least a length of 1.\n")
-  } else if (class(x = output) != "character"
+  } else if (!inherits(x = output, what = "character")
              || length(x = output) != 1
              || ! output %in% c("message",
                                 "logical")) {
