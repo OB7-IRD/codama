@@ -25,19 +25,19 @@ marine_area_overlay_control <- function(data_longitude,
   # global variables assignement ----
   longitude <- latitude <- marine_area_overlay_control_output <- NULL
   # arguments verifications ----
-  if (missing(data_longitude)
-      || !inherits(x = output, what = "character")) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"data_longitude\" argument")
-    stop()
+  if (r_type_checking(r_object = data_longitude,
+                      type = "character",
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = data_longitude,
+                           type = "character",
+                           output = "message"))
   }
-  if (missing(data_longitude)
-      || !inherits(x = output, what = "character")) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"data_longitude\" argument")
-    stop()
+  if (r_type_checking(r_object = data_latitude,
+                      type = "character",
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = data_latitude,
+                           type = "character",
+                           output = "message"))
   }
   if (length(x = data_longitude) != length(x = data_latitude)) {
     cat(format(x = Sys.time(),
@@ -45,35 +45,44 @@ marine_area_overlay_control <- function(data_longitude,
         "- invalid data, length of the two inputs are not egual.\n")
     stop()
   }
-  if (missing(overlay_expected)
-      || !inherits(x = overlay_expected, what = "character")
-      || length(overlay_expected) != 1
-      || (! overlay_expected %in% c("fao_area",
-                          "eez_area",
-                          "ices_area"))) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"overlay_expected\" argument")
-    stop()
+  if (r_type_checking(r_object = overlay_expected,
+                      type = "character",
+                      length = 1L,
+                      allowed_value = c("fao_area",
+                                        "eez_area",
+                                        "ices_area"),
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = overlay_expected,
+                           type = "character",
+                           length = 1L,
+                           allowed_value = c("fao_area",
+                                             "eez_area",
+                                             "ices_area"),
+                           output = "message"))
   }
-  if (missing(area_file_path)
-      || !inherits(x = area_file_path, what = "character")
-      || length(area_file_path) != 1) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"area_file_path\" argument")
-    stop()
+  if (r_type_checking(r_object = area_file_path,
+                      type = "character",
+                      length = 1L,
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = area_file_path,
+                           type = "character",
+                           length = 1L,
+                           output = "message"))
   }
-  if (missing(output)
-      || !inherits(x = output, what = "character")
-      || length(output) != 1
-      || (! output %in% c("message",
-                          "report",
-                          "logical"))) {
-    cat(format(x = Sys.time(),
-               "%Y-%m-%d %H:%M:%S"),
-        "- invalid \"output\" argument")
-    stop()
+  if (r_type_checking(r_object = output,
+                      type = "character",
+                      length = 1L,
+                      allowed_value = c("message",
+                                        "report",
+                                        "logical"),
+                      output = "logical") != TRUE) {
+    return(r_type_checking(r_object = output,
+                           type = "character",
+                           length = 1L,
+                           allowed_value = c("message",
+                                             "report",
+                                             "logical"),
+                           output = "message"))
   }
   # data design ----
   data <- dplyr::tibble("longitude" = data_longitude,
