@@ -28,13 +28,13 @@ file_path_checking <- function(file_path,
   if (r_type_checking(r_object = output,
                       type = "character",
                       length = 1L,
-                      allowed_values = c("message",
+                      allowed_value = c("message",
                                          "logical"),
                       output = "logical") != TRUE) {
     return(r_type_checking(r_object = output,
                            type = "character",
                            length = 1L,
-                           allowed_values = c("message",
+                           allowed_value = c("message",
                                               "logical"),
                            output = "message"))
   }
@@ -44,12 +44,8 @@ file_path_checking <- function(file_path,
       return(cat(paste0(format(x = Sys.time(),
                                "%Y-%m-%d %H:%M:%S"),
                         " - Failure,",
-                        " invalid \"extension\" argument: ",
-                        deparse(expr = substitute(expr = extension)),
-                        "\n",
-                        "file extension(s) expected is not identical to the \"file_path\" argument extension (",
-                        deparse(expr = substitute(expr = file_path)),
-                        ").\n")))
+                        " invalid \"extension\" argument.\n",
+                        "File extension(s) expected is not identical to the \"file_path\" argument extension.\n")))
     } else if (output == "logical") {
       return(FALSE)
     }

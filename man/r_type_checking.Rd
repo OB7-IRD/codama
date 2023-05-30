@@ -8,7 +8,7 @@ r_type_checking(
   r_object,
   type,
   length = NULL,
-  allowed_values = NULL,
+  allowed_value = NULL,
   output = "message"
 )
 }
@@ -19,7 +19,7 @@ r_type_checking(
 
 \item{length}{Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.}
 
-\item{allowed_values}{Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.}
+\item{allowed_value}{Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.}
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
 }
