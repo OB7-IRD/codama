@@ -16,7 +16,6 @@
 #' }
 #' @export
 #' @importFrom dplyr tibble mutate case_when select
-#' @importFrom furdeb marine_area_overlay
 marine_area_overlay_control <- function(data_longitude,
                                         data_latitude,
                                         overlay_expected,
