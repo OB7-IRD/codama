@@ -46,7 +46,16 @@ vector_comparison <- function(first_vector,
       " - Error, missing \"comparison_type\" argument.\n"
     )
   }
-  if (class(x = first_vector) != class(x = second_vector)) {
+  if (r_type_checking(
+    r_object = comparison_type,
+    type = "character",
+    length = 1L,
+    allowed_value = c(
+      "difference",
+      "equal"
+    ),
+    output = "logical"
+  ) == TRUE && class(x = first_vector) != class(x = second_vector)) {
     stop(cat(
       format(
         x = Sys.time(),
@@ -117,9 +126,22 @@ vector_comparison <- function(first_vector,
     ),
     output = "logical"
   ) == TRUE) {
+    if (class(x = first_vector) != class(x = second_vector) && (!is.numeric(first_vector) || !is.numeric(second_vector))) {
+      stop(cat(
+        format(
+          x = Sys.time(),
+          "%Y-%m-%d %H:%M:%S"
+        ),
+        " Error - invalid data, different classes between vectors and is not either integer or numeric\n"
+      ))
+    }
     if (r_type_checking(
       r_object = first_vector,
       type = "numeric",
+      output = "logical"
+    ) != TRUE && r_type_checking(
+      r_object = first_vector,
+      type = "integer",
       output = "logical"
     ) != TRUE && inherits(first_vector, "Date") != TRUE) {
       stop(cat(
@@ -127,7 +149,7 @@ vector_comparison <- function(first_vector,
           x = Sys.time(),
           "%Y-%m-%d %H:%M:%S"
         ),
-        " Error - invalid class for \"first_vector\" and \"second_vector\", the accepted classes are: numeric or Date\n"
+        " Error - invalid class for \"first_vector\" and \"second_vector\", the accepted classes are: numeric, integer or Date\n"
       ))
     }
   }
