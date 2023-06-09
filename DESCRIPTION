@@ -1,8 +1,37 @@
 Package: codama
 Title: Common prOcesses for Data quAlity Monitoring
 Version: 0.9.0
-Authors@R: c(person("Ob7 -", "Observatory of Exploited Tropical Pelagic Ecosystems", email = "ob7@ird.fr", role = c("cre", "cph")),
-    person("Mathieu", "Depetris", email = "mathieu.depetris@ird.fr", role = c("aut")))
+Authors@R:
+    c(person(given = "Oceane",
+              family = "Bouhineau",
+              email = "oceane.bouhineau@ird.fr",
+              role = c("aut", "cre"),
+              comment = c(ORCID = "0000-0001-7418-2925")),
+	person(given = "Mathieu",
+            family = "Depetris",
+            email = "mathieu.depetris@ird.fr",
+            role = c("aut"),
+            comment = c(ORCID = "0000-0001-8080-0531")),
+	person(given = "Theotime",
+              family = "Fily",
+              email = "theotime.fily@ird.fr",
+              role = c("aut"),
+              comment = c(ORCID = "0000-0001-7277-1769")),
+       person(given = "Julien",
+              family = "Lebranchu",
+              email = "julien.lebranchu@ird.fr",
+              role = c("aut"),
+              comment = c(ORCID = "0000-0002-7759-0534")),
+	person(given = "Esther",
+              family = "Mollier",
+              email = "esther.mollier@ird.fr",
+              role = c("aut"),
+              comment = c(ORCID = "0000-0001-8921-079X")),
+       person(given = "IRD - Ob7",
+              family = "Observatory of Exploited Tropical Pelagic Ecosystems",
+              email = "ob7@ird.fr",
+              role = c("cph", "fnd"),
+              comment = c(ORCID = "0000-0002-4642-3418")))
 Description: This package aims is to provide a series of standardised and generic controls processes for data quality assessment and monitoring.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
