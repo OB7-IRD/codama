@@ -120,7 +120,7 @@ r_table_checking <- function(r_table,
           x = Sys.time(),
           "%Y-%m-%d %H:%M:%S"
         ),
-        paste0("Error - invalid data, the following column names in \"column_name\" are not of the type of \"column_type\" in \"r_table\". \n", paste0(paste0("column names :", colnames(r_table[, column_name])[!checks_column_type], " ; type in \"r_table\" :", sapply(r_table[, colnames(r_table[, column_name])[!checks_column_type], drop = FALSE], class), "; type in \"column_name\" :", column_type[!checks_column_type], collapse = ",\n"), "\n", collapse = ", "))
+        paste0("Error - invalid data, the following column names in \"column_name\" are not of the type of \"column_type\" in \"r_table\". \n", paste0(paste0("column names :", colnames(r_table[, column_name, drop = FALSE])[!checks_column_type], " ; type in \"r_table\" :", sapply(r_table[, colnames(r_table[, column_name, drop = FALSE])[!checks_column_type], drop = FALSE], class), " ; type in \"column_type\" :", column_type[!checks_column_type], collapse = ",\n"), "\n", collapse = ", "))
       ))
     }
     if (output == "logical") {
