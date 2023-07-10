@@ -2,7 +2,7 @@
 #' @title Checking for r object type
 #' @description Typing and structure checking for r object.
 #' @param r_object R object expected.
-#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "numeric", "integer", "logical" or "NULL".
+#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "numeric", "integer", "logical", "data.frame", "tbl" or "NULL".
 #' @param length Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.
 #' @param allowed_value Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".
@@ -26,6 +26,8 @@ r_type_checking <- function(r_object,
                               "numeric",
                               "integer",
                               "logical",
+                              "data.frame",
+                              "tbl",
                               "NULL")) {
     stop(format(x = Sys.time(),
                 "%Y-%m-%d %H:%M:%S"),
@@ -37,6 +39,8 @@ r_type_checking <- function(r_object,
          ", \"numeric\"",
          ", \"integer\"",
          ", \"logical\"",
+         ", \"data.frame\"",
+         ", \"tbl\"",
          " or \"NULL\".\n")
   } else if (! is.null(x = length)
              && !(inherits(x = length, what = "integer")
@@ -72,7 +76,7 @@ r_type_checking <- function(r_object,
          " or \"logical\".\n")
   } else {
     # global process ----
-    if (class(x = r_object) != type) {
+    if (!inherits(x = r_object, what = type)) {
       if (output == "message") {
         return(cat(paste0(format(x = Sys.time(),
                                  "%Y-%m-%d %H:%M:%S"),
