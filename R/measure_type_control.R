@@ -94,7 +94,7 @@ measure_type_control <- function(data_connection,
       type = "character",
       output = "message"
     ))
-   }
+  }
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe") {
     observe_sample_sql <- paste(
@@ -174,26 +174,31 @@ measure_type_control <- function(data_connection,
   ### Selection of the species for which we found an inconsistency
   inconsistent_observation <- overall_measure_type_control %>%
     dplyr::filter(correspondence == FALSE)
-  print(paste(
+  cat(
     " Observation(s) with a wrong measure type: ",
-    nrow(inconsistent_observation)
-  ))
-  for (i in nrow(inconsistent_observation)) {
-    print(paste(
-      inconsistent_observation$fao_code,
-      " in ",
-      inconsistent_observation$size_type
-    ))
+    nrow(inconsistent_observation),
+    "\n"
+  )
+  if (nrow(inconsistent_observation)!=0){
+    for (i in nrow(inconsistent_observation)) {
+      cat(inconsistent_observation$fao_code,
+          " in ",
+          inconsistent_observation$size_type,
+          "\n"
+      )
+    }
   }
   ### Found in catch data these observations
   detailed_measure_type_control <- data.frame()
-  for (i in nrow(inconsistent_observation)) {
-    detailed_measure_type_control <- rbind(
-      detailed_measure_type_control,
-      sample %>%
-        dplyr::filter(fao_code == inconsistent_observation$fao_code[i] &
-                        size_type == inconsistent_observation$size_type[i])
-    )
+  if (nrow(inconsistent_observation)!=0){
+    for (i in nrow(inconsistent_observation)) {
+      detailed_measure_type_control <- rbind(
+        detailed_measure_type_control,
+        sample %>%
+          dplyr::filter(fao_code == inconsistent_observation$fao_code[i] &
+                          size_type == inconsistent_observation$size_type[i])
+      )
+    }
   }
   # 4 - Export ----
   ## Fold creation for the overall measure type control
