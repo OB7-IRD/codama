@@ -179,19 +179,23 @@ measure_type_control <- function(data_connection,
     nrow(inconsistent_observation),
     "\n"
   )
-  if (nrow(inconsistent_observation)!=0){
-    for (i in nrow(inconsistent_observation)) {
-      cat(inconsistent_observation$fao_code,
+  if (nrow(inconsistent_observation) != 0) {
+    for (i in 1:nrow(inconsistent_observation)) {
+      cat(inconsistent_observation$fao_code[i],
           " in ",
-          inconsistent_observation$size_type,
-          "\n"
+          inconsistent_observation$size_type[i],
+          " (",
+          inconsistent_observation$nb_measure[i],
+          ")",
+          "\n",
+          sep = ""
       )
     }
   }
   ### Found in catch data these observations
   detailed_measure_type_control <- data.frame()
-  if (nrow(inconsistent_observation)!=0){
-    for (i in nrow(inconsistent_observation)) {
+  if (nrow(inconsistent_observation) != 0) {
+    for (i in 1:nrow(inconsistent_observation)) {
       detailed_measure_type_control <- rbind(
         detailed_measure_type_control,
         sample %>%
