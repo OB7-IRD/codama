@@ -1,7 +1,7 @@
 #' @name sample_with_no_fate_control
 #' @title Sample with no fate control
 #' @description This function aims to find all the samples in the observer data that don't have a fate and attributes it one when possible
-#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the all_species_control
+#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sample_with_no_fate_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
