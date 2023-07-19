@@ -45,8 +45,9 @@ Imports:
     dplyr (>= 1.0.7),
     magrittr,
     lubridate (>= 1.9.2),
-    openxlsx (>= 4.2.5.2)
-Remotes:
+    openxlsx (>= 4.2.5.2),
+    RPostgreSQL (>= 0.7.5)
+Remotes: 
     OB7-IRD/furdeb
 Suggests: 
     testthat (>= 3.0.0),
