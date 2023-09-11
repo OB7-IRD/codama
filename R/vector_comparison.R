@@ -194,20 +194,20 @@ vector_comparison <- function(first_vector,
           TRUE ~ FALSE
         )
       )
-    }else {
-    data_final <- dplyr::left_join(
-      x = data,
-      y = (dplyr::tibble("first_vector" = setdiff(
-        x = first_vector,
-        y = second_vector
-      )) %>%
-        dplyr::mutate(logical = FALSE)),
-      by = "first_vector"
-    ) %>%
-      dplyr::mutate(logical = dplyr::case_when(
-        is.na(logical) ~ TRUE,
-        TRUE ~ logical
-      ))
+    } else {
+      data_final <- dplyr::left_join(
+        x = data,
+        y = (dplyr::tibble("first_vector" = setdiff(
+          x = first_vector,
+          y = second_vector
+        )) %>%
+          dplyr::mutate(logical = FALSE)),
+        by = "first_vector"
+      ) %>%
+        dplyr::mutate(logical = dplyr::case_when(
+          is.na(logical) ~ TRUE,
+          TRUE ~ logical
+        ))
     }
     message_success <- "- Success, all elements of the first vector are present in the second sector.\n"
     message_failure_singular <- "element of the first vector is not present in the second sector.\n"
@@ -227,15 +227,15 @@ vector_comparison <- function(first_vector,
           TRUE ~ FALSE
         )
       )
-    }else {
-    data_final <- dplyr::mutate(
-      .data = data,
-      second_vector = second_vector,
-      logical = dplyr::case_when(
-        first_vector == second_vector ~ TRUE,
-        TRUE ~ FALSE
+    } else {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          first_vector == second_vector ~ TRUE,
+          TRUE ~ FALSE
+        )
       )
-    )
     }
     message_success <- "- Success, the two vectors are identical.\n"
     message_failure_singular <- "element of the first vector is not equal than their pair in the second sector.\n"
@@ -251,18 +251,19 @@ vector_comparison <- function(first_vector,
         .data = data,
         second_vector = second_vector,
         logical = dplyr::case_when(
-           (first_vector - second_vector) < -epsilon ~ TRUE,
+          (first_vector - second_vector) < -epsilon ~ TRUE,
           TRUE ~ FALSE
-        ))
-    }else {
-    data_final <- dplyr::mutate(
-      .data = data,
-      second_vector = second_vector,
-      logical = dplyr::case_when(
-        first_vector < second_vector ~ TRUE,
-        TRUE ~ FALSE
+        )
       )
-    )
+    } else {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          first_vector < second_vector ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
     }
     message_success <- "- Success, all elements of the first vector are less than their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not less than their pair in the second sector.\n"
@@ -278,18 +279,19 @@ vector_comparison <- function(first_vector,
         .data = data,
         second_vector = second_vector,
         logical = dplyr::case_when(
-        (first_vector - second_vector) > epsilon ~ TRUE,
+          (first_vector - second_vector) > epsilon ~ TRUE,
           TRUE ~ FALSE
-        ))
-    }else {
-    data_final <- dplyr::mutate(
-      .data = data,
-      second_vector = second_vector,
-      logical = dplyr::case_when(
-        first_vector > second_vector ~ TRUE,
-        TRUE ~ FALSE
+        )
       )
-    )
+    } else {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          first_vector > second_vector ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
     }
     message_success <- "- Success, all elements of the first vector are greater than their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not greater than their pair in the second sector.\n"
@@ -307,16 +309,17 @@ vector_comparison <- function(first_vector,
         logical = dplyr::case_when(
           (first_vector - second_vector) < epsilon ~ TRUE,
           TRUE ~ FALSE
-        ))
-    }else {
-    data_final <- dplyr::mutate(
-      .data = data,
-      second_vector = second_vector,
-      logical = dplyr::case_when(
-        first_vector <= second_vector ~ TRUE,
-        TRUE ~ FALSE
+        )
       )
-    )
+    } else {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          first_vector <= second_vector ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
     }
     message_success <- "- Success, all elements of the first vector are less than or equal to their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not less than or equal to their pair in the second sector.\n"
@@ -334,16 +337,17 @@ vector_comparison <- function(first_vector,
         logical = dplyr::case_when(
           (first_vector - second_vector) > -epsilon ~ TRUE,
           TRUE ~ FALSE
-        ))
-    }else {
-    data_final <- dplyr::mutate(
-      .data = data,
-      second_vector = second_vector,
-      logical = dplyr::case_when(
-        first_vector >= second_vector ~ TRUE,
-        TRUE ~ FALSE
+        )
       )
-    )
+    } else {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          first_vector >= second_vector ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
     }
     message_success <- "- Success, all elements of the first vector are greater than or equal to their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not greater than or equal to their pair in the second sector.\n"
@@ -375,8 +379,8 @@ vector_comparison <- function(first_vector,
         "- Failure,",
         mismatch_element,
         ifelse(test = mismatch_element == 1,
-               yes = message_failure_singular,
-               no = message_failure_plural
+          yes = message_failure_singular,
+          no = message_failure_plural
         )
       ))
     } else if (output == "logical") {
