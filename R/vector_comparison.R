@@ -1,10 +1,11 @@
 #' @name vector_comparison
 #' @title Vector comparison
-#' @description Identify similarities and differences between two R vectors.
+#' @description Identify similarities and differences between two R vectors (for the numbers the comparison is not exact, an epsilon is used).
 #' @param first_vector {\link[base]{vector}} expected.
 #' @param second_vector {\link[base]{vector}} expected.
 #' @param comparison_type {\link[base]{character}} expected. Type of comparison expected, you can choose between "difference", "equal", "less", "greater", "less_equal" or "greater_equal". "Difference" highlight element(s) of the first vector not present in the second, "equal" check if two vectors are exactly the same, "less" check if the elements of the first vector are strictly less than their pair in the second vector , "greater" check if the elements of the first vector are strictly greater than their pair in the second vector, "less_equal" check if the elements of the first vector are less than or equal to their pair in the second vector or "greater_equal" check if the elements of the first vector are greater than or equal to their pair in the second vector.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
+#' @param epsilon {\link[base]{numeric}} expected. Default values: 1.5e-8. Tolerance of comparison for numeric value, following the problem caused by IEEE Standard 754
 #' @examples
 #' vector_comparison(
 #'   first_vector = c(1, 2, 3, 5),
@@ -17,7 +18,8 @@
 vector_comparison <- function(first_vector,
                               second_vector,
                               comparison_type,
-                              output) {
+                              output,
+                              epsilon = 1.5e-8) {
   # arguments verifications ----
   if (missing(x = first_vector)) {
     stop(
@@ -179,6 +181,20 @@ vector_comparison <- function(first_vector,
   # global process ----
   data <- dplyr::tibble("first_vector" = first_vector)
   if (comparison_type == "difference") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        logical = dplyr::case_when(
+          Reduce(`|`, lapply(second_vector, dplyr::near, x = first_vector, tol = epsilon)) ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
+    }else {
     data_final <- dplyr::left_join(
       x = data,
       y = (dplyr::tibble("first_vector" = setdiff(
@@ -192,10 +208,26 @@ vector_comparison <- function(first_vector,
         is.na(logical) ~ TRUE,
         TRUE ~ logical
       ))
+    }
     message_success <- "- Success, all elements of the first vector are present in the second sector.\n"
     message_failure_singular <- "element of the first vector is not present in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not present in the second sector.\n"
   } else if (comparison_type == "equal") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          dplyr::near(x = first_vector, y = second_vector, tol = epsilon) ~ TRUE,
+          TRUE ~ FALSE
+        )
+      )
+    }else {
     data_final <- dplyr::mutate(
       .data = data,
       second_vector = second_vector,
@@ -204,10 +236,25 @@ vector_comparison <- function(first_vector,
         TRUE ~ FALSE
       )
     )
+    }
     message_success <- "- Success, the two vectors are identical.\n"
     message_failure_singular <- "element of the first vector is not equal than their pair in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not equal than their pair in the second sector.\n"
   } else if (comparison_type == "less") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+           (first_vector - second_vector) < -epsilon ~ TRUE,
+          TRUE ~ FALSE
+        ))
+    }else {
     data_final <- dplyr::mutate(
       .data = data,
       second_vector = second_vector,
@@ -216,10 +263,25 @@ vector_comparison <- function(first_vector,
         TRUE ~ FALSE
       )
     )
+    }
     message_success <- "- Success, all elements of the first vector are less than their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not less than their pair in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not less than their pair in the second sector.\n"
   } else if (comparison_type == "greater") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+        (first_vector - second_vector) > epsilon ~ TRUE,
+          TRUE ~ FALSE
+        ))
+    }else {
     data_final <- dplyr::mutate(
       .data = data,
       second_vector = second_vector,
@@ -228,10 +290,25 @@ vector_comparison <- function(first_vector,
         TRUE ~ FALSE
       )
     )
+    }
     message_success <- "- Success, all elements of the first vector are greater than their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not greater than their pair in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not greater than their pair in the second sector.\n"
   } else if (comparison_type == "less_equal") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          (first_vector - second_vector) < epsilon ~ TRUE,
+          TRUE ~ FALSE
+        ))
+    }else {
     data_final <- dplyr::mutate(
       .data = data,
       second_vector = second_vector,
@@ -240,10 +317,25 @@ vector_comparison <- function(first_vector,
         TRUE ~ FALSE
       )
     )
+    }
     message_success <- "- Success, all elements of the first vector are less than or equal to their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not less than or equal to their pair in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not less than or equal to their pair in the second sector.\n"
   } else if (comparison_type == "greater_equal") {
+    # For numeric use of an epsilon (default : 1.5e-8) following the problem caused by IEEE Standard 754
+    if (r_type_checking(
+      r_object = first_vector,
+      type = "numeric",
+      output = "logical"
+    )) {
+      data_final <- dplyr::mutate(
+        .data = data,
+        second_vector = second_vector,
+        logical = dplyr::case_when(
+          (first_vector - second_vector) > -epsilon ~ TRUE,
+          TRUE ~ FALSE
+        ))
+    }else {
     data_final <- dplyr::mutate(
       .data = data,
       second_vector = second_vector,
@@ -252,6 +344,7 @@ vector_comparison <- function(first_vector,
         TRUE ~ FALSE
       )
     )
+    }
     message_success <- "- Success, all elements of the first vector are greater than or equal to their pair in the second sector.\n"
     message_failure_singular <- "element of the first vector is not greater than or equal to their pair in the second sector.\n"
     message_failure_plural <- "elements of the first vector are not greater than or equal to their pair in the second sector.\n"
