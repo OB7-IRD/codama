@@ -2,7 +2,7 @@
 #' @title Checking for file path
 #' @description Checking for file path before import in R.
 #' @param file_path Object of class \code{\link[base]{character}} expected. File location on your system.
-#' @param extension Object of class \code{\link[base]{character}} expected. Type of extension expected (avoid the . before the extension).
+#' @param extension Object of class \code{\link[base]{vector}} of {\link[base]{character}} expected. Expected extension type set (avoid the . before the extension).
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".
 #' @export
 file_path_checking <- function(file_path,

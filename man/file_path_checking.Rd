@@ -9,7 +9,7 @@ file_path_checking(file_path, extension, output = "message")
 \arguments{
 \item{file_path}{Object of class \code{\link[base]{character}} expected. File location on your system.}
 
-\item{extension}{Object of class \code{\link[base]{character}} expected. Type of extension expected (avoid the . before the extension).}
+\item{extension}{Object of class \code{\link[base]{vector}} of {\link[base]{character}} expected. Expected extension type set (avoid the . before the extension).}
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
 }
