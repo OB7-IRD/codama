@@ -209,14 +209,26 @@ new_fate_id <- NULL
       round(100 * percentage_sample_with_new_fate), "%",
       "\n")
   # 4 - Export ----
-  timestamp <- format(
-    lubridate::now(),
-    "%Y%m%d_%H%M%S"
+  ## Fold creation for the year
+  folder_year <- paste0(
+    path_file,
+    "/",
+    start_year,
+    "-",
+    end_year
   )
+  if (file.exists(folder_year) == FALSE) {
+    dir.create(folder_year)
+  }
+  timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
   if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(sample_with_no_fate,
+    openxlsx::write.xlsx(as.data.frame(sample_with_no_fate),
                          file = paste0(
                            path_file,
+                           "/",
+                           start_year,
+                           "-",
+                           end_year,
                            "/sample_with_no_fate_control_",
                            country_code,
                            "_",
