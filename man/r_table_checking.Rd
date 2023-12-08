@@ -4,7 +4,13 @@
 \alias{r_table_checking}
 \title{Checking for table object}
 \usage{
-r_table_checking(r_table, type, column_name = NULL, column_type = NULL, output)
+r_table_checking(
+  r_table,
+  type,
+  column_name = NULL,
+  column_type = NULL,
+  output = "error"
+)
 }
 \arguments{
 \item{r_table}{Table object expected.}
@@ -15,10 +21,10 @@ r_table_checking(r_table, type, column_name = NULL, column_type = NULL, output)
 
 \item{column_type}{\code{\link[base]{vector}} of {\link[base]{character}} expected. Be default NULL. Mandatory column type in r_table.}
 
-\item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message" or "logical".}
+\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".}
 }
 \value{
-The function returns a {\link[base]{character}} with output is "message", a {\link[base]{logical}} with output is "logical"
+The function returns error with output is "error" and if the parameters are not respected, a {\link[base]{character}} with output is "message", a {\link[base]{logical}} with output is "logical"
 }
 \description{
 Type, name and type of mandatory columns are controlled
