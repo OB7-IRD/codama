@@ -17,11 +17,19 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Ob7 - Observatory of Exploited Tropical Pelagic Ecosystems \email{ob7@ird.fr} [copyright holder]
+\strong{Maintainer}: Oceane Bouhineau \email{oceane.bouhineau@ird.fr} (\href{https://orcid.org/0000-0001-7418-2925}{ORCID})
 
 Authors:
 \itemize{
-  \item Mathieu Depetris \email{mathieu.depetris@ird.fr}
+  \item Mathieu Depetris \email{mathieu.depetris@ird.fr} (\href{https://orcid.org/0000-0001-8080-0531}{ORCID})
+  \item Theotime Fily \email{theotime.fily@ird.fr} (\href{https://orcid.org/0000-0001-7277-1769}{ORCID})
+  \item Julien Lebranchu \email{julien.lebranchu@ird.fr} (\href{https://orcid.org/0000-0002-7759-0534}{ORCID})
+  \item Esther Mollier \email{esther.mollier@ird.fr} (\href{https://orcid.org/0000-0001-8921-079X}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item IRD - Ob7 Observatory of Exploited Tropical Pelagic Ecosystems \email{ob7@ird.fr} (\href{https://orcid.org/0000-0002-4642-3418}{ORCID}) [copyright holder, funder]
 }
 
 }
