@@ -6,14 +6,10 @@
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
-#' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
-#' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
+#' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
+#' @param path_file {\link[base]{character}} expected.  By default NULL. Path to save the final xlsx.
 #' @return The function return a xlsx table.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr group_by summarise select mutate
-#' @importFrom lubridate now
-#' @importFrom openxlsx write.xlsx
 measure_type_control <- function(data_connection,
                                  start_year,
                                  end_year,
@@ -29,72 +25,30 @@ measure_type_control <- function(data_connection,
   fao_code <- NULL
   correspondence <- NULL
   # 1 - Arguments verification ----
-  if (r_type_checking(
+  r_type_checking(
     r_object = start_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = start_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = end_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = end_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = program,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = program,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = ocean,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = ocean,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = country_code,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = country_code,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (!is.null(x = path_file) && r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = path_file,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = path_file,
-      type = "character",
-      output = "message"
-    ))
-  }
+    type = "character"
+  )
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe") {
     observe_sample_sql <- paste(
@@ -180,7 +134,7 @@ measure_type_control <- function(data_connection,
     "\n"
   )
   if (nrow(inconsistent_observation) != 0) {
-    for (i in 1:nrow(inconsistent_observation)) {
+    for (i in seq_len(length.out = nrow(x = inconsistent_observation))) {
       cat(inconsistent_observation$fao_code[i],
           " in ",
           inconsistent_observation$size_type[i],
@@ -195,7 +149,7 @@ measure_type_control <- function(data_connection,
   ### Found in catch data these observations
   detailed_measure_type_control <- data.frame()
   if (nrow(inconsistent_observation) != 0) {
-    for (i in 1:nrow(inconsistent_observation)) {
+    for (i in seq_len(length.out = nrow(inconsistent_observation))) {
       detailed_measure_type_control <- rbind(
         detailed_measure_type_control,
         sample %>%
@@ -238,7 +192,7 @@ measure_type_control <- function(data_connection,
                          rowNames = FALSE
     )
   }
-  ## Fold creation for the detailed species control
+  ## Fold creation for the detailed measure type control
   folder_detailed_measure_type_control <- paste0(
     path_file,
     "/detailed_measure_type_control"
@@ -246,7 +200,7 @@ measure_type_control <- function(data_connection,
   if (file.exists(folder_detailed_measure_type_control) == FALSE) {
     dir.create(folder_detailed_measure_type_control)
   }
-  ## Export overall species control
+  ## Export detailed measure type control
   timestamp <- format(
     lubridate::now(),
     "%Y%m%d_%H%M%S"

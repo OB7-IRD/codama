@@ -25,9 +25,9 @@ measure_type_control(
 
 \item{ocean}{{\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.}
 
-\item{country_code}{{\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.}
+\item{country_code}{{\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.}
 
-\item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx.}
+\item{path_file}{{\link[base]{character}} expected.  By default NULL. Path to save the final xlsx.}
 }
 \value{
 The function return a xlsx table.

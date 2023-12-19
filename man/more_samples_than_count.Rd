@@ -25,7 +25,7 @@ more_samples_than_count(
 
 \item{ocean}{{\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.}
 
-\item{country_code}{{\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.}
+\item{country_code}{{\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.}
 
 \item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx.}
 }

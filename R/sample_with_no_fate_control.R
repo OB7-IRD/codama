@@ -6,14 +6,10 @@
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
-#' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
-#' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
+#' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
+#' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
 #' @return The function return an xlsx tables.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr group_by summarise filter
-#' @importFrom lubridate today
-#' @importFrom openxlsx write.xlsx
 sample_with_no_fate_control <- function(data_connection,
                                         start_year,
                                         end_year,
@@ -22,77 +18,35 @@ sample_with_no_fate_control <- function(data_connection,
                                         country_code,
                                         path_file = NULL) {
   # 0 - Global variables assignment ----
-fate_code <- NULL
-set_id <- NULL
-fao_code <- NULL
-new_fate_id <- NULL
+  fate_code <- NULL
+  set_id <- NULL
+  fao_code <- NULL
+  new_fate_id <- NULL
   # 1 - Arguments verification ----
-  if (r_type_checking(
+  r_type_checking(
     r_object = start_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = start_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = end_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = end_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = program,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = program,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = ocean,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = ocean,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = country_code,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = country_code,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (!is.null(x = path_file) && r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = path_file,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = path_file,
-      type = "character",
-      output = "message"
-    ))
-  }
+    type = "character"
+  )
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe") {
     observe_catch_sql <- paste(readLines(con = system.file("sql",
@@ -189,25 +143,32 @@ new_fate_id <- NULL
         sample_with_no_fate <- sample_with_no_fate %>%
           dplyr::mutate(new_fate_id = ifelse(sample_with_no_fate$samplemeasure_id %in% sample_j_topiaid,
                                              catch_fate_id,
-                                             sample_with_no_fate$new_fate_id))
+                                             sample_with_no_fate$new_fate_id
+          ))
       }
     }
   }
   ## Number of sample for which we attributed a new fate
   sample_to_be_corrected <- sample_with_no_fate %>%
     dplyr::filter(!is.na(new_fate_id))
-  cat("Number of samples with not fate for which a fate can be reassigned :",
-       nrow(sample_to_be_corrected),
-      "\n")
+  cat(
+    "Number of samples with not fate for which a fate can be reassigned :",
+    nrow(sample_to_be_corrected),
+    "\n"
+  )
   # Number of samples for which we can't attribut a new fate
-  cat("Number of samples with no fate for which a fate cannot be reassigned :",
-      nrow(sample_with_no_fate) - nrow(sample_to_be_corrected),
-      "\n")
+  cat(
+    "Number of samples with no fate for which a fate cannot be reassigned :",
+    nrow(sample_with_no_fate) - nrow(sample_to_be_corrected),
+    "\n"
+  )
   # Percentage of sample for which we attributed a new fate
   percentage_sample_with_new_fate <- (nrow(sample_to_be_corrected)) / (nrow(sample_with_no_fate))
-  cat("Proportion of samples with no fate for which a fate can be reassigned :",
-      round(100 * percentage_sample_with_new_fate), "%",
-      "\n")
+  cat(
+    "Proportion of samples with no fate for which a fate can be reassigned :",
+    round(100 * percentage_sample_with_new_fate), "%",
+    "\n"
+  )
   # 4 - Export ----
   ## Fold creation for the year
   folder_year <- paste0(

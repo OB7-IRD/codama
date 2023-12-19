@@ -6,14 +6,10 @@
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
-#' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
+#' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
 #' @return The function return a xlsx table.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr tibble group_by summarise filter mutate
-#' @importFrom lubridate now
-#' @importFrom openxlsx write.xlsx
 more_samples_than_count <- function(data_connection,
                                     start_year,
                                     end_year,
@@ -35,72 +31,30 @@ more_samples_than_count <- function(data_connection,
   nb_catch <- NULL
   nb_measure <- NULL
   # 1 - Arguments verification ----
-  if (codama::r_type_checking(
+  r_type_checking(
     r_object = start_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = start_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = end_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = end_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = program,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = program,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = ocean,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = ocean,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = country_code,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = country_code,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (!is.null(x = path_file) && codama::r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = path_file,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = path_file,
-      type = "character",
-      output = "message"
-    ))
-  }
+    type = "character"
+  )
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe") {
     observe_catch_sql <- paste(
@@ -242,7 +196,7 @@ more_samples_than_count <- function(data_connection,
   ## Filter if sample > catch
   more_samples_than_count <- summarise_sample_catch %>%
     dplyr::filter(nb_measure > nb_catch)
-  # 6 - Export ----
+  # 4 - Export ----
   # Add more conditions if ocean of country_code not given
   if (!is.null(x = path_file)) {
     timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
