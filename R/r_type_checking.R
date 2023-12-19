@@ -77,36 +77,18 @@ r_type_checking <- function(r_object,
          " \"message\"",
          " or \"logical\".\n")
   } else {
-    # global process ----
-    if (!inherits(x = r_object, what = type)) {
-      message_failure <- paste0(format(x = Sys.time(),
-                                     "%Y-%m-%d %H:%M:%S"),
-                              " - Failure,",
-                              " invalid \"r_object\" argument: ",
-                              deparse(expr = substitute(expr = r_object)),
-                              "\n",
-                              "Argument of type \"",
-                              type,
-                              "\" is expected.\n")
-      if (output == "message") {
-        return(cat(message_failure))
-      } else if (output == "error") {
-        return(stop(message_failure))
-      } else if (output == "logical") {
-        return(FALSE)
-      }
-    }
-    if (! is.null(x = length)) {
-      if (length(x = r_object) != length) {
+    if (!is.null(r_object)) {
+      # global process ----
+      if (!inherits(x = r_object, what = type)) {
         message_failure <- paste0(format(x = Sys.time(),
-                                         "%Y-%m-%d %H:%M:%S"),
-                                  " - Failure,",
-                                  " invalid \"r_object\" argument: ",
-                                  deparse(expr = substitute(expr = r_object)),
-                                  "\n",
-                                  "argument with a length ",
-                                  length,
-                                  " is expected.\n")
+                                       "%Y-%m-%d %H:%M:%S"),
+                                " - Failure,",
+                                " invalid \"r_object\" argument: ",
+                                deparse(expr = substitute(expr = r_object)),
+                                "\n",
+                                "Argument of type \"",
+                                type,
+                                "\" is expected.\n")
         if (output == "message") {
           return(cat(message_failure))
         } else if (output == "error") {
@@ -115,29 +97,49 @@ r_type_checking <- function(r_object,
           return(FALSE)
         }
       }
-    }
-    if (! is.null(x = allowed_value)) {
-      if (! all(r_object %in% allowed_value)) {
-        message_failure <- paste0(format(x = Sys.time(),
-                                        "%Y-%m-%d %H:%M:%S"),
-                                 " - Failure,",
-                                 " invalid \"r_object\" argument: ",
-                                 deparse(expr = substitute(expr = r_object)),
-                                 "\n",
-                                 ifelse(test = length(x = allowed_value) == 1,
-                                        yes = "value expected is ",
-                                        no = "values expected are "),
-                                 paste0("\"",
-                                        allowed_value,
-                                        "\"",
-                                        collapse = ", "),
-                                 ".\n")
-        if (output == "message") {
-          return(cat(message_failure))
-        } else if (output == "error") {
-          return(stop(message_failure))
-        } else if (output == "logical") {
-          return(FALSE)
+      if (! is.null(x = length)) {
+        if (length(x = r_object) != length) {
+          message_failure <- paste0(format(x = Sys.time(),
+                                           "%Y-%m-%d %H:%M:%S"),
+                                    " - Failure,",
+                                    " invalid \"r_object\" argument: ",
+                                    deparse(expr = substitute(expr = r_object)),
+                                    "\n",
+                                    "argument with a length ",
+                                    length,
+                                    " is expected.\n")
+          if (output == "message") {
+            return(cat(message_failure))
+          } else if (output == "error") {
+            return(stop(message_failure))
+          } else if (output == "logical") {
+            return(FALSE)
+          }
+        }
+      }
+      if (! is.null(x = allowed_value)) {
+        if (! all(r_object %in% allowed_value)) {
+          message_failure <- paste0(format(x = Sys.time(),
+                                          "%Y-%m-%d %H:%M:%S"),
+                                   " - Failure,",
+                                   " invalid \"r_object\" argument: ",
+                                   deparse(expr = substitute(expr = r_object)),
+                                   "\n",
+                                   ifelse(test = length(x = allowed_value) == 1,
+                                          yes = "value expected is ",
+                                          no = "values expected are "),
+                                   paste0("\"",
+                                          allowed_value,
+                                          "\"",
+                                          collapse = ", "),
+                                   ".\n")
+          if (output == "message") {
+            return(cat(message_failure))
+          } else if (output == "error") {
+            return(stop(message_failure))
+          } else if (output == "logical") {
+            return(FALSE)
+          }
         }
       }
     }
