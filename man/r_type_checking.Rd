@@ -9,7 +9,7 @@ r_type_checking(
   type,
   length = NULL,
   allowed_value = NULL,
-  output = "message"
+  output = "error"
 )
 }
 \arguments{
@@ -21,7 +21,10 @@ r_type_checking(
 
 \item{allowed_value}{Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.}
 
-\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
+\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".}
+}
+\value{
+The function returns error with output is "error" and if the parameters are not respected, a {\link[base]{character}} with output is "message", a {\link[base]{logical}} with output is "logical"
 }
 \description{
 Typing and structure checking for r object.
