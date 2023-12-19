@@ -23,21 +23,17 @@ r_table_checking <- function(r_table,
     output = "error"
   )
   # Checks the type of column_name
-  if (!is.null(column_name)) {
-    r_type_checking(
-      r_object = column_name,
-      type = "character",
-      output = "error"
-    )
-  }
+  r_type_checking(
+    r_object = column_name,
+    type = "character",
+    output = "error"
+  )
   # Checks the type of column_type
-  if (!is.null(column_type)) {
-    r_type_checking(
-      r_object = column_type,
-      type = "character",
-      output = "error"
-    )
-  }
+  r_type_checking(
+    r_object = column_type,
+    type = "character",
+    output = "error"
+  )
   # Checks the type and values of output
   r_type_checking(
     r_object = output,
