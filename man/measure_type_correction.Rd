@@ -45,7 +45,7 @@ measure_type_correction(
 
 \item{action}{{\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin}
 
-\item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx.}
+\item{path_file}{{\link[base]{character}} expected.  By default NULL. Path to save the final xlsx.}
 }
 \value{
 The function returns a xlsx table.

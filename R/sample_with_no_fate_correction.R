@@ -9,14 +9,9 @@
 #' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin
 #' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin
-#' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
+#' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
 #' @return The function corrects sample fate directly in the data base and return a xlsx file with the corrected samples.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr group_by summarise filter
-#' @importFrom lubridate today
-#' @importFrom openxlsx write.xlsx
-
 sample_with_no_fate_correction <- function(data_connection,
                                            start_year,
                                            end_year,
@@ -33,103 +28,42 @@ sample_with_no_fate_correction <- function(data_connection,
   samplemeasure_id <- NULL
   home_id <- NULL
   observer <- NULL
-  fate_code <- NULL
-  fate_id <- NULL
   trip_start_date <- NULL
   trip_end_date <- NULL
-
   # 1 - Arguments verification ----
-  if (codama::r_type_checking(
+  r_type_checking(
     r_object = start_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = start_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = end_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = end_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = program,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = program,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = ocean,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = ocean,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = country_code,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = country_code,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (codama::r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = corrector,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = corrector,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = action,
     type = "character",
-    allowed_value = c("COMMIT", "ROLLBACK"),
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = action,
-      type = "character",
-      allowed_value = c("COMMIT", "ROLLBACK"),
-      output = "message"
-    ))
-  }
-  if (!is.null(x = path_file) && codama::r_type_checking(
+    allowed_value = c("COMMIT", "ROLLBACK")
+  )
+  r_type_checking(
     r_object = path_file,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(codama::r_type_checking(
-      r_object = path_file,
-      type = "character",
-      output = "message"
-    ))
-  }
-
+    type = "character"
+  )
   # 2 - Data extraction ----
   sample_with_no_fate <- sample_with_no_fate_control(
     data_connection = data_connection,
@@ -218,7 +152,7 @@ sample_with_no_fate_correction <- function(data_connection,
       )
     }
   }
-  for (k in 1:length(queries)) {
+  for (k in seq_along(queries)) {
     cat("[[", k, "]] ", queries[[k]], collapse = "\n\n", sep = "")
   }
 
@@ -232,7 +166,7 @@ sample_with_no_fate_correction <- function(data_connection,
   error_occurred <- FALSE
   ## Loop start
   k <- 1
-  while (k <= length(queries) & all_completed == TRUE) {
+  while (k <= length(queries) && all_completed == TRUE) {
     cat("Query: ", k, "\n\n", sep = "")
     tryCatch(
       {
@@ -255,14 +189,14 @@ sample_with_no_fate_correction <- function(data_connection,
       }
     )
   }
-  ## COMMIT or ROLLBACK the modifcations
-  if (all_completed & action == "COMMIT") {
+  ## COMMIT or ROLLBACK the modifications
+  if (all_completed && action == "COMMIT") {
     DBI::dbCommit(con1)
   } else {
     DBI::dbRollback(con1)
   }
   ## Print the information on the operation's progress
-  if (all_completed & action == "COMMIT") {
+  if (all_completed && action == "COMMIT") {
     cat("All queries successfully went through", "\n", sep = "")
   } else if (action == "ROLLBACK") {
     cat("No requests have been processed as ROLLBACK was selected", "\n", sep = "")

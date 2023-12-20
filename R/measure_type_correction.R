@@ -13,14 +13,9 @@
 #' @param sizemeasuretype_new {\link[base]{character}} expected. Measure type to replace the incorrect one. Examples: 'FL', 'DW'...etc.
 #' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin
 #' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin
-#' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
+#' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
 #' @return The function returns a xlsx table.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL dbConnect dbDriver dbBegin dbSendStatement dbGetInfo dbCommit dbRollback dbDisconnect
-#' @importFrom RPostgreSQL dbGetQuery
-#' @importFrom utils View
-#' @importFrom dplyr group_by summarise tibble
-#' @importFrom lubridate now
 measure_type_correction <- function(data_connection,
                                     start_year,
                                     end_year,
@@ -39,155 +34,70 @@ measure_type_correction <- function(data_connection,
   observer <- NULL
   trip_start_date <- NULL
   trip_end_date <- NULL
-  default_measure_type <- NULL
-  fao_code <- NULL
-  correspondence <- NULL
   # 1 - Arguments verification ----
-  if (r_type_checking(
+  r_type_checking(
     r_object = start_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = start_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = end_year,
-    type = "integer",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = end_year,
-      type = "integer",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "integer"
+  )
+  r_type_checking(
     r_object = program,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = program,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = ocean,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = ocean,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = country_code,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = country_code,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = species_group,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = species_group,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = species,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = species,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = sizemeasuretype_to_replace,
     type = "character",
-    allowed_value = c("PD1", "LJFL", "SCL", "TL", "FL", "DW"),
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = sizemeasuretype_to_replace,
-      type = "character",
-      allowed_value = c("PD1", "LJFL", "SCL", "TL", "FL", "DW"),
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    allowed_value = c("PD1", "LJFL", "SCL", "TL", "FL", "DW")
+  )
+  r_type_checking(
     r_object = sizemeasuretype_new,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = sizemeasuretype_new,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
+    r_object = sizemeasuretype_new,
+    type = "character"
+  )
+  r_type_checking(
     r_object = corrector,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = corrector,
-      type = "character",
-      output = "message"
-    ))
-  }
-  if (r_type_checking(
+    type = "character"
+  )
+  r_type_checking(
     r_object = action,
     type = "character",
-    allowed_value = c("COMMIT", "ROLLBACK"),
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = action,
-      type = "character",
-      allowed_value = c("COMMIT", "ROLLBACK"),
-      output = "message"
-    ))
-  }
-  if (!is.null(x = path_file) && r_type_checking(
+    allowed_value = c("COMMIT", "ROLLBACK")
+  )
+  r_type_checking(
     r_object = path_file,
-    type = "character",
-    output = "logical"
-  ) != TRUE) {
-    return(r_type_checking(
-      r_object = path_file,
-      type = "character",
-      output = "message"
-    ))
-  }
+    type = "character"
+  )
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe") {
     observe_sample_sql <- paste(readLines(con = system.file("sql",
-                                                            "observe_sample_measure_type_correction.sql",
-                                                            package = "codama"
+      "observe_sample_measure_type_correction.sql",
+      package = "codama"
     )), collapse = "\n")
     observe_size_measure_type_sql <- paste(readLines(con = system.file("sql",
-                                                                       "observe_size_measure_type.sql",
-                                                                       package = "codama"
+      "observe_size_measure_type.sql",
+      package = "codama"
     )), collapse = "\n")
     # Correction of the sql query if ocean or country code not selected
     if ("%" %in% ocean) {
@@ -276,27 +186,27 @@ measure_type_correction <- function(data_connection,
   timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
   if (!is.null(x = path_file)) {
     openxlsx::write.xlsx(as.data.frame(sample),
-                         file = paste0(
-                           path_file,
-                           "/",
-                           start_year,
-                           "-",
-                           end_year,
-                           "/corrections_",
-                           species,
-                           "_samples_",
-                           sizemeasuretype_to_replace,
-                           "/sizesamples_observe_",
-                           species_group,
-                           "_",
-                           species,
-                           "_",
-                           sizemeasuretype_to_replace,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
+      file = paste0(
+        path_file,
+        "/",
+        start_year,
+        "-",
+        end_year,
+        "/corrections_",
+        species,
+        "_samples_",
+        sizemeasuretype_to_replace,
+        "/sizesamples_observe_",
+        species_group,
+        "_",
+        species,
+        "_",
+        sizemeasuretype_to_replace,
+        "_",
+        timestamp,
+        ".xlsx"
+      ),
+      rowNames = FALSE
     )
   }
   # 4 - Query creation ----
@@ -312,49 +222,49 @@ measure_type_correction <- function(data_connection,
   ct <- 0
   date <- substr(timestamp, 1, 8)
 
-  for (i in (1:(length(sample_id_list)))) {
+  for (i in seq_len(sample_id_list)) {
     sample_i <- sample[sample$sample_id == sample_id_list[i], ]
-    for (j in (1:nrow(sample_i))) {
+    for (j in seq_len(nrow(sample_i))) {
       ct <- ct + 1
       queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET sizemeasuretype = '",
-                             sizemeasuretype_new_topiaid,
-                             "', topiaversion = topiaversion+1, lastupdatedate = '",
-                             paste(Sys.time(),
-                                   ".000",
-                                   sep = ""
-                             ),
-                             "' WHERE topiaid = '",
-                             sample_i$samplemeasure_id[j],
-                             "' AND sizemeasuretype = '",
-                             sizemeasuretype_to_replace_topiaid,
-                             "';",
-                             sep = ""
+        sizemeasuretype_new_topiaid,
+        "', topiaversion = topiaversion+1, lastupdatedate = '",
+        paste(Sys.time(),
+          ".000",
+          sep = ""
+        ),
+        "' WHERE topiaid = '",
+        sample_i$samplemeasure_id[j],
+        "' AND sizemeasuretype = '",
+        sizemeasuretype_to_replace_topiaid,
+        "';",
+        sep = ""
       )
     }
     ct <- ct + 1
     queries[[ct]] <- paste("UPDATE ps_observation.sample SET comment = concat(comment,'[Correction ",
-                           species,
-                           " type de mesure ",
-                           sizemeasuretype_to_replace,
-                           " en ",
-                           sizemeasuretype_new,
-                           " - ",
-                           date,
-                           " - ",
-                           corrector,
-                           "]')",
-                           ", topiaversion = topiaversion+1, lastupdatedate = '",
-                           paste(Sys.time(),
-                                 ".000",
-                                 sep = ""
-                           ),
-                           "' WHERE topiaid = '",
-                           sample_id_list[i],
-                           "';",
-                           sep = ""
+      species,
+      " type de mesure ",
+      sizemeasuretype_to_replace,
+      " en ",
+      sizemeasuretype_new,
+      " - ",
+      date,
+      " - ",
+      corrector,
+      "]')",
+      ", topiaversion = topiaversion+1, lastupdatedate = '",
+      paste(Sys.time(),
+        ".000",
+        sep = ""
+      ),
+      "' WHERE topiaid = '",
+      sample_id_list[i],
+      "';",
+      sep = ""
     )
   }
-  for (i in 1:length(queries)) {
+  for (i in seq_along(queries)) {
     cat("[[", i, "]] ", queries[[i]], collapse = "\n\n", sep = "")
   }
   # 4 - Query execution ----
@@ -366,36 +276,39 @@ measure_type_correction <- function(data_connection,
   all_completed <- TRUE
   error_occurred <- FALSE
   ## Loop start
-  for (k in 1:length(queries)) {
+  for (k in seq_along(queries)) {
     cat("Query: ", k, "\n\n", sep = "")
-    tryCatch({
-      result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
-      cat(queries[[k]], "/n")
-      cat("completed :", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
-      ## Update the all_completed variable if necessary
-      if (DBI::dbGetInfo(result_query_k)$completed != 1) {
+    tryCatch(
+      {
+        result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
+        cat(queries[[k]], "/n")
+        cat("completed :", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
+        ## Update the all_completed variable if necessary
+        if (DBI::dbGetInfo(result_query_k)$completed != 1) {
+          all_completed <- FALSE
+        }
+        DBI::dbClearResult(result_query_k)
+      },
+      error = function(e) {
+        # In case of error, cancel the transaction
+        DBI::dbRollback(con1)
         all_completed <- FALSE
+        error_occurred <- TRUE
+        print(paste("Error during query execution:", e$message))
       }
-      DBI::dbClearResult(result_query_k)
-    }, error = function(e) {
-      # In case of error, cancel the transaction
-      DBI::dbRollback(con1)
-      all_completed <- FALSE
-      error_occurred <- TRUE
-      print(paste("Error during query execution:", e$message))
-    })
+    )
     if (error_occurred) {
       break
     }
   }
   ## COMMIT or ROLLBACK the modifcations
-  if (all_completed & action == "COMMIT") {
+  if (all_completed && action == "COMMIT") {
     DBI::dbCommit(con1)
   } else {
     DBI::dbRollback(con1)
   }
   ## Print the information on the operation's progress
-  if (all_completed & action == "COMMIT") {
+  if (all_completed && action == "COMMIT") {
     cat("All queries successfully went through", "\n", sep = "")
   } else if (action == "ROLLBACK") {
     cat("No requests have been processed as ROLLBACK was selected", "\n", sep = "")
@@ -408,18 +321,18 @@ measure_type_correction <- function(data_connection,
   samples_updated_lastupdatedate <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate >= '",
-          Sys.Date(),
-          "';",
-          sep = ""
+      Sys.Date(),
+      "';",
+      sep = ""
     )
   )
   View(samples_updated_lastupdatedate)
   samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
-          corrected_samplemeasure_topiaid,
-          ");",
-          sep = ""
+      corrected_samplemeasure_topiaid,
+      ");",
+      sep = ""
     )
   )
   View(samples_updated_topiaid)
@@ -442,8 +355,8 @@ measure_type_correction <- function(data_connection,
   # Data extraction to extract info on corrected samplmeasures by the topiaid
   if (data_connection[[1]] == "observe") {
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
-                                                                      "observe_sample_measure_type_correction.sql",
-                                                                      package = "codama"
+      "observe_sample_measure_type_correction.sql",
+      package = "codama"
     )), collapse = "\n")
     # Correction of the sql query
     observe_sample_corrected_sql <- sub(
@@ -458,28 +371,28 @@ measure_type_correction <- function(data_connection,
     ))
   }
   openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
-                       file = paste0(
-                         path_file,
-                         "/",
-                         start_year,
-                         "-",
-                         end_year,
-                         "/corrections_",
-                         species,
-                         "_samples_",
-                         sizemeasuretype_to_replace,
-                         "/sizesamples_observe_",
-                         species_group,
-                         "_",
-                         species,
-                         "_corrected_from_",
-                         sizemeasuretype_to_replace,
-                         "_to_",
-                         sizemeasuretype_new,
-                         "_",
-                         timestamp,
-                         ".xlsx"
-                       ),
-                       rowNames = FALSE
+    file = paste0(
+      path_file,
+      "/",
+      start_year,
+      "-",
+      end_year,
+      "/corrections_",
+      species,
+      "_samples_",
+      sizemeasuretype_to_replace,
+      "/sizesamples_observe_",
+      species_group,
+      "_",
+      species,
+      "_corrected_from_",
+      sizemeasuretype_to_replace,
+      "_to_",
+      sizemeasuretype_new,
+      "_",
+      timestamp,
+      ".xlsx"
+    ),
+    rowNames = FALSE
   )
 }
