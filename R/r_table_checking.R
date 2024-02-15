@@ -98,7 +98,7 @@ r_table_checking <- function(r_table,
     }
   }
   # Checks column type
-  checks_column_type <- sapply(r_table[, column_name], class) == column_type
+  checks_column_type <- sapply(r_table[, column_name, drop = FALSE], class) == column_type
   if (sum(checks_column_type) != length(column_type)) {
     message_failure <- paste0(format(
                              x = Sys.time(),
