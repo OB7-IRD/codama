@@ -19,10 +19,9 @@ p.label1::text as program
 ,sm.count::integer count
 ,sm.weight::numeric as weight
 ,sm.isweightcomputed::boolean as weight_was_computed
-,sp.label2::text as nom_commun
 ,sm.length::numeric as length
-,smt.code::text as size_type
 ,sm.islengthcomputed::boolean as length_was_computed
+,smt.code::text as size_type
 ,sx.label1::text as sex
 ,sf.label1::text as fate
 ,sf.code::integer as fate_code

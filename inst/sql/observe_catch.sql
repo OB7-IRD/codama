@@ -17,14 +17,13 @@ p.label1::text as program
 ,sp.label1::text as common_name
 ,sp.scientificlabel::text as scientific_name
 ,c.totalcount::integer as count
-,i.label1::text as information_source
-,c.catchweight::numeric as weight_tons
-,(CASE WHEN c.catchweightcomputedsource IS NULL THEN 'observed' ELSE 'computed' END)::text as is_weight_computed
-,(CASE WHEN c.totalcountcomputedsource IS NULL THEN 'observed' ELSE 'computed' END)::text as is_number_computed
 ,c.meanweight::numeric as mean_individual_weight
 ,(CASE WHEN c.meanweightcomputedsource IS NULL THEN 'observed' ELSE 'computed' END)::text as is_mean_individual_weight_kg_computed
 ,c.meanlength::numeric as mean_individual_length_cm
 ,(CASE WHEN c.meanlengthcomputedsource IS NULL THEN 'observed' ELSE 'computed' END)::text as is_mean_individual_length_cm_computed
+,c.catchweight::numeric as weight_tons
+,i.label1::text as information_source
+,(CASE WHEN c.totalcountcomputedsource IS NULL THEN 'observed' ELSE 'computed' END)::text as is_number_computed
 ,sf.label1::text as fate
 ,sf.code::integer as fate_code
 ,sf.topiaid::text as fate_id
