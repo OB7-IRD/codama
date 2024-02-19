@@ -55,7 +55,8 @@ Imports:
     ggplot2 (>= 3.4.4),
     stringr (>= 1.5.1),
     reshape (>= 0.8.9),
-    stats (>= 4.3.1)
+    stats,
+    utils (>= 4.2.2)
 Remotes: 
     OB7-IRD/furdeb,
     tidyverse/ggplot2,
