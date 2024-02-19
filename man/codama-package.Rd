@@ -24,6 +24,7 @@ Authors:
   \item Mathieu Depetris \email{mathieu.depetris@ird.fr} (\href{https://orcid.org/0000-0001-8080-0531}{ORCID})
   \item Theotime Fily \email{theotime.fily@ird.fr} (\href{https://orcid.org/0000-0001-7277-1769}{ORCID})
   \item Julien Lebranchu \email{julien.lebranchu@ird.fr} (\href{https://orcid.org/0000-0002-7759-0534}{ORCID})
+  \item Clara Lerebourg \email{clara.lerebourg@ird.fr} (\href{https://orcid.org/0000-0003-0589-8932}{ORCID})
   \item Esther Mollier \email{esther.mollier@ird.fr} (\href{https://orcid.org/0000-0001-8921-079X}{ORCID})
 }
 
