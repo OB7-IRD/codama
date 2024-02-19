@@ -326,7 +326,7 @@ measure_type_correction <- function(data_connection,
       sep = ""
     )
   )
-  View(samples_updated_lastupdatedate)
+  utils::View(samples_updated_lastupdatedate)
   samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -335,7 +335,7 @@ measure_type_correction <- function(data_connection,
       sep = ""
     )
   )
-  View(samples_updated_topiaid)
+  utils::View(samples_updated_topiaid)
   # Trips to be recalculated
   trips_to_recalculate <- sample %>%
     dplyr::group_by(
