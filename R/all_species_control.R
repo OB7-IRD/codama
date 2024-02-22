@@ -124,7 +124,7 @@ all_species_control <- function(data_connection,
     dplyr::group_by(fao_code) %>%
     dplyr::select(-default_measure_type)
   if (ocean != "%") {
-    summarise_species <- species %>%
+    summarise_species <- summarise_species %>%
       dplyr::filter(ocean_presence == ocean)
   }
   ### Merge of the two tables to add the ocean_presence for each species
