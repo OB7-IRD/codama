@@ -644,20 +644,34 @@ size_distribution_and_outliers_control <- function(data_connection,
       outliers_sp_lg <- data_lg %>%
         dplyr::filter(length <= qmm_min_max_lg$lower | length >= qmm_min_max_lg$lower)
       timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
-      ### Fold creation for all the outliers between the two selected years (start_year and end_year)
+      ### Fold creation for all the outliers
       folder_outliers_all <- paste0(
+        path_file,
+        "/outliers"
+      )
+      if (file.exists(folder_outliers_all) == FALSE) {
+        dir.create(folder_outliers_all)
+      }
+      ### Fold creation for all outliers between the selected year, country and ocean
+      folder_outliers_country_program <- paste0(
         path_file,
         "/outliers",
         "/outliers_",
+        country_code,
+        "_",
+        ocean,
+        "_",
         start_year,
         "-",
         end_year,
         "_",
         ocean
       )
-      if (file.exists(folder_outliers_all) == FALSE) {
-        dir.create(folder_outliers_all)
+      if (file.exists(folder_outliers_country_program) == FALSE) {
+        dir.create(folder_outliers_country_program)
       }
+
+
 
       ### Fold creation for outliers by sp and lg
       folder_outliers_by_sp_lg <- paste0(
@@ -671,8 +685,6 @@ size_distribution_and_outliers_control <- function(data_connection,
         start_year,
         "-",
         end_year,
-        "_",
-        ocean
       )
       if (file.exists(folder_outliers_by_sp_lg) == FALSE & nrow(outliers_sp_lg) != 0) {
         dir.create(folder_outliers_by_sp_lg)
@@ -707,8 +719,6 @@ size_distribution_and_outliers_control <- function(data_connection,
                                start_year,
                                "-",
                                end_year,
-                               "_",
-                               ocean,
                                "_",
                                timestamp,
                                ".xlsx"
