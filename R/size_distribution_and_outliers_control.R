@@ -669,8 +669,6 @@ size_distribution_and_outliers_control <- function(data_connection,
         dir.create(folder_outliers_country_program)
       }
 
-
-
       ### Fold creation for outliers by sp and lg
       folder_outliers_by_sp_lg <- paste0(
         path_file,
@@ -703,8 +701,6 @@ size_distribution_and_outliers_control <- function(data_connection,
                                start_year,
                                "-",
                                end_year,
-                               "_",
-                               ocean,
                                "/outliers_",
                                sp,
                                "_",
