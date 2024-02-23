@@ -684,7 +684,7 @@ size_distribution_and_outliers_control <- function(data_connection,
         "_",
         start_year,
         "-",
-        end_year,
+        end_year
       )
       if (file.exists(folder_outliers_by_sp_lg) == FALSE & nrow(outliers_sp_lg) != 0) {
         dir.create(folder_outliers_by_sp_lg)
