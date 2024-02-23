@@ -663,9 +663,7 @@ size_distribution_and_outliers_control <- function(data_connection,
         "_",
         start_year,
         "-",
-        end_year,
-        "_",
-        ocean
+        end_year
       )
       if (file.exists(folder_outliers_country_program) == FALSE) {
         dir.create(folder_outliers_country_program)
