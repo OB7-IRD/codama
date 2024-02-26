@@ -11,7 +11,7 @@
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
-#' @param type {\link[base]{character}} expected. type of graph you want: count or frequency.
+#' @param type {\link[base]{character}} expected. type of graph you want: count or density.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
 #' @return The function return histograms and xlsx tables.
 #' @export
@@ -268,10 +268,9 @@ size_distribution_and_outliers_control <- function(data_connection,
     dplyr::rename(ocean_sample = ocean) %>%
     dplyr::filter(!is.na(length))
 
-
   ## Identification of both data frames by a new column (usefull to do the ggplot after)
-  size_catch$source <- "captured"
-  size_sample$source <- "sampled"
+  size_catch$source <- "in catch data"
+  size_sample$source <- "in sample data"
 
   ## Merge both data frames
   colnames(size_catch) <- colnames(size_sample)
@@ -307,10 +306,11 @@ size_distribution_and_outliers_control <- function(data_connection,
   list_species_no_min_max <- paste(as.character(species_no_min_max$fao_code),
                                    collapse = ", "
   )
-  print(paste(
-    "species with no min and max in data base are:",
-    list_species_no_min_max
-  ))
+  if (nrow(species_no_min_max) == 0) {
+    cat("There are no species without a min max in the database", "\n", sep = "")
+  } else {
+    cat("Species with no min and max in data base are: ", list_species_no_min_max, "\n")
+  }
   ## Filter the year we are interested in
   size_sample$sample_date <- ""
   size_sample <- size_sample %>%
@@ -337,8 +337,8 @@ size_distribution_and_outliers_control <- function(data_connection,
     mean_sample_catch <- data_sp_sample_catch %>%
       dplyr::group_by(source) %>%
       dplyr::summarize(mean = mean(length), .groups = "drop")
-    mean_sample <- round(mean_sample_catch$mean[mean_sample_catch$source == "sampled"])
-    mean_catch <- round(mean_sample_catch$mean[mean_sample_catch$source == "captured"])
+    mean_sample <- round(mean_sample_catch$mean[mean_sample_catch$source == "in sample data"])
+    mean_catch <- round(mean_sample_catch$mean[mean_sample_catch$source == "in catch data"])
     min <- min(data_sp_sample_catch$length)
     max <- max(data_sp_sample_catch$length)
 
@@ -349,9 +349,9 @@ size_distribution_and_outliers_control <- function(data_connection,
       dplyr::summarize(count = sum(count), .groups = "drop")
 
     mid_counts <- (max(counts$count)) / 2
-    mid_freq <- ((max(counts$count)) / sum(counts$count)) / 2
+    mid_dens <- ((max(counts$count)) / sum(counts$count)) / 2
 
-    if ("captured" %in% data_sp_sample_catch$source) {
+    if ("in catch data" %in% data_sp_sample_catch$source) {
       if (type == "count") {
         ## Plot sample vs catch count
         plot_sample_catch_counts <- ggplot2::ggplot(data_sp_sample_catch, ggplot2::aes(x = length)) +
@@ -392,8 +392,6 @@ size_distribution_and_outliers_control <- function(data_connection,
                           start_year_catch_vs_sample,
                           "-",
                           end_year_catch_vs_sample,
-                          "_",
-                          ocean,
                           "/count",
                           "/length_dist_sample_catch_",
                           sp,
@@ -401,8 +399,6 @@ size_distribution_and_outliers_control <- function(data_connection,
                           start_year_catch_vs_sample,
                           "-",
                           end_year_catch_vs_sample,
-                          "_",
-                          ocean,
                           ".PNG"
                         ),
                         width = 10,
@@ -410,9 +406,9 @@ size_distribution_and_outliers_control <- function(data_connection,
         )
       }
 
-      if (type == "frequency") {
-        ## Plot sample vs catch frequency
-        plot_sample_catch_frequency <- ggplot2::ggplot(data_sp_sample_catch, ggplot2::aes(x = length)) +
+      if (type == "density") {
+        ## Plot sample vs catch density
+        plot_sample_catch_density <- ggplot2::ggplot(data_sp_sample_catch, ggplot2::aes(x = length)) +
           ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density), fill = source),
                                   position = "identity",
                                   alpha = 0.5,
@@ -422,8 +418,8 @@ size_distribution_and_outliers_control <- function(data_connection,
           ) +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_sample), color = "blue") +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_catch), color = "red") +
-          ggplot2::annotate(x = mean_catch, y = (mid_freq) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "blue", size = 3) +
-          ggplot2::annotate(x = mean_sample, y = (mid_freq) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "red", size = 3) +
+          ggplot2::annotate(x = mean_catch, y = (mid_dens) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "blue", size = 3) +
+          ggplot2::annotate(x = mean_sample, y = (mid_dens) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "red", size = 3) +
           ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
           ggplot2::scale_fill_manual(
             values = c("#000000", "#CCCCCC"),
@@ -438,8 +434,8 @@ size_distribution_and_outliers_control <- function(data_connection,
             panel.grid.minor = ggplot2::element_blank()
           )
 
-        ## Export plot sample vs catch frequency
-        ggplot2::ggsave(plot_sample_catch_frequency,
+        ## Export plot sample vs catch density
+        ggplot2::ggsave(plot_sample_catch_density,
                         file = paste0(
                           path_file,
                           "/length_dist_sample_catch",
@@ -451,17 +447,13 @@ size_distribution_and_outliers_control <- function(data_connection,
                           start_year_catch_vs_sample,
                           "-",
                           end_year_catch_vs_sample,
-                          "_",
-                          ocean,
-                          "/freq",
+                          "/dens",
                           "/length_dist_sample_catch_",
                           sp,
                           "_",
                           start_year,
                           "-",
                           end_year,
-                          "_",
-                          ocean,
                           ".PNG"
                         ),
                         width = 10,
@@ -496,7 +488,7 @@ size_distribution_and_outliers_control <- function(data_connection,
             dplyr::summarize(count = sum(count), .groups = "drop")
 
           mid_counts <- (max(counts$count)) / 2
-          mid_freq <- ((max(counts$count)) / sum(counts$count)) / 2
+          mid_dens <- ((max(counts$count)) / sum(counts$count)) / 2
 
           data_lg$sample_date <- factor(data_lg$sample_date,
                                         levels = c(
@@ -552,8 +544,6 @@ size_distribution_and_outliers_control <- function(data_connection,
                               start_year,
                               "-",
                               end_year,
-                              "_",
-                              ocean,
                               "/count",
                               "/length_dist_",
                               sp,
@@ -571,9 +561,9 @@ size_distribution_and_outliers_control <- function(data_connection,
                             height = 6
             )
           }
-          if (type == "frequency") {
-            ## Plot size distribution in frequency
-            plot_size_dist_freqeuncy <- ggplot2::ggplot(data_lg, ggplot2::aes(x = length)) +
+          if (type == "density") {
+            ## Plot size distribution in density
+            plot_size_dist_density <- ggplot2::ggplot(data_lg, ggplot2::aes(x = length)) +
               ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density), fill = sample_date),
                                       position = "identity",
                                       alpha = 0.5,
@@ -589,10 +579,10 @@ size_distribution_and_outliers_control <- function(data_connection,
               ggplot2::geom_vline(ggplot2::aes(xintercept = median), color = "blue") +
               ggplot2::annotate(x = min, y = +Inf, label = paste("Min =", min), vjust = 1, geom = "label", size = 3) +
               ggplot2::annotate(x = max, y = +Inf, label = paste("Max =", max), vjust = 1, geom = "label", size = 3) +
-              ggplot2::annotate(x = upper, y = mid_freq, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = lower, y = mid_freq, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = mean, y = (mid_freq) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
-              ggplot2::annotate(x = median, y = (mid_freq) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
+              ggplot2::annotate(x = upper, y = mid_dens, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
+              ggplot2::annotate(x = lower, y = mid_dens, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
+              ggplot2::annotate(x = mean, y = (mid_dens) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
+              ggplot2::annotate(x = median, y = (mid_dens) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
               ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
               ggplot2::scale_fill_manual(
                 values = c("#000000", "#CCCCCC"),
@@ -606,8 +596,8 @@ size_distribution_and_outliers_control <- function(data_connection,
                 legend.position = "bottom",
                 panel.grid.minor = ggplot2::element_blank()
               )
-            ### Export plot size distribution in frequency
-            ggplot2::ggsave(plot_size_dist_freqeuncy,
+            ### Export plot size distribution in density
+            ggplot2::ggsave(plot_size_dist_density,
                             file = paste0(
                               path_file,
                               "/length_dist_by_species",
@@ -619,9 +609,7 @@ size_distribution_and_outliers_control <- function(data_connection,
                               start_year,
                               "-",
                               end_year,
-                              "_",
-                              ocean,
-                              "/freq",
+                              "/dens",
                               "/length_dist_",
                               sp,
                               "_",
@@ -642,7 +630,7 @@ size_distribution_and_outliers_control <- function(data_connection,
       }
       # 6 - Outliers ----
       outliers_sp_lg <- data_lg %>%
-        dplyr::filter(length <= qmm_min_max_lg$lower | length >= qmm_min_max_lg$lower)
+        dplyr::filter(length <= qmm_min_max_lg$lower | length >= qmm_min_max_lg$upper)
       timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
       ### Fold creation for all the outliers
       folder_outliers_all <- paste0(
@@ -723,4 +711,5 @@ size_distribution_and_outliers_control <- function(data_connection,
       }
     }
   }
+  cat("Task finished","\n")
 }
