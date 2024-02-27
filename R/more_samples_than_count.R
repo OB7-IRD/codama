@@ -144,7 +144,7 @@ more_samples_than_count <- function(data_connection,
       fao_code,
       fate_code
     ) %>%
-    dplyr::rename(fate_code_catch = fate_code) %>%
+    #dplyr::rename(fate_code_catch = fate_code) %>%
     dplyr::summarise(
       nb_catch = sum(count),
       .groups = "drop"
@@ -163,7 +163,7 @@ more_samples_than_count <- function(data_connection,
       fao_code,
       fate_code
     ) %>%
-    dplyr::rename(fate_code_sample = fate_code) %>%
+    #dplyr::rename(fate_code_sample = fate_code) %>%
     dplyr::summarise(
       nb_measure = sum(count),
       .groups = "drop"
@@ -182,10 +182,11 @@ more_samples_than_count <- function(data_connection,
       "trip_end_date",
       "observation_date",
       "observation_time",
-      "fao_code"
+      "fao_code",
+      "fate_code"
     ),
     all.x = TRUE,
-    all.y = TRUE
+    all.y = FALSE
   )
   ## Add zero if catch is NA after merging (meaning there is no catch observation for this sampled species and fate)
   summarise_sample_catch <- summarise_sample_catch %>%

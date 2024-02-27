@@ -41,7 +41,7 @@ size_distribution_and_outliers_control(
 
 \item{country_code}{{\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.}
 
-\item{type}{{\link[base]{character}} expected. type of graph you want: count or frequency.}
+\item{type}{{\link[base]{character}} expected. type of graph you want: count or density.}
 
 \item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx.}
 }
