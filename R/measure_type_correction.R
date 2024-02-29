@@ -160,7 +160,11 @@ measure_type_correction <- function(data_connection,
   ## Fold creation for the year
   folder_year <- paste0(
     path_file,
-    "/",
+    "/measure_type_correction_",
+    country_code,
+    "_",
+    ocean,
+    "_",
     start_year,
     "-",
     end_year
@@ -171,7 +175,11 @@ measure_type_correction <- function(data_connection,
   ## Fold creation for the samples to be corrected
   folder_sample_to_be_corrected <- paste0(
     path_file,
-    "/",
+    "/measure_type_correction_",
+    country_code,
+    "_",
+    ocean,
+    "_",
     start_year,
     "-",
     end_year,
@@ -188,12 +196,16 @@ measure_type_correction <- function(data_connection,
     openxlsx::write.xlsx(as.data.frame(sample),
       file = paste0(
         path_file,
-        "/",
+        "/measure_type_correction_",
+        country_code,
+        "_",
+        ocean,
+        "_",
         start_year,
         "-",
         end_year,
         "/corrections_",
-        species,
+        paste(species),
         "_samples_",
         sizemeasuretype_to_replace,
         "/sizesamples_observe_",
@@ -222,17 +234,14 @@ measure_type_correction <- function(data_connection,
   ct <- 0
   date <- substr(timestamp, 1, 8)
 
-  for (i in seq_len(sample_id_list)) {
+  for (i in seq_along(sample_id_list)) {
     sample_i <- sample[sample$sample_id == sample_id_list[i], ]
     for (j in seq_len(nrow(sample_i))) {
       ct <- ct + 1
       queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET sizemeasuretype = '",
         sizemeasuretype_new_topiaid,
         "', topiaversion = topiaversion+1, lastupdatedate = '",
-        paste(Sys.time(),
-          ".000",
-          sep = ""
-        ),
+        format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
         "' WHERE topiaid = '",
         sample_i$samplemeasure_id[j],
         "' AND sizemeasuretype = '",
@@ -254,10 +263,7 @@ measure_type_correction <- function(data_connection,
       corrector,
       "]')",
       ", topiaversion = topiaversion+1, lastupdatedate = '",
-      paste(Sys.time(),
-        ".000",
-        sep = ""
-      ),
+      format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
       "' WHERE topiaid = '",
       sample_id_list[i],
       "';",
@@ -348,8 +354,6 @@ measure_type_correction <- function(data_connection,
     ) %>%
     dplyr::summarise(.groups = "drop")
   print(trips_to_recalculate)
-  # Close the connection
-  DBI::dbDisconnect(con1)
 
   # 5 - Exportation of the final check ----
   # Data extraction to extract info on corrected samplmeasures by the topiaid
@@ -373,7 +377,11 @@ measure_type_correction <- function(data_connection,
   openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
     file = paste0(
       path_file,
-      "/",
+      "/measure_type_correction_",
+      country_code,
+      "_",
+      ocean,
+      "_",
       start_year,
       "-",
       end_year,
@@ -395,4 +403,6 @@ measure_type_correction <- function(data_connection,
     ),
     rowNames = FALSE
   )
+  # Close the connection
+  DBI::dbDisconnect(con1)
 }
