@@ -126,7 +126,7 @@ sample_with_no_fate_correction <- function(data_connection,
         queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET speciesfate = '",
                                sample_set_i_sp_j_sm_k$new_fate_id,
                                "', topiaversion = topiaversion+1, lastupdatedate = '",
-                               paste(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ".000", sep = ""),
+                               format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
                                "' WHERE topiaid = '",
                                sample_set_i_sp_j_sm_k$samplemeasure_id,
                                "' AND speciesfate IS NULL;",
@@ -144,7 +144,7 @@ sample_with_no_fate_correction <- function(data_connection,
                              corrector,
                              "]')",
                              ", topiaversion = topiaversion+1, lastupdatedate = '",
-                             paste(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), ".000", sep = ""),
+                             format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
                              "' WHERE topiaid = '",
                              sample_set_i$sample_id[j],
                              "';",
@@ -171,8 +171,8 @@ sample_with_no_fate_correction <- function(data_connection,
     tryCatch(
       {
         result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
-        cat(queries[[k]], "/n")
-        cat("completed :", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
+        cat(queries[[k]], "\n")
+        cat("completed: ", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
         ## Update the all_completed variable if necessary
         if (DBI::dbGetInfo(result_query_k)$completed != 1) {
           all_completed <- FALSE
@@ -276,10 +276,6 @@ sample_with_no_fate_correction <- function(data_connection,
     openxlsx::write.xlsx(sample_corrected_data,
                          file = paste0(
                            path_file,
-                           "/",
-                           start_year,
-                           "-",
-                           end_year,
                            "/sample_with_no_fate_corrected_",
                            country_code,
                            "_",
