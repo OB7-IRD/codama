@@ -215,7 +215,7 @@ sample_with_no_fate_correction <- function(data_connection,
           sep = ""
     )
   )
-  utils::View(samplemeasure_updated_lastupdatedate)
+  #utils::View(samplemeasure_updated_lastupdatedate)
   samplemeasure_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
