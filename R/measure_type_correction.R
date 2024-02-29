@@ -283,11 +283,11 @@ measure_type_correction <- function(data_connection,
   error_occurred <- FALSE
   ## Loop start
   for (k in seq_along(queries)) {
-    cat("Query: ", k, "\n\n", sep = "")
+    cat("Query: ", k, "\n", sep = "")
     tryCatch(
       {
         result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
-        cat(queries[[k]], "/n")
+        cat(queries[[k]], "\n", sep = "")
         cat("completed :", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
         ## Update the all_completed variable if necessary
         if (DBI::dbGetInfo(result_query_k)$completed != 1) {
