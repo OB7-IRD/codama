@@ -630,7 +630,8 @@ size_distribution_and_outliers_control <- function(data_connection,
       }
       # 6 - Outliers ----
       outliers_sp_lg <- data_lg %>%
-        dplyr::filter(length <= qmm_min_max_lg$lower | length >= qmm_min_max_lg$upper)
+        dplyr::filter(length <= qmm_min_max_lg$lower | length >= qmm_min_max_lg$upper) %>%
+        dplyr::filter(year >= start_year & year <= end_year)
       timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
       ### Fold creation for all the outliers
       folder_outliers_all <- paste0(
