@@ -167,7 +167,7 @@ sample_with_no_fate_correction <- function(data_connection,
   ## Loop start
   k <- 1
   while (k <= length(queries) && all_completed == TRUE) {
-    cat("Query: ", k, "\n\n", sep = "")
+    cat("Query: ", k, "\n", sep = "")
     tryCatch(
       {
         result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
