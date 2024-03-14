@@ -21,7 +21,6 @@
 #' @importFrom lubridate now
 #' @importFrom reshape untable
 #' @importFrom stats quantile
-#' @importFrom stringr str_detect
 #' @importFrom openxlsx write.xlsx
 size_distribution_and_outliers_control <- function(data_connection,
                                                    start_year,
@@ -47,7 +46,6 @@ size_distribution_and_outliers_control <- function(data_connection,
   year <- NULL
   species_group <- NULL
   density <- NULL
-  sample_date <- NULL
   # 1 - Arguments verification ----
   if (r_type_checking(
     r_object = start_year,
@@ -312,12 +310,7 @@ size_distribution_and_outliers_control <- function(data_connection,
     cat("Species with no min and max in data base are: ", list_species_no_min_max, "\n")
   }
   ## Filter the year we are interested in
-  size_sample$sample_date <- ""
   size_sample <- size_sample %>%
-    dplyr::mutate(sample_date = ifelse(year >= start_year & year <= end_year,
-                                       paste0(start_year, " to ", end_year),
-                                       paste0(start_year_stat, " to ", end_year_stat)
-    )) %>%
     dplyr::filter(species_group != "Tunas nei")
   size_sample_catch <- size_sample_catch %>%
     dplyr::filter(year >= start_year_catch_vs_sample & year <= end_year_catch_vs_sample)
@@ -351,7 +344,7 @@ size_distribution_and_outliers_control <- function(data_connection,
     mid_counts <- (max(counts$count)) / 2
     mid_dens <- ((max(counts$count)) / sum(counts$count)) / 2
 
-    if ("in catch data" %in% data_sp_sample_catch$source) {
+    if ("in catch data" %in% data_sp_sample_catch$source && "in sample data" %in% data_sp_sample_catch$source) {
       if (type == "count") {
         ## Plot sample vs catch count
         plot_sample_catch_counts <- ggplot2::ggplot(data_sp_sample_catch, ggplot2::aes(x = length)) +
@@ -470,7 +463,7 @@ size_distribution_and_outliers_control <- function(data_connection,
         dplyr::filter(size_type == lg)
 
       ## Condition to avoid a saved graph if there is no sample for this species and this length type
-      if (any(stringr::str_detect(data_lg$sample_date, paste0(start_year, " to ", end_year))) & length(data_lg$fao_code) != 0) {
+      if (nrow(data_lg) !=0) {
         ## Condition to avoid plotting a min and max in the graph if we don't have the information
         if (!is.na(qmm_min_max_lg$min_length) == TRUE) {
           ## Attribute a mean/median/quantiles value from qmm_min_max data frame
@@ -490,17 +483,23 @@ size_distribution_and_outliers_control <- function(data_connection,
           mid_counts <- (max(counts$count)) / 2
           mid_dens <- ((max(counts$count)) / sum(counts$count)) / 2
 
-          data_lg$sample_date <- factor(data_lg$sample_date,
-                                        levels = c(
-                                          paste0(start_year, " to ", end_year),
-                                          paste0(start_year_stat, " to ", end_year_stat)
-                                        )
-          )
+          data_lg_filtered <- data_lg %>%
+            dplyr::filter(data_lg$year >= start_year & data_lg$year <= end_year)
+          selected_year <- paste0(start_year, " to ", end_year)
+          all_year <- paste0(start_year_stat, " to ", end_year_stat)
+
           ## Plot size distribution in count
           if (type == "count") {
-            plot_size_dist_count <- ggplot2::ggplot(data_lg, ggplot2::aes(x = length)) +
-              ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(count), fill = sample_date),
-                                      position = "identity",
+            plot_size_dist_count <- ggplot2::ggplot() +
+              ggplot2::geom_histogram(data = data_lg_filtered,
+                                      ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = selected_year),
+                                      alpha = 0.5,
+                                      binwidth = 1,
+                                      boundary = 0,
+                                      closed = "left"
+              ) +
+              ggplot2::geom_histogram(data = data_lg,
+                                      ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = all_year),
                                       alpha = 0.5,
                                       binwidth = 1,
                                       boundary = 0,
@@ -519,9 +518,8 @@ size_distribution_and_outliers_control <- function(data_connection,
               ggplot2::annotate(x = mean, y = (mid_counts) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
               ggplot2::annotate(x = median, y = (mid_counts) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
               ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
-              ggplot2::scale_fill_manual(
-                values = c("#000000", "#CCCCCC"),
-                name = "Samples from :"
+              ggplot2::scale_fill_manual(values = c(selected_year = "#000000", all_year = "#CCCCCC"),
+                                         name = "Samples from :"
               ) +
               ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
               ggplot2::theme_bw() +
@@ -563,9 +561,16 @@ size_distribution_and_outliers_control <- function(data_connection,
           }
           if (type == "density") {
             ## Plot size distribution in density
-            plot_size_dist_density <- ggplot2::ggplot(data_lg, ggplot2::aes(x = length)) +
-              ggplot2::geom_histogram(ggplot2::aes(y = ggplot2::after_stat(density), fill = sample_date),
-                                      position = "identity",
+            plot_size_dist_density <- ggplot2::ggplot() +
+              ggplot2::geom_histogram(data = data_lg_filtered,
+                                      ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = "2015 to 2023"),
+                                      alpha = 0.5,
+                                      binwidth = 1,
+                                      boundary = 0,
+                                      closed = "left"
+              ) +
+              ggplot2::geom_histogram(data = data_lg,
+                                      ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = "2005 to 2023"),
                                       alpha = 0.5,
                                       binwidth = 1,
                                       boundary = 0,
