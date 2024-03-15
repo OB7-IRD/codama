@@ -518,8 +518,9 @@ size_distribution_and_outliers_control <- function(data_connection,
               ggplot2::annotate(x = mean, y = (mid_counts) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
               ggplot2::annotate(x = median, y = (mid_counts) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
               ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
-              ggplot2::scale_fill_manual(values = c(selected_year = "#000000", all_year = "#CCCCCC"),
-                                         name = "Samples from :"
+              ggplot2::scale_fill_manual(
+                values = c("#CCCCCC", "#000000"),
+                name = "Samples from :"
               ) +
               ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
               ggplot2::theme_bw() +
