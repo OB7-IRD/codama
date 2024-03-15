@@ -489,148 +489,150 @@ size_distribution_and_outliers_control <- function(data_connection,
           all_year <- paste0(start_year_stat, " to ", end_year_stat)
 
           ## Plot size distribution in count
-          if (type == "count") {
-            plot_size_dist_count <- ggplot2::ggplot() +
-              ggplot2::geom_histogram(data = data_lg_filtered,
-                                      ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = selected_year),
-                                      alpha = 0.5,
-                                      binwidth = 1,
-                                      boundary = 0,
-                                      closed = "left"
-              ) +
-              ggplot2::geom_histogram(data = data_lg,
-                                      ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = all_year),
-                                      alpha = 0.5,
-                                      binwidth = 1,
-                                      boundary = 0,
-                                      closed = "left"
-              ) +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = min), color = "black") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = max), color = "black") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = upper), color = "red") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = lower), color = "red") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = mean), color = "green") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = median), color = "blue") +
-              ggplot2::annotate(x = min, y = +Inf, label = paste("Min =", min), vjust = 1, geom = "label", size = 3) +
-              ggplot2::annotate(x = max, y = +Inf, label = paste("Max =", max), vjust = 1, geom = "label", size = 3) +
-              ggplot2::annotate(x = upper, y = mid_counts, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = lower, y = mid_counts, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = mean, y = (mid_counts) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
-              ggplot2::annotate(x = median, y = (mid_counts) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
-              ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
-              ggplot2::scale_fill_manual(
-                values = c("#CCCCCC", "#000000"),
-                name = "Samples from :"
-              ) +
-              ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
-              ggplot2::theme_bw() +
-              ggplot2::theme(
-                plot.background = ggplot2::element_rect(color = "black", linewidth = 2),
-                plot.title = ggplot2::element_text(size = 15, hjust = 0.5, face = "bold"),
-                legend.position = "bottom",
-                panel.grid.minor = ggplot2::element_blank()
+          if (nrow(data_lg_filtered) !=0) {
+            if (type == "count") {
+              plot_size_dist_count <- ggplot2::ggplot() +
+                ggplot2::geom_histogram(data = data_lg,
+                                        ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = all_year),
+                                        alpha = 0.5,
+                                        binwidth = 1,
+                                        boundary = 0,
+                                        closed = "left"
+                ) +
+                ggplot2::geom_histogram(data = data_lg_filtered,
+                                        ggplot2::aes(x = length, y = ggplot2::after_stat(count), fill = selected_year),
+                                        alpha = 0.5,
+                                        binwidth = 1,
+                                        boundary = 0,
+                                        closed = "left"
+                ) +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = min), color = "black") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = max), color = "black") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = upper), color = "red") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = lower), color = "red") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = mean), color = "green") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = median), color = "blue") +
+                ggplot2::annotate(x = min, y = +Inf, label = paste("Min =", min), vjust = 1, geom = "label", size = 3) +
+                ggplot2::annotate(x = max, y = +Inf, label = paste("Max =", max), vjust = 1, geom = "label", size = 3) +
+                ggplot2::annotate(x = upper, y = mid_counts, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
+                ggplot2::annotate(x = lower, y = mid_counts, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
+                ggplot2::annotate(x = mean, y = (mid_counts) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
+                ggplot2::annotate(x = median, y = (mid_counts) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
+                ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
+                ggplot2::scale_fill_manual(
+                  values = c("#CCCCCC", "#000000"),
+                  name = "Samples from :"
+                ) +
+                ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
+                ggplot2::theme_bw() +
+                ggplot2::theme(
+                  plot.background = ggplot2::element_rect(color = "black", linewidth = 2),
+                  plot.title = ggplot2::element_text(size = 15, hjust = 0.5, face = "bold"),
+                  legend.position = "bottom",
+                  panel.grid.minor = ggplot2::element_blank()
+                )
+              ### Export plot size distribution in count
+              ggplot2::ggsave(plot_size_dist_count,
+                              file = paste0(
+                                path_file,
+                                "/length_dist_by_species",
+                                "/length_dist_by_species_",
+                                country_code,
+                                "_",
+                                ocean,
+                                "_",
+                                start_year,
+                                "-",
+                                end_year,
+                                "/count",
+                                "/length_dist_",
+                                sp,
+                                "_",
+                                lg,
+                                "_",
+                                start_year,
+                                "-",
+                                end_year,
+                                "_",
+                                ocean,
+                                ".PNG"
+                              ),
+                              width = 10,
+                              height = 6
               )
-            ### Export plot size distribution in count
-            ggplot2::ggsave(plot_size_dist_count,
-                            file = paste0(
-                              path_file,
-                              "/length_dist_by_species",
-                              "/length_dist_by_species_",
-                              country_code,
-                              "_",
-                              ocean,
-                              "_",
-                              start_year,
-                              "-",
-                              end_year,
-                              "/count",
-                              "/length_dist_",
-                              sp,
-                              "_",
-                              lg,
-                              "_",
-                              start_year,
-                              "-",
-                              end_year,
-                              "_",
-                              ocean,
-                              ".PNG"
-                            ),
-                            width = 10,
-                            height = 6
-            )
-          }
-          if (type == "density") {
-            ## Plot size distribution in density
-            plot_size_dist_density <- ggplot2::ggplot() +
-              ggplot2::geom_histogram(data = data_lg_filtered,
-                                      ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = "2015 to 2023"),
-                                      alpha = 0.5,
-                                      binwidth = 1,
-                                      boundary = 0,
-                                      closed = "left"
-              ) +
-              ggplot2::geom_histogram(data = data_lg,
-                                      ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = "2005 to 2023"),
-                                      alpha = 0.5,
-                                      binwidth = 1,
-                                      boundary = 0,
-                                      closed = "left"
-              ) +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = min), color = "black") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = max), color = "black") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = upper), color = "red") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = lower), color = "red") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = mean), color = "green") +
-              ggplot2::geom_vline(ggplot2::aes(xintercept = median), color = "blue") +
-              ggplot2::annotate(x = min, y = +Inf, label = paste("Min =", min), vjust = 1, geom = "label", size = 3) +
-              ggplot2::annotate(x = max, y = +Inf, label = paste("Max =", max), vjust = 1, geom = "label", size = 3) +
-              ggplot2::annotate(x = upper, y = mid_dens, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = lower, y = mid_dens, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
-              ggplot2::annotate(x = mean, y = (mid_dens) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
-              ggplot2::annotate(x = median, y = (mid_dens) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
-              ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
-              ggplot2::scale_fill_manual(
-                values = c("#000000", "#CCCCCC"),
-                name = "Samples from :"
-              ) +
-              ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
-              ggplot2::theme_bw() +
-              ggplot2::theme(
-                plot.background = ggplot2::element_rect(color = "black", linewidth = 2),
-                plot.title = ggplot2::element_text(size = 15, hjust = 0.5, face = "bold"),
-                legend.position = "bottom",
-                panel.grid.minor = ggplot2::element_blank()
+            }
+            if (type == "density") {
+              ## Plot size distribution in density
+              plot_size_dist_density <- ggplot2::ggplot() +
+                ggplot2::geom_histogram(data = data_lg,
+                                        ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = all_year),
+                                        alpha = 0.5,
+                                        binwidth = 1,
+                                        boundary = 0,
+                                        closed = "left"
+                ) +
+                ggplot2::geom_histogram(data = data_lg_filtered,
+                                        ggplot2::aes(x = length, y = ggplot2::after_stat(density), fill = selected_year),
+                                        alpha = 0.5,
+                                        binwidth = 1,
+                                        boundary = 0,
+                                        closed = "left"
+                ) +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = min), color = "black") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = max), color = "black") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = upper), color = "red") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = lower), color = "red") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = mean), color = "green") +
+                ggplot2::geom_vline(ggplot2::aes(xintercept = median), color = "blue") +
+                ggplot2::annotate(x = min, y = +Inf, label = paste("Min =", min), vjust = 1, geom = "label", size = 3) +
+                ggplot2::annotate(x = max, y = +Inf, label = paste("Max =", max), vjust = 1, geom = "label", size = 3) +
+                ggplot2::annotate(x = upper, y = mid_dens, label = expression(Q[0.95]), vjust = 1, geom = "label", color = "red", size = 3) +
+                ggplot2::annotate(x = lower, y = mid_dens, label = expression(Q[0.05]), vjust = 1, geom = "label", color = "red", size = 3) +
+                ggplot2::annotate(x = mean, y = (mid_dens) * 0.5, label = paste("Mean =", mean), vjust = 1, geom = "label", color = "green", size = 3) +
+                ggplot2::annotate(x = median, y = (mid_dens) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
+                ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
+                ggplot2::scale_fill_manual(
+                  values = c("#CCCCCC","#000000"),
+                  name = "Samples from :"
+                ) +
+                ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
+                ggplot2::theme_bw() +
+                ggplot2::theme(
+                  plot.background = ggplot2::element_rect(color = "black", linewidth = 2),
+                  plot.title = ggplot2::element_text(size = 15, hjust = 0.5, face = "bold"),
+                  legend.position = "bottom",
+                  panel.grid.minor = ggplot2::element_blank()
+                )
+              ### Export plot size distribution in density
+              ggplot2::ggsave(plot_size_dist_density,
+                              file = paste0(
+                                path_file,
+                                "/length_dist_by_species",
+                                "/length_dist_by_species_",
+                                country_code,
+                                "_",
+                                ocean,
+                                "_",
+                                start_year,
+                                "-",
+                                end_year,
+                                "/dens",
+                                "/length_dist_",
+                                sp,
+                                "_",
+                                lg,
+                                "_",
+                                start_year,
+                                "-",
+                                end_year,
+                                "_",
+                                ocean,
+                                ".PNG"
+                              ),
+                              width = 10,
+                              height = 6
               )
-            ### Export plot size distribution in density
-            ggplot2::ggsave(plot_size_dist_density,
-                            file = paste0(
-                              path_file,
-                              "/length_dist_by_species",
-                              "/length_dist_by_species_",
-                              country_code,
-                              "_",
-                              ocean,
-                              "_",
-                              start_year,
-                              "-",
-                              end_year,
-                              "/dens",
-                              "/length_dist_",
-                              sp,
-                              "_",
-                              lg,
-                              "_",
-                              start_year,
-                              "-",
-                              end_year,
-                              "_",
-                              ocean,
-                              ".PNG"
-                            ),
-                            width = 10,
-                            height = 6
-            )
+            }
           }
         }
       }
