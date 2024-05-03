@@ -74,7 +74,7 @@ sample_with_no_fate_correction <- function(data_connection,
     country_code = country_code,
     path_file = path_file
   )
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_species_fate_sql <- paste(readLines(con = system.file("sql",
                                                                   "observe_species_fate.sql",
                                                                   package = "codama"
@@ -248,7 +248,7 @@ sample_with_no_fate_correction <- function(data_connection,
   print(trips_to_recalculate)
   # 5 - Exportation of the final check ----
   ## Data extraction to see corrected samples by the topiaid
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
                                                                       "observe_sample.sql",
                                                                       package = "codama"

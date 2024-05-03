@@ -50,7 +50,7 @@ measure_type_control <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_sample_sql <- paste(
       readLines(con = system.file("sql",
                                   "observe_sample.sql",

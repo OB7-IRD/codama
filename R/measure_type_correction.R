@@ -90,7 +90,7 @@ measure_type_correction <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_sample_sql <- paste(readLines(con = system.file("sql",
       "observe_sample_measure_type_correction.sql",
       package = "codama"
@@ -357,7 +357,7 @@ measure_type_correction <- function(data_connection,
 
   # 5 - Exportation of the final check ----
   # Data extraction to extract info on corrected samplmeasures by the topiaid
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
       "observe_sample_measure_type_correction.sql",
       package = "codama"

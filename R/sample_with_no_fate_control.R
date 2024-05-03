@@ -48,7 +48,7 @@ sample_with_no_fate_control <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe") {
+  if (data_connection[[1]] == "observe_main") {
     observe_catch_sql <- paste(readLines(con = system.file("sql",
                                                            "observe_catch.sql",
                                                            package = "codama"
