@@ -29,6 +29,7 @@ p.label1::text as program
 ,sf.topiaid::text as fate_id
 ,rfd.label1::text as reason_discarded
 ,c.comment::text as catch_comment
+,t.topiaid::text as trip_id
 ,s.topiaid::text as set_id
 ,c.topiaid::text as catch_id
 

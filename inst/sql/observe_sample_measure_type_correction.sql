@@ -1,34 +1,32 @@
 SELECT
-sp.faocode::text as fao_code
-,sp.scientificlabel::text as scientific_name
-,sp.label1::text as common_name
-,sp.label2::text as nom_commun
-,sg.label1::text as species_group
-,sm.length::numeric as length
-,smt.code::text as size_type
-,sm.islengthcomputed::text as length_was_computed
-,sm.weight::numeric as weight
-,sm.isweightcomputed::text as weight_was_computed
-,sm.count::integer count
-,sx.label1::text as sex
-,fa.code::integer as fate_code
-,fa.label1::text as fate
+p.label1::text as program
+,extract(year from r.date)::integer as YEAR
 ,o.label1::text as ocean
-,'PS'::text as gear
-,p.label1::text as program
-,a.latitude::numeric as latitude
-,a.longitude::numeric as longitude
-,extract(year from r.date)::integer as year
+,v.label1::text as vessel
+,t.homeid::text as home_id
 ,t.startdate::date as trip_start_date
 ,t.enddate::date as trip_end_date
-,v.label1::text as vessel
 ,ob.lastname::text as observer
 ,r.date::date as observation_date
 ,a.time::time as observation_time
+,a.latitude::numeric as latitude
+,a.longitude::numeric as longitude
 ,(CASE WHEN st.code='0' THEN 'UNK' ELSE (CASE WHEN st.code='1' THEN 'FOB' ELSE (CASE WHEN st.code='2' THEN 'FSC' END) END) END)::text as school_type
+,sg.label1::text as species_group
+,sp.faocode::text as fao_code
+,sp.label1::text as common_name
+,sp.scientificlabel::text as scientific_name
+,sm.count::integer count
+,sm.weight::numeric as weight
+,sm.isweightcomputed::text as weight_was_computed
+,sp.label2::text as nom_commun
+,sm.length::numeric as length
+,smt.code::text as size_type
+,sx.label1::text as sex
+,fa.label1::text as fate
+,fa.code::integer as fate_code
 ,sa.comment::text as sample_comment
 ,t.topiaid::text as trip_id
-,t.homeid::text as homeid
 ,s.topiaid::text as set_id
 ,sa.topiaid::text as sample_id
 ,sm.topiaid::text as samplemeasure_id
