@@ -1,69 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ob7-ird.github.io/codama/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/all_species_control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/check_species_catch_ocean.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/codama-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/fate_code_9_control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/file_path_checking.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/marine_area_overlay_control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/measure_type_control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/measure_type_correction.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/more_samples_than_count.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/r_table_checking.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/r_type_checking.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/sample_with_no_fate_control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/sample_with_no_fate_correction.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/size-distribution-and-outliers-control.html</loc>
-  </url>
-  <url>
-    <loc>https://ob7-ird.github.io/codama/reference/vector_comparison.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ob7-ird.github.io/codama/404.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/LICENSE-text.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/authors.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/index.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/news/index.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/all_species_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/check_species_catch_ocean.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/codama-package.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/fate_code_9_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/file_path_checking.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/index.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/marine_area_overlay_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/measure_type_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/measure_type_correction.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/more_samples_than_count.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/pipe.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/r_table_checking.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/r_type_checking.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/sample_with_no_fate_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/sample_with_no_fate_correction.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/size-distribution-and-outliers-control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/vector_comparison.html</loc></url>
 </urlset>
+
