@@ -57,9 +57,8 @@ Imports:
     stats,
     utils (>= 4.2.2)
 Remotes: 
-    OB7-IRD/furdeb,
-    tidyverse/ggplot2
+    OB7-IRD/furdeb
 Suggests: 
     testthat (>= 3.0.0),
-    furdeb (>= 0.9.0)
+    furdeb (>= 0.0.0.9000)
 Config/testthat/edition: 3

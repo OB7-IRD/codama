@@ -21,7 +21,7 @@ vector_comparison(
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
-\item{epsilon}{{\link[base]{numeric}} expected. Default values: 1.5e-8. Tolerance of comparison for numeric value, following the problem caused by IEEE Standard 754}
+\item{epsilon}{{\link[base]{numeric}} expected. Default values: 1.5e-8. Tolerance of comparison for numeric value, following the problem caused by IEEE Standard 754.}
 }
 \description{
 Identify similarities and differences between two R vectors (for the numbers the comparison is not exact, an epsilon is used).
