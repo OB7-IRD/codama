@@ -4,14 +4,17 @@
 \alias{file_path_checking}
 \title{Checking for file path}
 \usage{
-file_path_checking(file_path, extension, output = "message")
+file_path_checking(file_path, extension, output = "error")
 }
 \arguments{
 \item{file_path}{Object of class \code{\link[base]{character}} expected. File location on your system.}
 
 \item{extension}{Object of class \code{\link[base]{vector}} of {\link[base]{character}} expected. Expected extension type set (avoid the . before the extension).}
 
-\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "message". You can choose between "message" or "logical".}
+\item{output}{{\link[base]{character}} expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".}
+}
+\value{
+The function returns error with output is "error" and if the parameters are not respected, a {\link[base]{character}} with output is "message", a {\link[base]{logical}} with output is "logical"
 }
 \description{
 Checking for file path before import in R.
