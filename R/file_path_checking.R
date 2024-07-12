@@ -41,36 +41,38 @@ file_path_checking <- function(file_path,
                                              "logical"),
                            output = "message"))
   }
-  file_path_extension <- dplyr::last(x = unlist(x = strsplit(
-    x = file_path,
-    split = "[.]"
-  )))
-  if (! file_path_extension %in% extension) {
-    message_failure <- paste0(format(x = Sys.time(),
-                                    "%Y-%m-%d %H:%M:%S"),
-                             " - Failure,",
-                             " invalid \"extension\" argument.\n",
-                             "File extension expected should be ", paste0("\"", extension, collapse = "\", "), "\" (extension provides is \"", file_path_extension, "\").\n")
-    if (output == "message") {
-      return(cat(message_failure))
-    } else if (output == "error") {
-      return(stop(message_failure))
-    } else if (output == "logical") {
-      return(FALSE)
+  if (!is.null(file_path)) {
+    file_path_extension <- dplyr::last(x = unlist(x = strsplit(
+      x = file_path,
+      split = "[.]"
+    )))
+    if (!file_path_extension %in% extension) {
+      message_failure <- paste0(format(x = Sys.time(),
+                                       "%Y-%m-%d %H:%M:%S"),
+                                " - Failure,",
+                                " invalid \"extension\" argument.\n",
+                                "File extension expected should be ", paste0("\"", extension, collapse = "\", "), "\" (extension provides is \"", file_path_extension, "\").\n")
+      if (output == "message") {
+        return(cat(message_failure))
+      } else if (output == "error") {
+        return(stop(message_failure))
+      } else if (output == "logical") {
+        return(FALSE)
+      }
     }
-  }
-  if (! file.exists(file_path)) {
-    message_failure <- paste0(format(x = Sys.time(),
-                                     "%Y-%m-%d %H:%M:%S"),
-                              " - Failure,",
-                              " invalid \"file_path\" argument.\n",
-                              "No file located at the file path.\n")
-    if (output == "message") {
-      return(cat(message_failure))
-    } else if (output == "error") {
-      return(stop(message_failure))
-    } else if (output == "logical") {
-      return(FALSE)
+    if (!file.exists(file_path)) {
+      message_failure <- paste0(format(x = Sys.time(),
+                                       "%Y-%m-%d %H:%M:%S"),
+                                " - Failure,",
+                                " invalid \"file_path\" argument.\n",
+                                "No file located at the file path.\n")
+      if (output == "message") {
+        return(cat(message_failure))
+      } else if (output == "error") {
+        return(stop(message_failure))
+      } else if (output == "logical") {
+        return(FALSE)
+      }
     }
   }
   if (output == "message") {
