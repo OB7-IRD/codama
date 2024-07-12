@@ -49,7 +49,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Checking for file path</h1>
-    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/main/R/file_path_checking.R" class="external-link"><code>R/file_path_checking.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/development/R/file_path_checking.R" class="external-link"><code>R/file_path_checking.R</code></a></small>
     <div class="hidden name"><code>file_path_checking.Rd</code></div>
     </div>
 
@@ -58,7 +58,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">file_path_checking</span><span class="op">(</span><span class="va">file_path</span>, <span class="va">extension</span>, output <span class="op">=</span> <span class="st">"message"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">file_path_checking</span><span class="op">(</span><span class="va">file_path</span>, <span class="va">extension</span>, output <span class="op">=</span> <span class="st">"error"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -74,9 +74,13 @@
 
 
 <dt id="arg-output">output<a class="anchor" aria-label="anchor" href="#arg-output"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Kind of expected output. By default "message". You can choose between "message" or "logical".</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>The function returns error with output is "error" and if the parameters are not respected, a <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> with output is "message", a <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> with output is "logical"</p>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
