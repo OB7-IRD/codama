@@ -1,10 +1,10 @@
 SELECT
 o.label1 AS ocean
-,o.code AS ocean_code
-,p.label1 AS program
+,p.label1 AS PROGRAM
+,extract(year from r.date)::integer as year
 ,v.label1 AS vessel
 ,co.label1 AS flag_country
-,ob.lastname AS observer_last_name
+,ob.lastname AS observer
 ,t.startdate AS trip_start_date
 ,t.enddate AS trip_end_date
 ,r.date::date AS observation_date
@@ -19,8 +19,7 @@ o.label1 AS ocean
 ,fo.computedwhenarrivingsimplifiedobjecttype AS object_type_arriving
 ,fo.computedwhenleavingsimplifiedobjecttype AS object_type_leaving
 ,op.label1 AS object_operation
-,STRING_AGG(om.label1, ', ') AS concatenated_labels
-
+,STRING_AGG(om.label1, ', ') AS object_feature
 
 
 FROM ps_common.trip t
