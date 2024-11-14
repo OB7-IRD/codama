@@ -1,8 +1,7 @@
+# codama 1.0.0
+
 <div style="text-align: justify">
 
-# Still in construction !
-
 ## Added
-* New content soon available
-
+* Start of version number
 </div>
