@@ -1,6 +1,6 @@
 Package: codama
 Title: Common prOcesses for Data quAlity Monitoring
-Version: 1.0.0
+Version: 1.1.0
 Authors@R:
     c(person(given = "Oceane",
               family = "Bouhineau",
@@ -55,7 +55,8 @@ Imports:
     ggplot2 (>= 3.4.4),
     reshape (>= 0.8.9),
     stats,
-    utils (>= 4.2.2)
+    utils (>= 4.2.2),
+    purrr (>= 1.0.2)
 Remotes: 
     OB7-IRD/furdeb
 Suggests: 

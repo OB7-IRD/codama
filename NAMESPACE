@@ -2,6 +2,7 @@
 
 export("%>%")
 export(all_species_control)
+export(check_raising_factor_inspector)
 export(check_species_catch_ocean)
 export(fate_code_9_control)
 export(file_path_checking)
