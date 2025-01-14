@@ -1,0 +1,49 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "codama" in publications use:'
+type: software
+license: GPL-3.0-only
+title: 'codama: Common prOcesses for Data quAlity Monitoring'
+version: 1.1.0
+abstract: This package aims is to provide a series of standardised and generic controls
+  processes for data quality assessment and monitoring.
+authors:
+- family-names: Bouhineau
+  given-names: Oceane
+  email: oceane.bouhineau@ird.fr
+  orcid: https://orcid.org/0000-0001-7418-2925
+- family-names: Depetris
+  given-names: Mathieu
+  email: mathieu.depetris@ird.fr
+  orcid: https://orcid.org/0000-0001-8080-0531
+- family-names: Fily
+  given-names: Theotime
+  email: theotime.fily@ird.fr
+  orcid: https://orcid.org/0000-0001-7277-1769
+- family-names: Lebranchu
+  given-names: Julien
+  email: julien.lebranchu@ird.fr
+  orcid: https://orcid.org/0000-0002-7759-0534
+- family-names: Lerebourg
+  given-names: Clara
+  email: clara.lerebourg@ird.fr
+  orcid: https://orcid.org/0000-0003-0589-8932
+- family-names: Mollier
+  given-names: Esther
+  email: esther.mollier@ird.fr
+  orcid: https://orcid.org/0000-0001-8921-079X
+repository-code: https://github.com/OB7-IRD/codama
+url: https://github.com/OB7-IRD/codama
+contact:
+- family-names: Bouhineau
+  given-names: Oceane
+  email: oceane.bouhineau@ird.fr
+  orcid: https://orcid.org/0000-0001-7418-2925
+keywords:
+- pkgdown
+- r
+
