@@ -1,5 +1,7 @@
 #' @name sample_with_no_fate_control
 #' @title Sample with no fate control
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description This function aims to find all the samples in the observer data that don't have a fate and attributes it one when possible
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sample_with_no_fate_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.

@@ -1,5 +1,7 @@
 #' @name fate_code_9_control
 #' @title Fate code 9 control
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description Identifies in the Observer data all the fate code 9 and the comment associated
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the fate_code_9_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.

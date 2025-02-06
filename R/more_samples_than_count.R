@@ -1,5 +1,7 @@
 #' @name more_samples_than_count
 #' @title More_samples_than_count
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description Identifies in the Observer data all the occurrences of observations with a number of samples superior to the number of catches.
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the more_samples_than_count
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.

@@ -1,5 +1,7 @@
 #' @name size distribution and outliers control
 #' @title size_distribution_and_outliers_control
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description 'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the size_distribution_and_outliers_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the samples to control.

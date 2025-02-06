@@ -1,5 +1,7 @@
 #' @name measure_type_control
 #' @title Measure_type_control
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description This function allows to check the coherence of a sampled species measure type according to its default measure type.
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.

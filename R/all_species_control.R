@@ -1,5 +1,7 @@
 #' @name all_species_control
 #' @title All_species_control
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description This function aims to check the coherence of the species caught in a given ocean according to their distribution area. For each inconsistency, it returns a table containing the details of the observation to correct.
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the all_species_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.
