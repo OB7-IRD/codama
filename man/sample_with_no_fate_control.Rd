@@ -35,3 +35,9 @@ The function return an xlsx tables.
 \description{
 This function aims to find all the samples in the observer data that don't have a fate and attributes it one when possible
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}

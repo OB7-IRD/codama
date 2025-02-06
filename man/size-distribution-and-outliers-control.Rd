@@ -51,3 +51,9 @@ The function return histograms and xlsx tables.
 \description{
 'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Flore Moussy, Philippe S. Sabarros
+}

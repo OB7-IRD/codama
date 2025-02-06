@@ -35,3 +35,9 @@ The function return a xlsx table.
 \description{
 Identifies in the Observer data all the occurrences of observations with a number of samples superior to the number of catches.
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}
