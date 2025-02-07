@@ -26,6 +26,8 @@ Authors:
   \item Julien Lebranchu \email{julien.lebranchu@ird.fr} (\href{https://orcid.org/0000-0002-7759-0534}{ORCID})
   \item Clara Lerebourg \email{clara.lerebourg@ird.fr} (\href{https://orcid.org/0000-0003-0589-8932}{ORCID})
   \item Esther Mollier \email{esther.mollier@ird.fr} (\href{https://orcid.org/0000-0001-8921-079X}{ORCID})
+  \item Chloé Tellier \email{chloe.tellier@ird.fr} (\href{https://orcid.org/0009-0007-5988-3310}{ORCID})
+  \item Philippe Sabarros \email{philippe.sabarros@ird.fr} (\href{https://orcid.org/0000-0001-6135-9015}{ORCID})
 }
 
 Other contributors:
