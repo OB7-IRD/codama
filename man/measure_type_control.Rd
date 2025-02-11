@@ -35,3 +35,9 @@ The function return a xlsx table.
 \description{
 This function allows to check the coherence of a sampled species measure type according to its default measure type.
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}

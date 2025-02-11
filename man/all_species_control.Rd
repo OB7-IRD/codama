@@ -35,3 +35,9 @@ The function return two xlsx tables.
 \description{
 This function aims to check the coherence of the species caught in a given ocean according to their distribution area. For each inconsistency, it returns a table containing the details of the observation to correct.
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}

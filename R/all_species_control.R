@@ -56,16 +56,18 @@ all_species_control <- function(data_connection,
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe_main") {
     observe_catch_sql <- paste(
-      readLines(con = system.file("sql",
-                                  "observe_catch.sql",
-                                  package = "codama"
+      readLines(con = system.file(
+        "sql",
+        "observe_catch.sql",
+        package = "codama"
       )),
       collapse = "\n"
     )
     observe_species_sql <- paste(
-      readLines(con = system.file("sql",
-                                  "observe_species.sql",
-                                  package = "codama"
+      readLines(con = system.file(
+        "sql",
+        "observe_species.sql",
+        package = "codama"
       )),
       collapse = "\n"
     )
@@ -130,17 +132,19 @@ all_species_control <- function(data_connection,
       dplyr::filter(ocean_presence == ocean)
   }
   ### Merge of the two tables to add the ocean_presence for each species
-  summarise_catch_species <- merge(summarise_catch,
-                                   summarise_species,
-                                   by = c("fao_code"),
-                                   all.x = TRUE,
-                                   all.y = FALSE
+  summarise_catch_species <- merge(
+    summarise_catch,
+    summarise_species,
+    by = c("fao_code"),
+    all.x = TRUE,
+    all.y = FALSE
   )
   ### Add a column to check if both oceans are the same
   overall_species_control <- summarise_catch_species %>%
-    dplyr::mutate(correspondence = ifelse(is.na(ocean_presence),
-                                          FALSE,
-                                          TRUE
+    dplyr::mutate(correspondence = ifelse(
+      is.na(ocean_presence),
+      FALSE,
+      TRUE
     ))
   ## Detailed species control
   ### Selection of the species for which we found an inconsistency
@@ -173,23 +177,24 @@ all_species_control <- function(data_connection,
     "%Y%m%d_%H%M%S"
   )
   if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(overall_species_control,
-                         file = paste0(
-                           path_file,
-                           "/overall_species_control",
-                           "/overall_species_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
+    openxlsx::write.xlsx(
+      overall_species_control,
+      file = paste0(
+        path_file,
+        "/overall_species_control",
+        "/overall_species_control_",
+        country_code,
+        "_",
+        ocean,
+        "_",
+        start_year,
+        "-",
+        end_year,
+        "_",
+        timestamp,
+        ".xlsx"
+      ),
+      rowNames = FALSE
     )
   }
   ## Fold creation for the detailed species control
@@ -206,23 +211,24 @@ all_species_control <- function(data_connection,
     "%Y%m%d_%H%M%S"
   )
   if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(detailed_species_control,
-                         file = paste0(
-                           path_file,
-                           "/detailed_species_control",
-                           "/detailed_species_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
+    openxlsx::write.xlsx(
+      detailed_species_control,
+      file = paste0(
+        path_file,
+        "/detailed_species_control",
+        "/detailed_species_control_",
+        country_code,
+        "_",
+        ocean,
+        "_",
+        start_year,
+        "-",
+        end_year,
+        "_",
+        timestamp,
+        ".xlsx"
+      ),
+      rowNames = FALSE
     )
   }
 }

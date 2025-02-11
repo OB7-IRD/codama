@@ -43,7 +43,7 @@ measure_type_correction(
 
 \item{corrector}{{\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin}
 
-\item{action}{{\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin}
+\item{action}{{\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made.}
 
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
 }

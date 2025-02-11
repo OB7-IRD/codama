@@ -1,5 +1,5 @@
-#' @name more_samples_than_count
-#' @title More_samples_than_count
+#' @name more_samples_than_count_control
+#' @title More_samples_than_count_control
 #' @author Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description Identifies in the Observer data all the occurrences of observations with a number of samples superior to the number of catches.
@@ -12,13 +12,13 @@
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
 #' @return The function return a xlsx table.
 #' @export
-more_samples_than_count <- function(data_connection,
-                                    start_year,
-                                    end_year,
-                                    program,
-                                    ocean,
-                                    country_code,
-                                    path_file = NULL) {
+more_samples_than_count_control <- function(data_connection,
+                                            start_year,
+                                            end_year,
+                                            program,
+                                            ocean,
+                                            country_code,
+                                            path_file = NULL) {
   # 0 - Global variables assignement ----
   set_id <- NULL
   count <- NULL
@@ -120,7 +120,6 @@ more_samples_than_count <- function(data_connection,
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
     )
-
     catch <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
       statement = observe_catch_sql_final

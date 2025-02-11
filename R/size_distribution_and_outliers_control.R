@@ -17,13 +17,6 @@
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
 #' @return The function return histograms and xlsx tables.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr tibble group_by summarise filter arrange rename select left_join desc
-#' @importFrom ggplot2 ggplot aes geom_histogram geom_vline scale_x_continuous scale_color_manual labs theme_bw theme element_text element_blank ggsave
-#' @importFrom lubridate now
-#' @importFrom reshape untable
-#' @importFrom stats quantile
-#' @importFrom openxlsx write.xlsx
 size_distribution_and_outliers_control <- function(data_connection,
                                                    start_year,
                                                    end_year,
@@ -465,7 +458,7 @@ size_distribution_and_outliers_control <- function(data_connection,
         dplyr::filter(size_type == lg)
 
       ## Condition to avoid a saved graph if there is no sample for this species and this length type
-      if (nrow(data_lg) !=0) {
+      if (nrow(data_lg) != 0) {
         ## Condition to avoid plotting a min and max in the graph if we don't have the information
         if (!is.na(qmm_min_max_lg$min_length) == TRUE) {
           ## Attribute a mean/median/quantiles value from qmm_min_max data frame
@@ -491,7 +484,7 @@ size_distribution_and_outliers_control <- function(data_connection,
           all_year <- paste0(start_year_stat, " to ", end_year_stat)
 
           ## Plot size distribution in count
-          if (nrow(data_lg_filtered) !=0) {
+          if (nrow(data_lg_filtered) != 0) {
             if (type == "count") {
               plot_size_dist_count <- ggplot2::ggplot() +
                 ggplot2::geom_histogram(data = data_lg,
@@ -594,7 +587,7 @@ size_distribution_and_outliers_control <- function(data_connection,
                 ggplot2::annotate(x = median, y = (mid_dens) * 0.25, label = paste("Median =", median), vjust = 1, geom = "label", color = "blue", size = 3) +
                 ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
                 ggplot2::scale_fill_manual(
-                  values = c("#CCCCCC","#000000"),
+                  values = c("#CCCCCC", "#000000"),
                   name = "Samples from :"
                 ) +
                 ggplot2::labs(title = title, x = paste0(lg, " (cm)")) +
@@ -681,12 +674,12 @@ size_distribution_and_outliers_control <- function(data_connection,
         "-",
         end_year
       )
-      if (file.exists(folder_outliers_by_sp_lg) == FALSE & nrow(outliers_sp_lg) != 0) {
+      if (file.exists(folder_outliers_by_sp_lg) == FALSE && nrow(outliers_sp_lg) != 0) {
         dir.create(folder_outliers_by_sp_lg)
       }
       ### Write the xlsx file into the corresponding folder
       outliers_sp_lg <- outliers_sp_lg %>%
-        dplyr::arrange(length, desc(length))
+        dplyr::arrange(length, dplyr::desc(length))
       if (nrow(outliers_sp_lg) != 0) {
         openxlsx::write.xlsx(as.data.frame(outliers_sp_lg),
                              file = paste0(
@@ -722,5 +715,5 @@ size_distribution_and_outliers_control <- function(data_connection,
       }
     }
   }
-  cat("Task finished","\n")
+  cat("Task finished", "\n")
 }

@@ -35,3 +35,9 @@ The function return a xlsx table.
 \description{
 Identifies in the Observer data all the fate code 9 and the comment associated
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}

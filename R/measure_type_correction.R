@@ -12,7 +12,7 @@
 #' @param sizemeasuretype_to_replace {\link[base]{character}} expected. Measure type of the sample we want to correct. Examples: 'FL', 'DW'...etc.
 #' @param sizemeasuretype_new {\link[base]{character}} expected. Measure type to replace the incorrect one. Examples: 'FL', 'DW'...etc.
 #' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin
-#' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin
+#' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
 #' @return The function returns a xlsx table.
 #' @export
@@ -34,6 +34,8 @@ measure_type_correction <- function(data_connection,
   observer <- NULL
   trip_start_date <- NULL
   trip_end_date <- NULL
+  all_completed <- NULL
+  error_occurred <- NULL
   # 1 - Arguments verification ----
   r_type_checking(
     r_object = start_year,
@@ -67,10 +69,6 @@ measure_type_correction <- function(data_connection,
     r_object = sizemeasuretype_to_replace,
     type = "character",
     allowed_value = c("PD1", "LJFL", "SCL", "TL", "FL", "DW")
-  )
-  r_type_checking(
-    r_object = sizemeasuretype_new,
-    type = "character"
   )
   r_type_checking(
     r_object = sizemeasuretype_new,
@@ -136,7 +134,6 @@ measure_type_correction <- function(data_connection,
       species_group = DBI::SQL(paste0("'", paste0(species_group, collapse = "', '"), "'")),
       sizemeasuretype_to_replace = DBI::SQL(paste0("'", paste0(sizemeasuretype_to_replace, collapse = "', '"), "'"))
     )
-
     sample <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
       statement = observe_sample_sql_final
@@ -233,7 +230,6 @@ measure_type_correction <- function(data_connection,
   queries <- list(NULL)
   ct <- 0
   date <- substr(timestamp, 1, 8)
-
   for (i in seq_along(sample_id_list)) {
     sample_i <- sample[sample$sample_id == sample_id_list[i], ]
     for (j in seq_len(nrow(sample_i))) {

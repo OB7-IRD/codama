@@ -12,9 +12,6 @@
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.
 #' @return The function return a xlsx table.
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr group_by summarise filter
-#' @importFrom lubridate today
 fate_code_9_control <- function(data_connection,
                                 start_year,
                                 end_year,
@@ -148,7 +145,7 @@ fate_code_9_control <- function(data_connection,
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
     )
-
+    
     catch <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
       statement = observe_catch_sql_final
@@ -173,7 +170,7 @@ fate_code_9_control <- function(data_connection,
     nrow(sample_fate_code_9),
     "\n"
   )
-
+  
   # 4 - Export ----
   ## Fold creation for the fate code 9 in catch
   folder_catch_fate_code_9 <- paste0(
