@@ -56,25 +56,17 @@ measure_type_control <- function(data_connection,
     observe_sample_sql <- paste(
       readLines(con = system.file("sql",
                                   "observe_sample.sql",
-                                  package = "codama"
-      )),
-      collapse = "\n"
-    )
+                                  package = "codama")), collapse = "\n")
     observe_species_sql <- paste(
       readLines(con = system.file("sql",
                                   "observe_species.sql",
-                                  package = "codama"
-      )),
-      collapse = "\n"
-    )
+                                  package = "codama")), collapse = "\n")
     # Correction of the sql query if ocean or country code not selected
     if ("%" %in% ocean) {
-      observe_sample_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
+      observe_sample_sql <- sub(pattern = "AND o.label1 in (?ocean)",
+                                replacement = "AND o.label1 like (?ocean)",
+                                x = observe_sample_sql,
+                                fixed = TRUE)
     }
     if ("%" %in% country_code) {
       observe_sample_sql <- sub(
@@ -124,17 +116,14 @@ measure_type_control <- function(data_connection,
   overall_measure_type_control <- summarise_samplemeasure_species %>%
     dplyr::mutate(correspondence = ifelse(size_type == default_measure_type,
                                           TRUE,
-                                          FALSE
-    ))
+                                          FALSE))
   ## Detailed measure type control
   ### Selection of the species for which we found an inconsistency
   inconsistent_observation <- overall_measure_type_control %>%
     dplyr::filter(correspondence == FALSE)
-  cat(
-    " Observation(s) with a wrong measure type: ",
-    nrow(inconsistent_observation),
-    "\n"
-  )
+  cat(" Observation(s) with a wrong measure type: ",
+      nrow(inconsistent_observation),
+      "\n")
   if (nrow(inconsistent_observation) != 0) {
     for (i in seq_len(length.out = nrow(x = inconsistent_observation))) {
       cat(inconsistent_observation$fao_code[i],
@@ -176,23 +165,20 @@ measure_type_control <- function(data_connection,
   )
   if (!is.null(x = path_file)) {
     openxlsx::write.xlsx(overall_measure_type_control,
-                         file = paste0(
-                           path_file,
-                           "/overall_measure_type_control",
-                           "/overall_measure_type_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+                         file = paste0(path_file,
+                                       "/overall_measure_type_control",
+                                       "/overall_measure_type_control_",
+                                       country_code,
+                                       "_",
+                                       ocean,
+                                       "_",
+                                       start_year,
+                                       "-",
+                                       end_year,
+                                       "_",
+                                       timestamp,
+                                       ".xlsx"),
+                         rowNames = FALSE)
   }
   ## Fold creation for the detailed measure type control
   folder_detailed_measure_type_control <- paste0(
@@ -209,22 +195,19 @@ measure_type_control <- function(data_connection,
   )
   if (!is.null(x = path_file)) {
     openxlsx::write.xlsx(detailed_measure_type_control,
-                         file = paste0(
-                           path_file,
-                           "/detailed_measure_type_control",
-                           "/detailed_measure_type_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+                         file = paste0(path_file,
+                                       "/detailed_measure_type_control",
+                                       "/detailed_measure_type_control_",
+                                       country_code,
+                                       "_",
+                                       ocean,
+                                       "_",
+                                       start_year,
+                                       "-",
+                                       end_year,
+                                       "_",
+                                       timestamp,
+                                       ".xlsx"),
+                         rowNames = FALSE)
   }
 }

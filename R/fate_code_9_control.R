@@ -92,26 +92,20 @@ fate_code_9_control <- function(data_connection,
   if (data_connection[[1]] == "observe_main") {
     observe_catch_sql <- paste(readLines(con = system.file("sql",
                                                            "observe_catch.sql",
-                                                           package = "codama"
-    )), collapse = "\n")
+                                                           package = "codama")), collapse = "\n")
     observe_sample_sql <- paste(readLines(con = system.file("sql",
                                                             "observe_sample.sql",
-                                                            package = "codama"
-    )), collapse = "\n")
+                                                            package = "codama")), collapse = "\n")
     # Correction of the sql query if ocean or country code not selected
     if ("%" %in% ocean) {
-      observe_catch_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_catch_sql,
-        fixed = TRUE
-      )
-      observe_sample_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
+      observe_catch_sql <- sub(pattern = "AND o.label1 in (?ocean)",
+                               replacement = "AND o.label1 like (?ocean)",
+                               x = observe_catch_sql,
+                               fixed = TRUE)
+      observe_sample_sql <- sub(pattern = "AND o.label1 in (?ocean)",
+                                replacement = "AND o.label1 like (?ocean)",
+                                x = observe_sample_sql,
+                                fixed = TRUE)
     }
     if ("%" %in% country_code) {
       observe_catch_sql <- sub(
@@ -145,15 +139,13 @@ fate_code_9_control <- function(data_connection,
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
     )
-    
+
     catch <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
       statement = observe_catch_sql_final
     ))
-    sample <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_sample_sql_final
-    ))
+    sample <- dplyr::tibble(DBI::dbGetQuery(conn = data_connection[[2]],
+                                            statement = observe_sample_sql_final))
   }
   # 3 - Data design ----
   catch_fate_code_9 <- catch %>%
@@ -170,7 +162,7 @@ fate_code_9_control <- function(data_connection,
     nrow(sample_fate_code_9),
     "\n"
   )
-  
+
   # 4 - Export ----
   ## Fold creation for the fate code 9 in catch
   folder_catch_fate_code_9 <- paste0(
@@ -186,22 +178,19 @@ fate_code_9_control <- function(data_connection,
       "%Y%m%d_%H%M%S"
     )
     openxlsx::write.xlsx(as.data.frame(catch_fate_code_9),
-                         file = paste0(
-                           path_file,
-                           "/catch_fate_code_9/catch_fate_code_9_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+                         file = paste0(path_file,
+                                       "/catch_fate_code_9/catch_fate_code_9_control_",
+                                       country_code,
+                                       "_",
+                                       ocean,
+                                       "_",
+                                       start_year,
+                                       "-",
+                                       end_year,
+                                       "_",
+                                       timestamp,
+                                       ".xlsx"),
+                         rowNames = FALSE)
   }
   ## Fold creation for the fate code 9 in sample
   folder_sample_fate_code_9 <- paste0(
@@ -217,21 +206,18 @@ fate_code_9_control <- function(data_connection,
       "%Y%m%d_%H%M%S"
     )
     openxlsx::write.xlsx(as.data.frame(sample_fate_code_9),
-                         file = paste0(
-                           path_file,
-                           "/sample_fate_code_9/sample_fate_code_9_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+                         file = paste0(path_file,
+                                       "/sample_fate_code_9/sample_fate_code_9_control_",
+                                       country_code,
+                                       "_",
+                                       ocean,
+                                       "_",
+                                       start_year,
+                                       "-",
+                                       end_year,
+                                       "_",
+                                       timestamp,
+                                       ".xlsx"),
+                         rowNames = FALSE)
   }
 }

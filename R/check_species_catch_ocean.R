@@ -7,8 +7,6 @@
 #' @param output {\link[base]{character}} expected.Kind of expected output. You can choose between "message", "report" or "logical".
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 #' @export
-#' @importFrom DBI dbGetQuery sqlInterpolate SQL
-#' @importFrom dplyr tibble
 check_species_catch_ocean <- function(data_connection,
                                       type_select,
                                       select,
@@ -96,10 +94,7 @@ check_species_catch_ocean <- function(data_connection,
     specie_ocean_sql <- paste(
       readLines(con = system.file("sql",
                                   "specie_ocean.sql",
-                                  package = "codama"
-      )),
-      collapse = "\n"
-    )
+                                  package = "codama")), collapse = "\n")
     # Species caught during the trip, ocean declared
     specie_catch_ocean_sql <- paste(readLines(con = system.file("sql",
                                                                 "specie_catch_ocean.sql",
@@ -135,12 +130,10 @@ check_species_catch_ocean <- function(data_connection,
     )
     specie_ocean_data <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
-      statement = specie_ocean_sql
-    ))
+      statement = specie_ocean_sql))
     specie_catch_ocean_data <- dplyr::tibble(DBI::dbGetQuery(
       conn = data_connection[[2]],
-      statement = specie_catch_ocean_sql
-    ))
+      statement = specie_catch_ocean_sql))
   } else {
     if (is.data.frame(data_connection[[1]]) == TRUE && is.data.frame(data_connection[[2]]) == TRUE) {
       specie_ocean_data <- data_connection[[1]]
@@ -168,7 +161,8 @@ check_species_catch_ocean <- function(data_connection,
                                   output = "report"
   )
   comparison$logical <- FALSE
-  colnames_comparison <- grep("vectors_comparisons_", colnames(comparison))
+  colnames_comparison <- grep("vectors_comparisons_",
+                              colnames(comparison))
   comparison$logical[comparison[, colnames_comparison] == "no difference"] <- TRUE
   specie_catch_ocean_data <- cbind(specie_catch_ocean_data, comparison)
   if ((sum(specie_catch_ocean_data$logical) + sum(!specie_catch_ocean_data$logical)) != nrow_first) {
@@ -181,7 +175,7 @@ check_species_catch_ocean <- function(data_connection,
       sep = ""
     )
   }
-  
+
   # 4 - Export ----
   if (output == "message") {
     return(print(paste0("There are ", sum(!specie_catch_ocean_data$logical), " catches with species that are not associated with the ocean of the trip")))

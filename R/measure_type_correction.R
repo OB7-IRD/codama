@@ -90,13 +90,11 @@ measure_type_correction <- function(data_connection,
   # 2 - Data extraction ----
   if (data_connection[[1]] == "observe_main") {
     observe_sample_sql <- paste(readLines(con = system.file("sql",
-      "observe_sample_measure_type_correction.sql",
-      package = "codama"
-    )), collapse = "\n")
+                                                            "observe_sample_measure_type_correction.sql",
+                                                            package = "codama")), collapse = "\n")
     observe_size_measure_type_sql <- paste(readLines(con = system.file("sql",
-      "observe_size_measure_type.sql",
-      package = "codama"
-    )), collapse = "\n")
+                                                                       "observe_size_measure_type.sql",
+                                                                       package = "codama")), collapse = "\n")
     # Correction of the sql query if ocean or country code not selected
     if ("%" %in% ocean) {
       observe_sample_sql <- sub(
@@ -191,31 +189,31 @@ measure_type_correction <- function(data_connection,
   timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
   if (!is.null(x = path_file)) {
     openxlsx::write.xlsx(as.data.frame(sample),
-      file = paste0(
-        path_file,
-        "/measure_type_correction_",
-        country_code,
-        "_",
-        ocean,
-        "_",
-        start_year,
-        "-",
-        end_year,
-        "/corrections_",
-        paste(species),
-        "_samples_",
-        sizemeasuretype_to_replace,
-        "/sizesamples_observe_",
-        species_group,
-        "_",
-        species,
-        "_",
-        sizemeasuretype_to_replace,
-        "_",
-        timestamp,
-        ".xlsx"
-      ),
-      rowNames = FALSE
+                         file = paste0(
+                           path_file,
+                           "/measure_type_correction_",
+                           country_code,
+                           "_",
+                           ocean,
+                           "_",
+                           start_year,
+                           "-",
+                           end_year,
+                           "/corrections_",
+                           paste(species),
+                           "_samples_",
+                           sizemeasuretype_to_replace,
+                           "/sizesamples_observe_",
+                           species_group,
+                           "_",
+                           species,
+                           "_",
+                           sizemeasuretype_to_replace,
+                           "_",
+                           timestamp,
+                           ".xlsx"
+                         ),
+                         rowNames = FALSE
     )
   }
   # 4 - Query creation ----
@@ -235,35 +233,35 @@ measure_type_correction <- function(data_connection,
     for (j in seq_len(nrow(sample_i))) {
       ct <- ct + 1
       queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET sizemeasuretype = '",
-        sizemeasuretype_new_topiaid,
-        "', topiaversion = topiaversion+1, lastupdatedate = '",
-        format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
-        "' WHERE topiaid = '",
-        sample_i$samplemeasure_id[j],
-        "' AND sizemeasuretype = '",
-        sizemeasuretype_to_replace_topiaid,
-        "';",
-        sep = ""
+                             sizemeasuretype_new_topiaid,
+                             "', topiaversion = topiaversion+1, lastupdatedate = '",
+                             format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
+                             "' WHERE topiaid = '",
+                             sample_i$samplemeasure_id[j],
+                             "' AND sizemeasuretype = '",
+                             sizemeasuretype_to_replace_topiaid,
+                             "';",
+                             sep = ""
       )
     }
     ct <- ct + 1
     queries[[ct]] <- paste("UPDATE ps_observation.sample SET comment = concat(comment,'[Correction ",
-      species,
-      " type de mesure ",
-      sizemeasuretype_to_replace,
-      " en ",
-      sizemeasuretype_new,
-      " - ",
-      date,
-      " - ",
-      corrector,
-      "]')",
-      ", topiaversion = topiaversion+1, lastupdatedate = '",
-      format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
-      "' WHERE topiaid = '",
-      sample_id_list[i],
-      "';",
-      sep = ""
+                           species,
+                           " type de mesure ",
+                           sizemeasuretype_to_replace,
+                           " en ",
+                           sizemeasuretype_new,
+                           " - ",
+                           date,
+                           " - ",
+                           corrector,
+                           "]')",
+                           ", topiaversion = topiaversion+1, lastupdatedate = '",
+                           format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
+                           "' WHERE topiaid = '",
+                           sample_id_list[i],
+                           "';",
+                           sep = ""
     )
   }
   for (i in seq_along(queries)) {
@@ -323,18 +321,18 @@ measure_type_correction <- function(data_connection,
   samples_updated_lastupdatedate <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate >= '",
-      Sys.Date(),
-      "';",
-      sep = ""
+          Sys.Date(),
+          "';",
+          sep = ""
     )
   )
   utils::View(samples_updated_lastupdatedate)
   samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
-      corrected_samplemeasure_topiaid,
-      ");",
-      sep = ""
+          corrected_samplemeasure_topiaid,
+          ");",
+          sep = ""
     )
   )
   utils::View(samples_updated_topiaid)
@@ -355,9 +353,8 @@ measure_type_correction <- function(data_connection,
   # Data extraction to extract info on corrected samplmeasures by the topiaid
   if (data_connection[[1]] == "observe_main") {
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
-      "observe_sample_measure_type_correction.sql",
-      package = "codama"
-    )), collapse = "\n")
+                                                                      "observe_sample_measure_type_correction.sql",
+                                                                      package = "codama")), collapse = "\n")
     # Correction of the sql query
     observe_sample_corrected_sql <- sub(
       pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)\nAND va.code = '6'\nAND sp.faocode in (?species)\nAND sg.label1 in (?species_group)\nAND smt.code in (?sizemeasuretype_to_replace)\n\n\n",
@@ -371,33 +368,33 @@ measure_type_correction <- function(data_connection,
     ))
   }
   openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
-    file = paste0(
-      path_file,
-      "/measure_type_correction_",
-      country_code,
-      "_",
-      ocean,
-      "_",
-      start_year,
-      "-",
-      end_year,
-      "/corrections_",
-      species,
-      "_samples_",
-      sizemeasuretype_to_replace,
-      "/sizesamples_observe_",
-      species_group,
-      "_",
-      species,
-      "_corrected_from_",
-      sizemeasuretype_to_replace,
-      "_to_",
-      sizemeasuretype_new,
-      "_",
-      timestamp,
-      ".xlsx"
-    ),
-    rowNames = FALSE
+                       file = paste0(
+                         path_file,
+                         "/measure_type_correction_",
+                         country_code,
+                         "_",
+                         ocean,
+                         "_",
+                         start_year,
+                         "-",
+                         end_year,
+                         "/corrections_",
+                         species,
+                         "_samples_",
+                         sizemeasuretype_to_replace,
+                         "/sizesamples_observe_",
+                         species_group,
+                         "_",
+                         species,
+                         "_corrected_from_",
+                         sizemeasuretype_to_replace,
+                         "_to_",
+                         sizemeasuretype_new,
+                         "_",
+                         timestamp,
+                         ".xlsx"
+                       ),
+                       rowNames = FALSE
   )
   # Close the connection
   DBI::dbDisconnect(con1)

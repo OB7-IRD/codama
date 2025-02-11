@@ -62,16 +62,12 @@ more_samples_than_count_control <- function(data_connection,
     observe_catch_sql <- paste(
       readLines(con = system.file("sql",
                                   "observe_catch.sql",
-                                  package = "codama"
-      )),
-      collapse = "\n"
+                                  package = "codama")), collapse = "\n"
     )
     observe_sample_sql <- paste(
       readLines(con = system.file("sql",
                                   "observe_sample.sql",
-                                  package = "codama"
-      )),
-      collapse = "\n"
+                                  package = "codama")), collapse = "\n"
     )
     ## Correction of the sql query if ocean or country code not selected
     if ("%" %in% ocean) {
