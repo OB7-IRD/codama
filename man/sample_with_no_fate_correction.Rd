@@ -41,3 +41,9 @@ The function corrects sample fate directly in the data base and return a xlsx fi
 \description{
 This function aims to correct the samples without fate
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}

@@ -53,3 +53,9 @@ The function returns a xlsx table.
 \description{
 This function aims to correct directly in the data base samples with incorrect measure type
 }
+\note{
+Version 1.0
+}
+\author{
+Esther Mollier, Philippe S. Sabarros
+}
