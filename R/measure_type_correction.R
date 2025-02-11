@@ -1,5 +1,7 @@
 #' @name measure_type_correction
 #' @title Measure type correction
+#' @author Esther Mollier, Philippe S. Sabarros
+#' @note Version 1.0
 #' @description This function aims to correct directly in the data base samples with incorrect measure type
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control
 #' @param start_year {\link[base]{integer}} expected. Starting year for the correction.

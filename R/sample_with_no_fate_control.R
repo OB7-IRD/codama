@@ -192,5 +192,4 @@ sample_with_no_fate_control <- function(data_connection,
                          rowNames = FALSE
     )
   }
-  return(sample_with_no_fate)
 }
