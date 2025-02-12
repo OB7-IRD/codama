@@ -2,7 +2,7 @@
 % Please edit documentation in R/more_samples_than_count_control.R
 \name{more_samples_than_count_control}
 \alias{more_samples_than_count_control}
-\title{More_samples_than_count_control}
+\title{More samples than count control}
 \usage{
 more_samples_than_count_control(
   data_connection,

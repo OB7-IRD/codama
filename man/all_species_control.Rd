@@ -2,7 +2,7 @@
 % Please edit documentation in R/all_species_control.R
 \name{all_species_control}
 \alias{all_species_control}
-\title{All_species_control}
+\title{All species control}
 \usage{
 all_species_control(
   data_connection,

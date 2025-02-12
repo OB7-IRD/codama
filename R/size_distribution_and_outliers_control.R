@@ -1,5 +1,5 @@
 #' @name size distribution and outliers control
-#' @title size_distribution_and_outliers_control
+#' @title Size distribution and outliers control
 #' @author Esther Mollier, Flore Moussy, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description 'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'
@@ -247,7 +247,7 @@ size_distribution_and_outliers_control <- function(data_connection,
       statement = observe_species_sql
     ))
   }
-  # 3 - Data design ----
+  # 3 - Data manipulation ----
   ## Delete lengths that are not true length measure (not observed)
   size_catch <- catch %>%
     dplyr::filter(is_number_computed == "observed") %>%

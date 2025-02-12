@@ -1,5 +1,5 @@
 #' @name all_species_control
-#' @title All_species_control
+#' @title All species control
 #' @author Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description This function aims to check the coherence of the species caught in a given ocean according to their distribution area. For each inconsistency, it returns a table containing the details of the observation to correct.
@@ -91,8 +91,8 @@ all_species_control <- function(data_connection,
     observe_catch_sql_final <- DBI::sqlInterpolate(
       conn = data_connection[[2]],
       sql = observe_catch_sql,
-      start_year = DBI::SQL(paste0(paste0(start_year, collapse = ", "))),
-      end_year = DBI::SQL(paste0(paste0(end_year, collapse = ", "))),
+      start_year = DBI::SQL(start_year),
+      end_year = DBI::SQL(end_year),
       program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
@@ -106,7 +106,7 @@ all_species_control <- function(data_connection,
       statement = observe_species_sql
     ))
   }
-  # 3 - Data design ----
+  # 3 - Data manipulation ----
   ## Overall species control
   ### Summarise catch by fao code, scientific_name, common name and ocean
   summarise_catch <- catch %>%

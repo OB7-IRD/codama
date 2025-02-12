@@ -2,7 +2,7 @@
 % Please edit documentation in R/measure_type_control.R
 \name{measure_type_control}
 \alias{measure_type_control}
-\title{Measure_type_control}
+\title{Measure type control}
 \usage{
 measure_type_control(
   data_connection,

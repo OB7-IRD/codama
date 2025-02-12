@@ -2,7 +2,7 @@
 % Please edit documentation in R/sex_control.R
 \name{sex_control}
 \alias{sex_control}
-\title{Sex_control}
+\title{Sex control}
 \usage{
 sex_control(
   data_connection,

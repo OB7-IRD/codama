@@ -3,7 +3,7 @@
 \name{size distribution and outliers control}
 \alias{size distribution and outliers control}
 \alias{size_distribution_and_outliers_control}
-\title{size_distribution_and_outliers_control}
+\title{Size distribution and outliers control}
 \usage{
 size_distribution_and_outliers_control(
   data_connection,

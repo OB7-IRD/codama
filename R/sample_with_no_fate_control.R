@@ -91,8 +91,8 @@ sample_with_no_fate_control <- function(data_connection,
     observe_catch_sql_final <- DBI::sqlInterpolate(
       conn = data_connection[[2]],
       sql = observe_catch_sql,
-      start_year = DBI::SQL(paste0(paste0(start_year, collapse = ", "))),
-      end_year = DBI::SQL(paste0(paste0(end_year, collapse = ", "))),
+      start_year = DBI::SQL(start_year),
+      end_year = DBI::SQL(end_year),
       program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
@@ -100,8 +100,8 @@ sample_with_no_fate_control <- function(data_connection,
     observe_sample_sql_final <- DBI::sqlInterpolate(
       conn = data_connection[[2]],
       sql = observe_sample_sql,
-      start_year = DBI::SQL(paste0(paste0(start_year, collapse = ", "))),
-      end_year = DBI::SQL(paste0(paste0(end_year, collapse = ", "))),
+      start_year = DBI::SQL(start_year),
+      end_year = DBI::SQL(end_year),
       program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
       ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
       country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
@@ -115,7 +115,7 @@ sample_with_no_fate_control <- function(data_connection,
       statement = observe_sample_sql_final
     ))
   }
-  # 3 - Data design ----
+  # 3 - Data manipulation ----
   ## Filter sample to find all the samplemeasure without no fate
   sample_with_no_fate <- sample %>%
     dplyr::filter(is.na(fate_code))
