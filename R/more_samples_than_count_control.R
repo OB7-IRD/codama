@@ -19,7 +19,7 @@ more_samples_than_count_control <- function(data_connection,
                                             ocean,
                                             country_code,
                                             path_file = NULL) {
-  # 0 - Global variables assignement ----
+  # 0 - Global variables assignment ----
   set_id <- NULL
   count <- NULL
   home_id <- NULL

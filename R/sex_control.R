@@ -19,7 +19,7 @@ sex_control <- function(data_connection,
                         ocean,
                         country_code,
                         path_file = NULL) {
-  # 0 - Global variables assignement ----
+  # 0 - Global variables assignment ----
   fao_code <- NULL
   species_group <- NULL
   sex <- NULL
