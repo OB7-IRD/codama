@@ -49,42 +49,40 @@ sex_control <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe_main") {
-    observe_sample_sql <- paste(readLines(con = system.file("sql",
-                                                            "observe_sample.sql",
-                                                            package = "codama"
-    )), collapse = "\n")
-    # Correction of the sql query if ocean or country code not selected
-    if ("%" %in% ocean) {
-      observe_sample_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
-    }
-    if ("%" %in% country_code) {
-      observe_sample_sql <- sub(
-        pattern = "AND co.iso3code in (?country_code)",
-        replacement = "AND co.iso3code like (?country_code)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
-    }
-    observe_sample_sql_final <- DBI::sqlInterpolate(
-      conn = data_connection[[2]],
-      sql = observe_sample_sql,
-      start_year = DBI::SQL(start_year),
-      end_year = DBI::SQL(end_year),
-      program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
-      ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
-      country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
+  observe_sample_sql <- paste(readLines(con = system.file("sql",
+                                                          "observe_sample.sql",
+                                                          package = "codama"
+  )), collapse = "\n")
+  # Correction of the sql query if ocean or country code not selected
+  if ("%" %in% ocean) {
+    observe_sample_sql <- sub(
+      pattern = "AND o.label1 in (?ocean)",
+      replacement = "AND o.label1 like (?ocean)",
+      x = observe_sample_sql,
+      fixed = TRUE
     )
-    sample <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_sample_sql_final
-    ))
   }
+  if ("%" %in% country_code) {
+    observe_sample_sql <- sub(
+      pattern = "AND co.iso3code in (?country_code)",
+      replacement = "AND co.iso3code like (?country_code)",
+      x = observe_sample_sql,
+      fixed = TRUE
+    )
+  }
+  observe_sample_sql_final <- DBI::sqlInterpolate(
+    conn = data_connection[[2]],
+    sql = observe_sample_sql,
+    start_year = DBI::SQL(start_year),
+    end_year = DBI::SQL(end_year),
+    program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
+    ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
+    country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
+  )
+  sample <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_sample_sql_final
+  ))
   # 3 - Data manipulation ----
   ## Filter sample to find all the sample with sex and which is not a sexable specie
   sample_with_sex <- sample %>%

@@ -54,58 +54,56 @@ all_species_control <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe_main") {
-    observe_catch_sql <- paste(
-      readLines(con = system.file(
-        "sql",
-        "observe_catch.sql",
-        package = "codama"
-      )),
-      collapse = "\n"
+  observe_catch_sql <- paste(
+    readLines(con = system.file(
+      "sql",
+      "observe_catch.sql",
+      package = "codama"
+    )),
+    collapse = "\n"
+  )
+  observe_species_sql <- paste(
+    readLines(con = system.file(
+      "sql",
+      "observe_species.sql",
+      package = "codama"
+    )),
+    collapse = "\n"
+  )
+  ## Correction of the sql query if ocean or country code not selected
+  if (ocean == "%") {
+    observe_catch_sql <- sub(
+      pattern = "AND o.label1 in (?ocean)",
+      replacement = "AND o.label1 like (?ocean)",
+      x = observe_catch_sql,
+      fixed = TRUE
     )
-    observe_species_sql <- paste(
-      readLines(con = system.file(
-        "sql",
-        "observe_species.sql",
-        package = "codama"
-      )),
-      collapse = "\n"
-    )
-    ## Correction of the sql query if ocean or country code not selected
-    if (ocean == "%") {
-      observe_catch_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_catch_sql,
-        fixed = TRUE
-      )
-    }
-    if (country_code == "%") {
-      observe_catch_sql <- sub(
-        pattern = "AND co.iso3code in (?country_code)",
-        replacement = "AND co.iso3code like (?country_code)",
-        x = observe_catch_sql,
-        fixed = TRUE
-      )
-    }
-    observe_catch_sql_final <- DBI::sqlInterpolate(
-      conn = data_connection[[2]],
-      sql = observe_catch_sql,
-      start_year = DBI::SQL(start_year),
-      end_year = DBI::SQL(end_year),
-      program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
-      ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
-      country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
-    )
-    catch <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_catch_sql_final
-    ))
-    species <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_species_sql
-    ))
   }
+  if (country_code == "%") {
+    observe_catch_sql <- sub(
+      pattern = "AND co.iso3code in (?country_code)",
+      replacement = "AND co.iso3code like (?country_code)",
+      x = observe_catch_sql,
+      fixed = TRUE
+    )
+  }
+  observe_catch_sql_final <- DBI::sqlInterpolate(
+    conn = data_connection[[2]],
+    sql = observe_catch_sql,
+    start_year = DBI::SQL(start_year),
+    end_year = DBI::SQL(end_year),
+    program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
+    ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
+    country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'"))
+  )
+  catch <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_catch_sql_final
+  ))
+  species <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_species_sql
+  ))
   # 3 - Data manipulation ----
   ## Overall species control
   ### Summarise catch by fao code, scientific_name, common name and ocean
