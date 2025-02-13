@@ -151,7 +151,7 @@ all_species_control <- function(data_connection,
   inconsistent_species_list <- unique(inconsistent_observation$fao_code)
   if (nrow(inconsistent_observation) != 0) {
     cat("Species not caught in their spatial range: ",
-        nrow(inconsistent_species_list),
+        length(inconsistent_species_list),
         "\n")
   } else {
     cat("No species caught outside its spatial range ",
