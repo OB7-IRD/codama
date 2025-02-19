@@ -2,20 +2,20 @@
 #' @title Size distribution and outliers control
 #' @author Esther Mollier, Flore Moussy, Philippe S. Sabarros
 #' @note Version 1.0
-#' @description 'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'
-#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the size_distribution_and_outliers_control
+#' @description 'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'.
+#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the size_distribution_and_outliers_control.
 #' @param start_year {\link[base]{integer}} expected. Starting year for the samples to control.
 #' @param end_year {\link[base]{integer}} expected. Ending year for the samples to control.
 #' @param start_year_stat {\link[base]{integer}} expected. Starting year to calculate the mean median and quantiles.
 #' @param end_year_stat {\link[base]{integer}} expected. Ending year to calculate the mean median and quantiles.
 #' @param start_year_catch_vs_sample {\link[base]{integer}} expected. Starting year to compare sample to catch size distribution.
 #' @param end_year_catch_vs_sample {\link[base]{integer}} expected. Ending year to compare sample to catch size distribution.
-#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
+#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param type {\link[base]{character}} expected. type of graph you want: count or density.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx.
-#' @return The function return histograms and xlsx tables.
+#' @return The function returns histograms and xlsx tables.
 #' @export
 size_distribution_and_outliers_control <- function(data_connection,
                                                    start_year,

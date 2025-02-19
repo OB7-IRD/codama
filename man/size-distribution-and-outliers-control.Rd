@@ -21,7 +21,7 @@ size_distribution_and_outliers_control(
 )
 }
 \arguments{
-\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the size_distribution_and_outliers_control}
+\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the size_distribution_and_outliers_control.}
 
 \item{start_year}{{\link[base]{integer}} expected. Starting year for the samples to control.}
 
@@ -35,7 +35,7 @@ size_distribution_and_outliers_control(
 
 \item{end_year_catch_vs_sample}{{\link[base]{integer}} expected. Ending year to compare sample to catch size distribution.}
 
-\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"}
+\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".}
 
 \item{ocean}{{\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.}
 
@@ -46,10 +46,10 @@ size_distribution_and_outliers_control(
 \item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx.}
 }
 \value{
-The function return histograms and xlsx tables.
+The function returns histograms and xlsx tables.
 }
 \description{
-'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'
+'This script aims to visualise length distribtuion by species, year and ocean. It also gives for each species outliers lengths'.
 }
 \note{
 Version 1.0

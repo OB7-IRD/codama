@@ -10,7 +10,7 @@
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled.
 #' @param country_code {\link[base]{character}} expected. Countries for which control will be made.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.
-#' @return The function return one xlsx table.
+#' @return The function returns one xlsx table.
 #' @export
 observed_system_vs_species_caught_control <- function(data_connection,
                                                       start_year,

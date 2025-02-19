@@ -30,7 +30,7 @@ observed_system_vs_species_caught_control(
 \item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.}
 }
 \value{
-The function return one xlsx table.
+The function returns one xlsx table.
 }
 \description{
 Identifies in the Observer data any inconsistencies between observed systems and species caught.

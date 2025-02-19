@@ -15,13 +15,13 @@ sample_with_no_fate_control(
 )
 }
 \arguments{
-\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sample_with_no_fate_control}
+\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sample_with_no_fate_control.}
 
 \item{start_year}{{\link[base]{integer}} expected. Starting year for the control.}
 
 \item{end_year}{{\link[base]{integer}} expected. Ending year for the control.}
 
-\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"}
+\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".}
 
 \item{ocean}{{\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.}
 
@@ -30,10 +30,10 @@ sample_with_no_fate_control(
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
 }
 \value{
-The function return an xlsx tables.
+The function returns one xlsx table.
 }
 \description{
-This function aims to find all the samples in the observer data that don't have a fate and attributes it one when possible
+This function aims to find all the samples in the observer data that don't have a fate and attributes it one when possible.
 }
 \note{
 Version 1.0

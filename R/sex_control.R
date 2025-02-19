@@ -3,14 +3,14 @@
 #' @author Chloé Tellier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species. For each inconsistency, it returns a table containing the details of the observation to correct.
-#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sex_control
+#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sex_control.
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
-#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
+#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
-#' @return The function return one xlsx table.
+#' @return The function returns one xlsx table.
 #' @export
 sex_control <- function(data_connection,
                         start_year,
