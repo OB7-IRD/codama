@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -52,6 +52,28 @@
       <small>Source: <a href="https://github.com/OB7-IRD/codama/blob/development/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.0" id="codama-120--20250220">codama 1.2.0- 2025.02.20<a class="anchor" aria-label="anchor" href="#codama-120--20250220"></a></h2>
+<div class="section level3">
+<h3 id="changed-1-2-0">Changed<a class="anchor" aria-label="anchor" href="#changed-1-2-0"></a></h3>
+<ul><li>check_species_catch_ocean.R, marine_area_overlay_control.R : Remove importFrom</li>
+<li>measure_type_correction.R, sample_with_no_fate_correction.R : Add authors and note to function descriptions</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-1-2-0">Added<a class="anchor" aria-label="anchor" href="#added-1-2-0"></a></h3>
+<ul><li>sex_control function : Check the coherence of the sex of a sample according to the possibility of sexing this species</li>
+<li>observed_system_vs_species_caught_control function : Identifies in the Observer data any inconsistencies between observed systems and species caught</li>
+<li>observed_systems_vs_species_caught sql</li>
+<li>fate_unknown_control function : Identifies in the observer data cases where fate code 9 (other) or 11 (discarded unknown) were used</li>
+<li>fate_by_species_group_control function : Identifies in the observer data all the species with an inconsistent fate according to their species group</li>
+<li>weight_null_control function : Identifies in the observer data all individual weights = 0 or NA</li>
+<li>reason_for_discard_unknown_control function : Identifies in the observer data cases where the reason for discard is 99 or NA</li>
+</ul></div>
+<div class="section level3">
+<h3 id="delete-1-2-0">Delete<a class="anchor" aria-label="anchor" href="#delete-1-2-0"></a></h3>
+<ul><li>fate_code_9_control function : Identifies in the Observer data all the fate code 9 and the comment associated</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.1" id="codama-111--20250206">codama 1.1.1- 2025.02.06<a class="anchor" aria-label="anchor" href="#codama-111--20250206"></a></h2>
 <div class="section level3">
