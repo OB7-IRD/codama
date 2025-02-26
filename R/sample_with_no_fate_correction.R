@@ -217,7 +217,7 @@ sample_with_no_fate_correction <- function(data_connection,
           sep = ""
     )
   )
-  # utils::View(samplemeasure_updated_lastupdatedate)
+  utils::View(samplemeasure_updated_lastupdatedate)
   samplemeasure_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -226,7 +226,7 @@ sample_with_no_fate_correction <- function(data_connection,
           sep = ""
     )
   )
-  # utils::View(samplemeasure_updated_topiaid)
+  utils::View(samplemeasure_updated_topiaid)
   sample_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.sample WHERE topiaid in (",
@@ -235,7 +235,7 @@ sample_with_no_fate_correction <- function(data_connection,
           sep = ""
     )
   )
-  # utils::View(sample_updated_topiaid)
+  utils::View(sample_updated_topiaid)
   ## Trips to be recalculated
   trips_to_recalculate <- sample_to_be_corrected %>%
     dplyr::group_by(

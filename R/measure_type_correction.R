@@ -152,43 +152,221 @@ measure_type_correction <- function(data_connection,
     "\n",
     sep = ""
   )
-  ## Fold creation for the year
-  folder_year <- paste0(
-    path_file,
-    "/measure_type_correction_",
-    country_code,
-    "_",
-    ocean,
-    "_",
-    start_year,
-    "-",
-    end_year
-  )
-  if (file.exists(folder_year) == FALSE) {
-    dir.create(folder_year)
-  }
-  ## Fold creation for the samples to be corrected
-  folder_sample_to_be_corrected <- paste0(
-    path_file,
-    "/measure_type_correction_",
-    country_code,
-    "_",
-    ocean,
-    "_",
-    start_year,
-    "-",
-    end_year,
-    "/corrections_",
-    paste(species),
-    "_samples_",
-    sizemeasuretype_to_replace
-  )
-  if (file.exists(folder_sample_to_be_corrected) == FALSE) {
-    dir.create(folder_sample_to_be_corrected)
-  }
-  timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
-  if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(as.data.frame(sample),
+  if (nrow(sample) != 0) {
+    ## Fold creation for the year
+    folder_year <- paste0(
+      path_file,
+      "/measure_type_correction_",
+      country_code,
+      "_",
+      ocean,
+      "_",
+      start_year,
+      "-",
+      end_year
+    )
+    if (file.exists(folder_year) == FALSE) {
+      dir.create(folder_year)
+    }
+    ## Fold creation for the samples to be corrected
+    folder_sample_to_be_corrected <- paste0(
+      path_file,
+      "/measure_type_correction_",
+      country_code,
+      "_",
+      ocean,
+      "_",
+      start_year,
+      "-",
+      end_year,
+      "/corrections_",
+      paste(species),
+      "_samples_",
+      sizemeasuretype_to_replace
+    )
+    if (file.exists(folder_sample_to_be_corrected) == FALSE) {
+      dir.create(folder_sample_to_be_corrected)
+    }
+    timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
+    if (!is.null(x = path_file)) {
+      openxlsx::write.xlsx(as.data.frame(sample),
+                           file = paste0(
+                             path_file,
+                             "/measure_type_correction_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "/corrections_",
+                             paste(species),
+                             "_samples_",
+                             sizemeasuretype_to_replace,
+                             "/sizesamples_observe_",
+                             species_group,
+                             "_",
+                             species,
+                             "_",
+                             sizemeasuretype_to_replace,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+    }
+    # 4 - Query creation ----
+    # Select the topiaid of the measuretype to be corrected and the topiaid of the new one
+    sizemeasuretype_to_replace_topiaid <- size_measure_type$topiaid[size_measure_type$code == sizemeasuretype_to_replace]
+    sizemeasuretype_new_topiaid <- size_measure_type$topiaid[size_measure_type$code == sizemeasuretype_new]
+    # Topiaid of samples to be corrected
+    to_be_corrected_samplemeasure_topiaid <- paste0("'", paste0(sample$samplemeasure_id, collapse = "','"), "'")
+    # List of the samples concerned by the correction
+    sample_id_list <- unique(sample$sample_id)
+    # Queries for the correction
+    queries <- list(NULL)
+    ct <- 0
+    date <- substr(timestamp, 1, 8)
+    for (i in seq_along(sample_id_list)) {
+      sample_i <- sample[sample$sample_id == sample_id_list[i], ]
+      for (j in seq_len(nrow(sample_i))) {
+        ct <- ct + 1
+        queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET sizemeasuretype = '",
+                               sizemeasuretype_new_topiaid,
+                               "', topiaversion = topiaversion+1, lastupdatedate = '",
+                               format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
+                               "' WHERE topiaid = '",
+                               sample_i$samplemeasure_id[j],
+                               "' AND sizemeasuretype = '",
+                               sizemeasuretype_to_replace_topiaid,
+                               "';",
+                               sep = ""
+        )
+      }
+      ct <- ct + 1
+      queries[[ct]] <- paste("UPDATE ps_observation.sample SET comment = concat(comment,'[Correction ",
+                             species,
+                             " type de mesure ",
+                             sizemeasuretype_to_replace,
+                             " en ",
+                             sizemeasuretype_new,
+                             " - ",
+                             date,
+                             " - ",
+                             corrector,
+                             "]')",
+                             ", topiaversion = topiaversion+1, lastupdatedate = '",
+                             format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
+                             "' WHERE topiaid = '",
+                             sample_id_list[i],
+                             "';",
+                             sep = ""
+      )
+    }
+    for (i in seq_along(queries)) {
+      cat("[[", i, "]] ", queries[[i]], collapse = "\n\n", sep = "")
+    }
+    # 5 - Query execution ----
+    ## Connection to database
+    con1 <- data_connection[[2]]
+    cat("Number of update queries to be run : ", length(queries), "\n", sep = "")
+    DBI::dbBegin(con1)
+    ## Create variables to record query status
+    all_completed <- TRUE
+    error_occurred <- FALSE
+    ## Loop start
+    n <- length(queries)
+    for (k in 1:n) {
+      cat("Query: ", k, "\n", sep = "")
+      tryCatch(
+        {
+          result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
+          cat(queries[[k]], "\n", sep = "")
+          cat("completed: ", DBI::dbGetInfo(result_query_k)$has.completed, "\n\n", sep = "")
+          ## Update the all_completed variable if necessary
+          if (DBI::dbGetInfo(result_query_k)$has.completed != 1) {
+            all_completed <- FALSE
+          }
+          DBI::dbClearResult(result_query_k)
+        },
+        error = function(e) {
+          # In case of error, cancel the transaction
+          DBI::dbRollback(con1)
+          all_completed <- FALSE
+          error_occurred <- TRUE
+          print(paste("Error during query execution:", e$message))
+        }
+      )
+      if (error_occurred) {
+        break
+      }
+    }
+    ## COMMIT or ROLLBACK the modifications
+    if (all_completed && action == "COMMIT") {
+      DBI::dbCommit(con1)
+    } else {
+      DBI::dbRollback(con1)
+    }
+    ## Print the information on the operation's progress
+    if (all_completed && action == "COMMIT") {
+      cat("All queries successfully went through", "\n", sep = "")
+    } else if (action == "ROLLBACK") {
+      cat("No requests have been processed as ROLLBACK was selected", "\n", sep = "")
+    } else {
+      cat("At least one of the queries did not go through", "\n", sep = "")
+    }
+    ## To be corrected samples are now corrected
+    corrected_samplemeasure_topiaid <- to_be_corrected_samplemeasure_topiaid
+    # Check modified entries
+    samples_updated_lastupdatedate <- RPostgreSQL::dbGetQuery(
+      con1,
+      paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate >= '",
+            Sys.Date(),
+            "';",
+            sep = ""
+      )
+    )
+    utils::View(samples_updated_lastupdatedate)
+    samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
+      con1,
+      paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
+            corrected_samplemeasure_topiaid,
+            ");",
+            sep = ""
+      )
+    )
+    utils::View(samples_updated_topiaid)
+    # Trips to be recalculated
+    trips_to_recalculate <- sample %>%
+      dplyr::group_by(
+        program,
+        ocean,
+        homeid,
+        observer,
+        trip_start_date,
+        trip_end_date
+      ) %>%
+      dplyr::summarise(.groups = "drop")
+    print(trips_to_recalculate)
+    # 6 - Exportation of the final check ----
+    # Data extraction to extract info on corrected samplemeasures by the topiaid
+    observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
+                                                                      "observe_sample_measure_type_correction.sql",
+                                                                      package = "codama")), collapse = "\n")
+    # Correction of the sql query
+    observe_sample_corrected_sql <- sub(
+      pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)\nAND va.code = '6'\nAND sp.faocode in (?species)\nAND sg.label1 in (?species_group)\nAND smt.code in (?sizemeasuretype_to_replace)\n\n\n",
+      replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
+      x = observe_sample_corrected_sql,
+      fixed = TRUE
+    )
+    observe_sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
+      conn = data_connection[[2]],
+      statement = observe_sample_corrected_sql
+    ))
+    openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
                          file = paste0(
                            path_file,
                            "/measure_type_correction_",
@@ -200,200 +378,24 @@ measure_type_correction <- function(data_connection,
                            "-",
                            end_year,
                            "/corrections_",
-                           paste(species),
+                           species,
                            "_samples_",
                            sizemeasuretype_to_replace,
                            "/sizesamples_observe_",
                            species_group,
                            "_",
                            species,
-                           "_",
+                           "_corrected_from_",
                            sizemeasuretype_to_replace,
+                           "_to_",
+                           sizemeasuretype_new,
                            "_",
                            timestamp,
                            ".xlsx"
                          ),
                          rowNames = FALSE
     )
+    # Close the connection
+    DBI::dbDisconnect(con1)
   }
-  # 4 - Query creation ----
-  # Select the topiaid of the measuretype to be corrected and the topiaid of the new one
-  sizemeasuretype_to_replace_topiaid <- size_measure_type$topiaid[size_measure_type$code == sizemeasuretype_to_replace]
-  sizemeasuretype_new_topiaid <- size_measure_type$topiaid[size_measure_type$code == sizemeasuretype_new]
-  # Topiaid of samples to be corrected
-  to_be_corrected_samplemeasure_topiaid <- paste0("'", paste0(sample$samplemeasure_id, collapse = "','"), "'")
-  # List of the samples concerned by the correction
-  sample_id_list <- unique(sample$sample_id)
-  # Queries for the correction
-  queries <- list(NULL)
-  ct <- 0
-  date <- substr(timestamp, 1, 8)
-  for (i in seq_along(sample_id_list)) {
-    sample_i <- sample[sample$sample_id == sample_id_list[i], ]
-    for (j in seq_len(nrow(sample_i))) {
-      ct <- ct + 1
-      queries[[ct]] <- paste("UPDATE ps_observation.samplemeasure SET sizemeasuretype = '",
-                             sizemeasuretype_new_topiaid,
-                             "', topiaversion = topiaversion+1, lastupdatedate = '",
-                             format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
-                             "' WHERE topiaid = '",
-                             sample_i$samplemeasure_id[j],
-                             "' AND sizemeasuretype = '",
-                             sizemeasuretype_to_replace_topiaid,
-                             "';",
-                             sep = ""
-      )
-    }
-    ct <- ct + 1
-    queries[[ct]] <- paste("UPDATE ps_observation.sample SET comment = concat(comment,'[Correction ",
-                           species,
-                           " type de mesure ",
-                           sizemeasuretype_to_replace,
-                           " en ",
-                           sizemeasuretype_new,
-                           " - ",
-                           date,
-                           " - ",
-                           corrector,
-                           "]')",
-                           ", topiaversion = topiaversion+1, lastupdatedate = '",
-                           format(Sys.time(), "%Y-%m-%d %H:%M:%OS3"),
-                           "' WHERE topiaid = '",
-                           sample_id_list[i],
-                           "';",
-                           sep = ""
-    )
-  }
-  for (i in seq_along(queries)) {
-    cat("[[", i, "]] ", queries[[i]], collapse = "\n\n", sep = "")
-  }
-  # 5 - Query execution ----
-  ## Connection to database
-  con1 <- data_connection[[2]]
-  cat("Number of update queries to be run : ", length(queries), "\n", sep = "")
-  DBI::dbBegin(con1)
-  ## Create variables to record query status
-  all_completed <- TRUE
-  error_occurred <- FALSE
-  ## Loop start
-  n <- length(queries)
-  for (k in 1:n) {
-    cat("Query: ", k, "\n", sep = "")
-    tryCatch(
-      {
-        result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
-        cat(queries[[k]], "\n", sep = "")
-        cat("completed: ", DBI::dbGetInfo(result_query_k)$has.completed, "\n\n", sep = "")
-        ## Update the all_completed variable if necessary
-        if (DBI::dbGetInfo(result_query_k)$has.completed != 1) {
-          all_completed <- FALSE
-        }
-        DBI::dbClearResult(result_query_k)
-      },
-      error = function(e) {
-        # In case of error, cancel the transaction
-        DBI::dbRollback(con1)
-        all_completed <- FALSE
-        error_occurred <- TRUE
-        print(paste("Error during query execution:", e$message))
-      }
-    )
-    if (error_occurred) {
-      break
-    }
-  }
-  ## COMMIT or ROLLBACK the modifications
-  if (all_completed && action == "COMMIT") {
-    DBI::dbCommit(con1)
-  } else {
-    DBI::dbRollback(con1)
-  }
-  ## Print the information on the operation's progress
-  if (all_completed && action == "COMMIT") {
-    cat("All queries successfully went through", "\n", sep = "")
-  } else if (action == "ROLLBACK") {
-    cat("No requests have been processed as ROLLBACK was selected", "\n", sep = "")
-  } else {
-    cat("At least one of the queries did not go through", "\n", sep = "")
-  }
-  ## To be corrected samples are now corrected
-  corrected_samplemeasure_topiaid <- to_be_corrected_samplemeasure_topiaid
-  # Check modified entries
-  samples_updated_lastupdatedate <- RPostgreSQL::dbGetQuery(
-    con1,
-    paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate >= '",
-          Sys.Date(),
-          "';",
-          sep = ""
-    )
-  )
-  # utils::View(samples_updated_lastupdatedate)
-  samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
-    con1,
-    paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
-          corrected_samplemeasure_topiaid,
-          ");",
-          sep = ""
-    )
-  )
-  # utils::View(samples_updated_topiaid)
-  # Trips to be recalculated
-  trips_to_recalculate <- sample %>%
-    dplyr::group_by(
-      program,
-      ocean,
-      homeid,
-      observer,
-      trip_start_date,
-      trip_end_date
-    ) %>%
-    dplyr::summarise(.groups = "drop")
-  # print(trips_to_recalculate)
-  # 6 - Exportation of the final check ----
-  # Data extraction to extract info on corrected samplemeasures by the topiaid
-  observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
-                                                                    "observe_sample_measure_type_correction.sql",
-                                                                    package = "codama")), collapse = "\n")
-  # Correction of the sql query
-  observe_sample_corrected_sql <- sub(
-    pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)\nAND va.code = '6'\nAND sp.faocode in (?species)\nAND sg.label1 in (?species_group)\nAND smt.code in (?sizemeasuretype_to_replace)\n\n\n",
-    replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
-    x = observe_sample_corrected_sql,
-    fixed = TRUE
-  )
-  observe_sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
-    conn = data_connection[[2]],
-    statement = observe_sample_corrected_sql
-  ))
-  openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
-                       file = paste0(
-                         path_file,
-                         "/measure_type_correction_",
-                         country_code,
-                         "_",
-                         ocean,
-                         "_",
-                         start_year,
-                         "-",
-                         end_year,
-                         "/corrections_",
-                         species,
-                         "_samples_",
-                         sizemeasuretype_to_replace,
-                         "/sizesamples_observe_",
-                         species_group,
-                         "_",
-                         species,
-                         "_corrected_from_",
-                         sizemeasuretype_to_replace,
-                         "_to_",
-                         sizemeasuretype_new,
-                         "_",
-                         timestamp,
-                         ".xlsx"
-                       ),
-                       rowNames = FALSE
-  )
-  # Close the connection
-  DBI::dbDisconnect(con1)
 }
