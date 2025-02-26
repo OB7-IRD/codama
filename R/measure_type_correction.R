@@ -1,19 +1,19 @@
 #' @name measure_type_correction
 #' @title Measure type correction
-#' @author Esther Mollier, Philippe S. Sabarros
+#' @author Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
-#' @description This function aims to correct directly in the data base samples with incorrect measure type
-#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control
+#' @description This function aims to correct directly in the data base samples with incorrect measure type.
+#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control.
 #' @param start_year {\link[base]{integer}} expected. Starting year for the correction.
 #' @param end_year {\link[base]{integer}} expected. Ending year for the correction.
-#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"
+#' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on wich control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param species_group {\link[base]{character}} expected. Specie group to correct.
 #' @param species {\link[base]{character}} expected. Species code to correct. Examples: 'YFT', 'FAL'...etc.
 #' @param sizemeasuretype_to_replace {\link[base]{character}} expected. Measure type of the sample we want to correct. Examples: 'FL', 'DW'...etc.
 #' @param sizemeasuretype_new {\link[base]{character}} expected. Measure type to replace the incorrect one. Examples: 'FL', 'DW'...etc.
-#' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin
+#' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin.
 #' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
 #' @return The function returns a xlsx table.
@@ -90,59 +90,57 @@ measure_type_correction <- function(data_connection,
     type = "character"
   )
   # 2 - Data extraction ----
-  if (data_connection[[1]] == "observe_main") {
-    observe_sample_sql <- paste(readLines(con = system.file("sql",
-                                                            "observe_sample_measure_type_correction.sql",
-                                                            package = "codama")), collapse = "\n")
-    observe_size_measure_type_sql <- paste(readLines(con = system.file("sql",
-                                                                       "observe_size_measure_type.sql",
-                                                                       package = "codama")), collapse = "\n")
-    # Correction of the sql query if ocean or country code not selected
-    if ("%" %in% ocean) {
-      observe_sample_sql <- sub(
-        pattern = "AND o.label1 in (?ocean)",
-        replacement = "AND o.label1 like (?ocean)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
-    }
-    if ("%" %in% country_code) {
-      observe_sample_sql <- sub(
-        pattern = "AND co.iso3code in (?country_code)",
-        replacement = "AND co.iso3code like (?country_code)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
-    }
-    if ("%" %in% species_group) {
-      observe_sample_sql <- sub(
-        pattern = "AND sg.label1 in (?species_group)",
-        replacement = "AND sg.label1 like (?species_group)",
-        x = observe_sample_sql,
-        fixed = TRUE
-      )
-    }
-    observe_sample_sql_final <- DBI::sqlInterpolate(
-      conn = data_connection[[2]],
-      sql = observe_sample_sql,
-      start_year = DBI::SQL(paste0(paste0(start_year, collapse = ", "))),
-      end_year = DBI::SQL(paste0(paste0(end_year, collapse = ", "))),
-      program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
-      ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
-      country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'")),
-      species = DBI::SQL(paste0("'", paste0(species, collapse = "', '"), "'")),
-      species_group = DBI::SQL(paste0("'", paste0(species_group, collapse = "', '"), "'")),
-      sizemeasuretype_to_replace = DBI::SQL(paste0("'", paste0(sizemeasuretype_to_replace, collapse = "', '"), "'"))
+  observe_sample_sql <- paste(readLines(con = system.file("sql",
+                                                          "observe_sample_measure_type_correction.sql",
+                                                          package = "codama")), collapse = "\n")
+  observe_size_measure_type_sql <- paste(readLines(con = system.file("sql",
+                                                                     "observe_size_measure_type.sql",
+                                                                     package = "codama")), collapse = "\n")
+  # Correction of the sql query if ocean or country code not selected
+  if ("%" %in% ocean) {
+    observe_sample_sql <- sub(
+      pattern = "AND o.label1 in (?ocean)",
+      replacement = "AND o.label1 like (?ocean)",
+      x = observe_sample_sql,
+      fixed = TRUE
     )
-    sample <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_sample_sql_final
-    ))
-    size_measure_type <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_size_measure_type_sql
-    ))
   }
+  if ("%" %in% country_code) {
+    observe_sample_sql <- sub(
+      pattern = "AND co.iso3code in (?country_code)",
+      replacement = "AND co.iso3code like (?country_code)",
+      x = observe_sample_sql,
+      fixed = TRUE
+    )
+  }
+  if ("%" %in% species_group) {
+    observe_sample_sql <- sub(
+      pattern = "AND sg.label1 in (?species_group)",
+      replacement = "AND sg.label1 like (?species_group)",
+      x = observe_sample_sql,
+      fixed = TRUE
+    )
+  }
+  observe_sample_sql_final <- DBI::sqlInterpolate(
+    conn = data_connection[[2]],
+    sql = observe_sample_sql,
+    start_year = DBI::SQL(start_year),
+    end_year = DBI::SQL(end_year),
+    program = DBI::SQL(paste0("'", paste0(program, collapse = "', '"), "'")),
+    ocean = DBI::SQL(paste0("'", paste0(ocean, collapse = "', '"), "'")),
+    country_code = DBI::SQL(paste0("'", paste0(country_code, collapse = "', '"), "'")),
+    species = DBI::SQL(paste0("'", paste0(species, collapse = "', '"), "'")),
+    species_group = DBI::SQL(paste0("'", paste0(species_group, collapse = "', '"), "'")),
+    sizemeasuretype_to_replace = DBI::SQL(paste0("'", paste0(sizemeasuretype_to_replace, collapse = "', '"), "'"))
+  )
+  sample <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_sample_sql_final
+  ))
+  size_measure_type <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_size_measure_type_sql
+  ))
   # 3 - Exportation of the data before modification ----
   cat(
     " Records in samples to be corrected (",
@@ -269,7 +267,7 @@ measure_type_correction <- function(data_connection,
   for (i in seq_along(queries)) {
     cat("[[", i, "]] ", queries[[i]], collapse = "\n\n", sep = "")
   }
-  # 4 - Query execution ----
+  # 5 - Query execution ----
   ## Connection to database
   con1 <- data_connection[[2]]
   cat("Number of update queries to be run : ", length(queries), "\n", sep = "")
@@ -278,15 +276,16 @@ measure_type_correction <- function(data_connection,
   all_completed <- TRUE
   error_occurred <- FALSE
   ## Loop start
-  for (k in seq_along(queries)) {
+  n <- length(queries)
+  for (k in 1:n) {
     cat("Query: ", k, "\n", sep = "")
     tryCatch(
       {
         result_query_k <- DBI::dbSendStatement(con1, queries[[k]])
         cat(queries[[k]], "\n", sep = "")
-        cat("completed: ", DBI::dbGetInfo(result_query_k)$completed, "\n\n", sep = "")
+        cat("completed: ", DBI::dbGetInfo(result_query_k)$has.completed, "\n\n", sep = "")
         ## Update the all_completed variable if necessary
-        if (DBI::dbGetInfo(result_query_k)$completed != 1) {
+        if (DBI::dbGetInfo(result_query_k)$has.completed != 1) {
           all_completed <- FALSE
         }
         DBI::dbClearResult(result_query_k)
@@ -303,7 +302,7 @@ measure_type_correction <- function(data_connection,
       break
     }
   }
-  ## COMMIT or ROLLBACK the modifcations
+  ## COMMIT or ROLLBACK the modifications
   if (all_completed && action == "COMMIT") {
     DBI::dbCommit(con1)
   } else {
@@ -328,7 +327,7 @@ measure_type_correction <- function(data_connection,
           sep = ""
     )
   )
-  utils::View(samples_updated_lastupdatedate)
+  # utils::View(samples_updated_lastupdatedate)
   samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
     con1,
     paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -337,7 +336,7 @@ measure_type_correction <- function(data_connection,
           sep = ""
     )
   )
-  utils::View(samples_updated_topiaid)
+  # utils::View(samples_updated_topiaid)
   # Trips to be recalculated
   trips_to_recalculate <- sample %>%
     dplyr::group_by(
@@ -349,26 +348,23 @@ measure_type_correction <- function(data_connection,
       trip_end_date
     ) %>%
     dplyr::summarise(.groups = "drop")
-  print(trips_to_recalculate)
-
-  # 5 - Exportation of the final check ----
-  # Data extraction to extract info on corrected samplmeasures by the topiaid
-  if (data_connection[[1]] == "observe_main") {
-    observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
-                                                                      "observe_sample_measure_type_correction.sql",
-                                                                      package = "codama")), collapse = "\n")
-    # Correction of the sql query
-    observe_sample_corrected_sql <- sub(
-      pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)\nAND va.code = '6'\nAND sp.faocode in (?species)\nAND sg.label1 in (?species_group)\nAND smt.code in (?sizemeasuretype_to_replace)\n\n\n",
-      replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
-      x = observe_sample_corrected_sql,
-      fixed = TRUE
-    )
-    observe_sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
-      conn = data_connection[[2]],
-      statement = observe_sample_corrected_sql
-    ))
-  }
+  # print(trips_to_recalculate)
+  # 6 - Exportation of the final check ----
+  # Data extraction to extract info on corrected samplemeasures by the topiaid
+  observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
+                                                                    "observe_sample_measure_type_correction.sql",
+                                                                    package = "codama")), collapse = "\n")
+  # Correction of the sql query
+  observe_sample_corrected_sql <- sub(
+    pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)\nAND va.code = '6'\nAND sp.faocode in (?species)\nAND sg.label1 in (?species_group)\nAND smt.code in (?sizemeasuretype_to_replace)\n\n\n",
+    replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
+    x = observe_sample_corrected_sql,
+    fixed = TRUE
+  )
+  observe_sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
+    conn = data_connection[[2]],
+    statement = observe_sample_corrected_sql
+  ))
   openxlsx::write.xlsx(as.data.frame(observe_sample_corrected_data),
                        file = paste0(
                          path_file,
