@@ -328,7 +328,7 @@ measure_type_correction <- function(data_connection,
             sep = ""
       )
     )
-    utils::View(samples_updated_lastupdatedate)
+    # utils::View(samples_updated_lastupdatedate)
     samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
       con1,
       paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -337,7 +337,7 @@ measure_type_correction <- function(data_connection,
             sep = ""
       )
     )
-    utils::View(samples_updated_topiaid)
+    # utils::View(samples_updated_topiaid)
     # Trips to be recalculated
     trips_to_recalculate <- sample %>%
       dplyr::group_by(
@@ -349,7 +349,7 @@ measure_type_correction <- function(data_connection,
         trip_end_date
       ) %>%
       dplyr::summarise(.groups = "drop")
-    print(trips_to_recalculate)
+    # print(trips_to_recalculate)
     # 6 - Exportation of the final check ----
     # Data extraction to extract info on corrected samplemeasures by the topiaid
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
