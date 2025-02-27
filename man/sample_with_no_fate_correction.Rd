@@ -17,21 +17,21 @@ sample_with_no_fate_correction(
 )
 }
 \arguments{
-\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control}
+\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control.}
 
 \item{start_year}{{\link[base]{integer}} expected. Starting year for the control.}
 
 \item{end_year}{{\link[base]{integer}} expected. Ending year for the control.}
 
-\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234"}
+\item{program}{{\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".}
 
 \item{ocean}{{\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.}
 
 \item{country_code}{{\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.}
 
-\item{corrector}{{\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin}
+\item{corrector}{{\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin.}
 
-\item{action}{{\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made. Examples: 'JMartin' for Jeanne Martin}
+\item{action}{{\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made.}
 
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
 }
@@ -39,11 +39,11 @@ sample_with_no_fate_correction(
 The function corrects sample fate directly in the data base and return a xlsx file with the corrected samples.
 }
 \description{
-This function aims to correct the samples without fate
+This function aims to correct the samples without fate.
 }
 \note{
 Version 1.0
 }
 \author{
-Esther Mollier, Philippe S. Sabarros
+Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 }
