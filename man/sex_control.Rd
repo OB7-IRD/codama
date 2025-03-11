@@ -11,7 +11,8 @@ sex_control(
   program,
   ocean,
   country_code,
-  path_file = NULL
+  path_file = NULL,
+  export
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ sex_control(
 \item{country_code}{{\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.}
 
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
+
+\item{export}{{\link[base]{logical}} expected. Save or not the xlsx table.}
 }
 \value{
 The function returns one xlsx table.

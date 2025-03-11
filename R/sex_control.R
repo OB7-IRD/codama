@@ -10,6 +10,7 @@
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
+#' @param export {\link[base]{logical}} expected. Save or not the xlsx table.
 #' @return The function returns one xlsx table.
 #' @export
 sex_control <- function(data_connection,
@@ -18,7 +19,8 @@ sex_control <- function(data_connection,
                         program,
                         ocean,
                         country_code,
-                        path_file = NULL) {
+                        path_file = NULL,
+                        export) {
   # 0 - Global variables assignment ----
   fao_code <- NULL
   species_group <- NULL
@@ -99,24 +101,27 @@ sex_control <- function(data_connection,
     "individuals in total)"
   )
   # 4 - Export ----
-  timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
-  if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(as.data.frame(sample_with_sex),
-                         file = paste0(
-                           path_file,
-                           "/sex_control_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+  if (export == TRUE) {
+    timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
+    if (!is.null(x = path_file)) {
+      openxlsx::write.xlsx(as.data.frame(sample_with_sex),
+                           file = paste0(
+                             path_file,
+                             "/sex_control_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+    }
   }
+  return(sample_with_sex)
 }
