@@ -75,7 +75,7 @@ sample_with_no_fate_correction <- function(data_connection,
     ocean = ocean,
     country_code = country_code,
     path_file = path_file,
-    export = FALSE
+    export_table = FALSE
   )
   observe_species_fate_sql <- paste(readLines(con = system.file("sql",
                                                                 "observe_species_fate.sql",

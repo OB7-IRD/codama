@@ -10,7 +10,7 @@
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled. Examples: 'Indian', 'Atlantic'...etc.
 #' @param country_code {\link[base]{character}} expected. Countries on which control will be made. Examples: 'FRA', 'MUS'...etc.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
-#' @param export {\link[base]{logical}} expected. Save or not the xlsx table.
+#' @param export_table {\link[base]{logical}} expected. Save or not the xlsx table.
 #' @return The function returns one xlsx table.
 #' @export
 sample_with_no_fate_control <- function(data_connection,
@@ -20,7 +20,7 @@ sample_with_no_fate_control <- function(data_connection,
                                         ocean,
                                         country_code,
                                         path_file = NULL,
-                                        export) {
+                                        export_table) {
   # 0 - Global variables assignment ----
   fate_code <- NULL
   set_id <- NULL
@@ -172,7 +172,7 @@ sample_with_no_fate_control <- function(data_connection,
     "\n"
   )
   # 4 - Export ----
-  if (export == TRUE) {
+  if (export_table == TRUE) {
     timestamp <- format(lubridate::now(), "%Y%m%d_%H%M%S")
     if (!is.null(x = path_file)) {
       openxlsx::write.xlsx(as.data.frame(sample_with_no_fate),

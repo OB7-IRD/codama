@@ -12,7 +12,7 @@ sample_with_no_fate_control(
   ocean,
   country_code,
   path_file = NULL,
-  export
+  export_table
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ sample_with_no_fate_control(
 
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
 
-\item{export}{{\link[base]{logical}} expected. Save or not the xlsx table.}
+\item{export_table}{{\link[base]{logical}} expected. Save or not the xlsx table.}
 }
 \value{
 The function returns one xlsx table.
