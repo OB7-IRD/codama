@@ -12,7 +12,7 @@
 #' @param corrector {\link[base]{character}} expected. First letter of the corrector's first name and last name. Examples: 'JMartin' for Jeanne Martin.
 #' @param action {\link[base]{character}} expected. Type of action required when update queries are launched. COMMIT is used to definitively validate modifications and make them permanent in the database. ROLLBACK is used to undo changes made.
 #' @param path_file {\link[base]{character}} expected. By default NULL. Path to save the final xlsx.
-#' @return The function corrects sample fate directly in the data base and return a xlsx file with the corrected samples.
+#' @return The function corrects fate in samples directly in the database and returns a xlsx file with the corrected samples.
 #' @export
 sample_with_no_fate_correction <- function(data_connection,
                                            start_year,
@@ -212,13 +212,17 @@ sample_with_no_fate_correction <- function(data_connection,
     ## Check modified entries by lastupdate date and topiaid
     samplemeasure_updated_lastupdatedate <- RPostgreSQL::dbGetQuery(
       con1,
-      paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate = '",
+      paste("SELECT * FROM ps_observation.samplemeasure WHERE lastupdatedate >= '",
             Sys.Date(),
             "';",
             sep = ""
       )
     )
-    # utils::View(samplemeasure_updated_lastupdatedate)
+    if (nrow(samplemeasure_updated_lastupdatedate) > 0) {
+      utils::View(samplemeasure_updated_lastupdatedate)
+    } else if (nrow(samplemeasure_updated_lastupdatedate) == 0) {
+      cat("\n", "No samples were modified today (samplemeasure_updated_lastupdatedate has 0 rows)", sep = "")
+    }
     samplemeasure_updated_topiaid <- RPostgreSQL::dbGetQuery(
       con1,
       paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -227,7 +231,7 @@ sample_with_no_fate_correction <- function(data_connection,
             sep = ""
       )
     )
-    # utils::View(samplemeasure_updated_topiaid)
+    utils::View(samplemeasure_updated_topiaid)
     sample_updated_topiaid <- RPostgreSQL::dbGetQuery(
       con1,
       paste("SELECT * FROM ps_observation.sample WHERE topiaid in (",
@@ -236,7 +240,7 @@ sample_with_no_fate_correction <- function(data_connection,
             sep = ""
       )
     )
-    # utils::View(sample_updated_topiaid)
+    utils::View(sample_updated_topiaid)
     ## Trips to be recalculated
     trips_to_recalculate <- sample_to_be_corrected %>%
       dplyr::group_by(
@@ -248,7 +252,7 @@ sample_with_no_fate_correction <- function(data_connection,
         trip_end_date
       ) %>%
       dplyr::summarise(.groups = "drop")
-    # print(trips_to_recalculate)
+    utils::View(trips_to_recalculate)
     # 5 - Exportation of the final check ----
     ## Data extraction to see corrected samples by the topiaid
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",

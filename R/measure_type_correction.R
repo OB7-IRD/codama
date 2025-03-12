@@ -294,8 +294,8 @@ measure_type_correction <- function(data_connection,
         error = function(e) {
           # In case of error, cancel the transaction
           DBI::dbRollback(con1)
-          all_completed <- FALSE
-          error_occurred <- TRUE
+          all_completed <<- FALSE
+          error_occurred <<- TRUE
           print(paste("Error during query execution:", e$message))
         }
       )
@@ -328,7 +328,11 @@ measure_type_correction <- function(data_connection,
             sep = ""
       )
     )
-    # utils::View(samples_updated_lastupdatedate)
+    if (nrow(samples_updated_lastupdatedate) > 0) {
+      utils::View(samples_updated_lastupdatedate)
+    } else if (nrow(samples_updated_lastupdatedate) == 0) {
+      cat("\n", "No samples were modified today (samples_updated_lastupdatedate has 0 rows)", sep = "")
+    }
     samples_updated_topiaid <- RPostgreSQL::dbGetQuery(
       con1,
       paste("SELECT * FROM ps_observation.samplemeasure WHERE topiaid in (",
@@ -337,7 +341,7 @@ measure_type_correction <- function(data_connection,
             sep = ""
       )
     )
-    # utils::View(samples_updated_topiaid)
+    utils::View(samples_updated_topiaid)
     # Trips to be recalculated
     trips_to_recalculate <- sample %>%
       dplyr::group_by(
@@ -349,7 +353,7 @@ measure_type_correction <- function(data_connection,
         trip_end_date
       ) %>%
       dplyr::summarise(.groups = "drop")
-    # print(trips_to_recalculate)
+    utils::View(trips_to_recalculate)
     # 6 - Exportation of the final check ----
     # Data extraction to extract info on corrected samplemeasures by the topiaid
     observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",

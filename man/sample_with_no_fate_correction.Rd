@@ -36,7 +36,7 @@ sample_with_no_fate_correction(
 \item{path_file}{{\link[base]{character}} expected. By default NULL. Path to save the final xlsx.}
 }
 \value{
-The function corrects sample fate directly in the data base and return a xlsx file with the corrected samples.
+The function corrects fate in samples directly in the database and returns a xlsx file with the corrected samples.
 }
 \description{
 This function aims to correct the samples without fate.
