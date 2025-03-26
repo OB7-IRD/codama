@@ -236,5 +236,7 @@ fate_by_species_group_control <- function(data_connection,
       )
     }
   }
-  return(catch_fate_by_species_group, sample_fate_by_species_group)
+  tables_fate_by_species_group <- list(catch = catch_fate_by_species_group,
+                                       sample = sample_fate_by_species_group)
+  return(tables_fate_by_species_group)
 }
