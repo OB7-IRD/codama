@@ -11,7 +11,8 @@ fate_by_species_group_control(
   program,
   ocean,
   country_code,
-  path_file = NULL
+  path_file = NULL,
+  export_table
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ fate_by_species_group_control(
 \item{country_code}{{\link[base]{character}} expected. Countries for which control will be made.}
 
 \item{path_file}{{\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.}
+
+\item{export_table}{{\link[base]{logical}} expected. Save or not the xlsx tables.}
 }
 \value{
 The function returns two xlsx tables, one for the catch and one for the samples.

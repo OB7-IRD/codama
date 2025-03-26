@@ -10,6 +10,7 @@
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled.
 #' @param country_code {\link[base]{character}} expected. Countries for which control will be made.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.
+#' @param export_table {\link[base]{logical}} expected. Save or not the xlsx tables.
 #' @return The function returns two xlsx tables, one for the catch and one for the samples.
 #' @export
 fate_by_species_group_control <- function(data_connection,
@@ -18,7 +19,8 @@ fate_by_species_group_control <- function(data_connection,
                                           program,
                                           ocean,
                                           country_code,
-                                          path_file = NULL) {
+                                          path_file = NULL,
+                                          export_table) {
   # 0 - Global variables assignment ----
   species_group <- NULL
   fate_code <- NULL
@@ -192,44 +194,47 @@ fate_by_species_group_control <- function(data_connection,
     "\n"
   )
   # 4 - Export ----
-  if (!is.null(x = path_file)) {
-    timestamp <- format(
-      lubridate::now(),
-      "%Y%m%d_%H%M%S"
-    )
-    openxlsx::write.xlsx(as.data.frame(catch_fate_by_species_group),
-                         file = paste0(
-                           path_file,
-                           "/catch_fate_by_species_group_control",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
-    openxlsx::write.xlsx(as.data.frame(sample_fate_by_species_group),
-                         file = paste0(
-                           path_file,
-                           "/sample_fate_by_species_group_control",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+  if (export_table == TRUE) {
+    if (!is.null(x = path_file)) {
+      timestamp <- format(
+        lubridate::now(),
+        "%Y%m%d_%H%M%S"
+      )
+      openxlsx::write.xlsx(as.data.frame(catch_fate_by_species_group),
+                           file = paste0(
+                             path_file,
+                             "/catch_fate_by_species_group_control",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+      openxlsx::write.xlsx(as.data.frame(sample_fate_by_species_group),
+                           file = paste0(
+                             path_file,
+                             "/sample_fate_by_species_group_control",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+    }
   }
+  return(catch_fate_by_species_group, sample_fate_by_species_group)
 }
