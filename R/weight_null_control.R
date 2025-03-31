@@ -20,10 +20,8 @@ weight_null_control <- function(data_connection,
                                 country_code,
                                 path_file = NULL) {
   # 0 - Global variables assignment ----
-  mean_individual_weight <- NULL
   weight <- NULL
-  species_group <- NULL
-  fate_code <- NULL
+  weight_tons <- NULL
   # 1 - Arguments verification ----
   if (r_type_checking(
     r_object = start_year,
@@ -157,8 +155,7 @@ weight_null_control <- function(data_connection,
   ))
   # 3 - Data manipulation ----
   catch_weight_null <- catch %>%
-    dplyr::filter(!(species_group == "Tunas nei" & fate_code == 6)) %>%
-    dplyr::filter(mean_individual_weight == 0 | is.na(mean_individual_weight))
+    dplyr::filter(weight_tons == 0 | is.na(weight_tons))
   cat(
     "Number of observations in catch with a weight = 0 or NA :",
     nrow(catch_weight_null),
@@ -168,7 +165,6 @@ weight_null_control <- function(data_connection,
     "\n"
   )
   sample_weight_null <- sample %>%
-    dplyr::filter(!(species_group == "Tunas nei" & fate_code == 6)) %>%
     dplyr::filter(weight == 0 | is.na(weight))
   cat(
     "Number of observations in sample with a weight = 0 or NA :",
