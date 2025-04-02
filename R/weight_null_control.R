@@ -10,6 +10,7 @@
 #' @param ocean {\link[base]{character}} expected. Ocean to be controlled.
 #' @param country_code {\link[base]{character}} expected. Countries for which control will be made.
 #' @param path_file {\link[base]{character}} expected. Path to save the final xlsx with all the informations for the correction.
+#' @param export_table {\link[base]{logical}} expected. Save or not the xlsx tables.
 #' @return The function returns two xlsx tables, one for the catch and one for the samples.
 #' @export
 weight_null_control <- function(data_connection,
@@ -18,7 +19,8 @@ weight_null_control <- function(data_connection,
                                 program,
                                 ocean,
                                 country_code,
-                                path_file = NULL) {
+                                path_file = NULL,
+                                export_table) {
   # 0 - Global variables assignment ----
   weight <- NULL
   weight_tons <- NULL
@@ -175,44 +177,49 @@ weight_null_control <- function(data_connection,
     "\n"
   )
   # 4 - Export ----
-  if (!is.null(x = path_file)) {
-    timestamp <- format(
-      lubridate::now(),
-      "%Y%m%d_%H%M%S"
-    )
-    openxlsx::write.xlsx(as.data.frame(catch_weight_null),
-                         file = paste0(
-                           path_file,
-                           "/catch_weight_null_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
-    openxlsx::write.xlsx(as.data.frame(sample_weight_null),
-                         file = paste0(
-                           path_file,
-                           "/sample_weight_null_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+  if (export_table == TRUE) {
+    if (!is.null(x = path_file)) {
+      timestamp <- format(
+        lubridate::now(),
+        "%Y%m%d_%H%M%S"
+      )
+      openxlsx::write.xlsx(as.data.frame(catch_weight_null),
+                           file = paste0(
+                             path_file,
+                             "/catch_weight_null_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+      openxlsx::write.xlsx(as.data.frame(sample_weight_null),
+                           file = paste0(
+                             path_file,
+                             "/sample_weight_null_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+    }
   }
+  tables_weight_null <- list(catch = catch_weight_null,
+                             sample = sample_weight_null)
+  return(tables_weight_null)
 }
