@@ -23,6 +23,7 @@ round_size_control <- function(data_connection,
                          export_table) {
   # 0 - Global variables assignment ----
   size_type <- NULL
+  length_was_computed <- NULL
   # 1 - Arguments verification ----
   r_type_checking(
     r_object = start_year,
@@ -116,6 +117,10 @@ round_size_control <- function(data_connection,
   sample_length_error <- sample %>%
     dplyr::filter((size_type != "PD1" & length != floor(length)) |
                     (size_type == "PD1" & length != floor(length * 2) / 2))
+  sample_length_error_correction_auto <- sample_length_error %>%
+    dplyr::filter(length_was_computed == FALSE)
+  sample_length_error_correction_manuelle <- sample_length_error %>%
+    dplyr::filter(length_was_computed == TRUE)
   ## Number of sample for which the size is wrong
   cat(
     "Number of samples with unrounded size :",
@@ -123,6 +128,26 @@ round_size_control <- function(data_connection,
     "(corresponding to",
     sum(sample_length_error$count),
     "individuals in total)"
+  )
+  cat(
+    "Number of samples with unrounded size that can be automatically corrected :",
+    nrow(sample_length_error_correction_auto),
+    "(corresponding to",
+    sum(sample_length_error_correction_auto$count),
+    "individuals in total)"
+  )
+  cat(
+    "Number of samples with unrounded size that can't be automatically corrected :",
+    nrow(sample_length_error_correction_manuelle),
+    "(corresponding to",
+    sum(sample_length_error_correction_manuelle$count),
+    "individuals in total)"
+  )
+  percentage_sample_with_correction_auto <- 100 * (nrow(sample_length_error_correction_auto)) / (nrow(sample_length_error))
+  cat(
+    "Proportion of samples with unrounded size that can be automatically corrected :",
+    round(percentage_sample_with_correction_auto), "%",
+    "\n"
   )
   # 4 - Export ----
   if (export_table == TRUE) {
