@@ -127,21 +127,24 @@ round_size_control <- function(data_connection,
     nrow(sample_length_error),
     "(corresponding to",
     sum(sample_length_error$count),
-    "individuals in total)"
+    "individuals in total)",
+    "\n"
   )
   cat(
     "Number of samples with unrounded size that can be automatically corrected :",
     nrow(sample_length_error_correction_auto),
     "(corresponding to",
     sum(sample_length_error_correction_auto$count),
-    "individuals in total)"
+    "individuals in total)",
+    "\n"
   )
   cat(
     "Number of samples with unrounded size that can't be automatically corrected :",
     nrow(sample_length_error_correction_manuelle),
     "(corresponding to",
     sum(sample_length_error_correction_manuelle$count),
-    "individuals in total)"
+    "individuals in total)",
+    "\n"
   )
   percentage_sample_with_correction_auto <- 100 * (nrow(sample_length_error_correction_auto)) / (nrow(sample_length_error))
   cat(
