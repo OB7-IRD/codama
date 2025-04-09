@@ -352,7 +352,7 @@ measure_type_correction <- function(data_connection,
         trip_start_date,
         trip_end_date
       ) %>%
-      dplyr::summarise(.groups = "drop")
+      dplyr::reframe()
     utils::View(trips_to_recalculate)
     # 6 - Exportation of the final check ----
     # Data extraction to extract info on corrected samplemeasures by the topiaid

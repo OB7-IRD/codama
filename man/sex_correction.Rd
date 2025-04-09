@@ -17,7 +17,7 @@ sex_correction(
 )
 }
 \arguments{
-\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control.}
+\item{data_connection}{{\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sex_control.}
 
 \item{start_year}{{\link[base]{integer}} expected. Starting year for the control.}
 

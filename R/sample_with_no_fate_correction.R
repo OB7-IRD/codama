@@ -251,7 +251,7 @@ sample_with_no_fate_correction <- function(data_connection,
         trip_start_date,
         trip_end_date
       ) %>%
-      dplyr::summarise(.groups = "drop")
+      dplyr::reframe()
     utils::View(trips_to_recalculate)
     # 5 - Exportation of the final check ----
     ## Data extraction to see corrected samples by the topiaid

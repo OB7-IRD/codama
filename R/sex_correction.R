@@ -3,7 +3,7 @@
 #' @author Chloé Tellier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description This function corrects the samples with an incorrect sex.
-#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the measure_type_control.
+#' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the sex_control.
 #' @param start_year {\link[base]{integer}} expected. Starting year for the control.
 #' @param end_year {\link[base]{integer}} expected. Ending year for the control.
 #' @param program {\link[base]{character}} expected. Programs to be controlled. Example of the format for a program topiaid: "fr.ird.referential.ps.common.Program#1239832686262#0.31033946454061234".
@@ -249,7 +249,7 @@ sex_correction <- function(data_connection,
         trip_start_date,
         trip_end_date
       ) %>%
-      dplyr::summarise(.groups = "drop")
+      dplyr::reframe()
     utils::View(trips_to_recalculate)
     # 5 - Exportation of the final check ----
     ## Data extraction to see corrected samples by the topiaid
