@@ -203,7 +203,7 @@ fate_by_species_group_control <- function(data_connection,
         (fate_code == 5 & species_group %in% c("Cetaceans", "Whale shark"))
     )
   cat(
-    "Number of observations in catch with an inconsistent fate according to the species group :",
+    " Number of observations in catch with an inconsistent fate according to the species group :",
     nrow(catch_fate_by_species_group),
     " (corresponding to",
     sum(catch_fate_by_species_group$count, na.rm = TRUE),
