@@ -157,6 +157,13 @@ fate_by_species_group_control <- function(data_connection,
     statement = observe_sample_sql_final
   ))
   # 3 - Data manipulation ----
+  # Thon mineur : species_group = "Tunas nei" & fao_code %in% thon_mineur_sp
+  thon_mineur_sp <- c("BLT", "FRI", "FRZ", "KAW", "LTA")
+  # Thon majeur : species_group = "Tunas nei" & fao_code %in% thon_majeur_sp
+  thon_majeur_sp <- c("ALB", "BET", "SKJ", "YFT", "TUS")
+  # Espece sensible : species_group = "Sharks" ou "Turtles" ou "Rays"
+  # Bycatch : species_group = "Other bony fishes"
+  # Catch
   catch_fate_by_species_group <- catch %>%
     dplyr::filter(
       # Les codes 1 (échappé du filet) / 2 (sorti vivant du filet) / 3 (sorti mort du filet) sont réservés aux baleines et requins baleine
@@ -170,14 +177,47 @@ fate_by_species_group_control <- function(data_connection,
         # Le code 10 (ailerons seulement) est réservé aux requins
         (fate_code == 10 & species_group != "Sharks")
     )
+  # On a les catch avec un fate by species group qui pose souci
+  # Combien peuvent être corrigées automatiquement ?
+  catch_correction_automatic <- catch_fate_by_species_group %>%
+    dplyr::filter(
+      # Cas 1a : code 6 et bycatch : correction en code 15
+      (fate_code == 6 & species_group == "Other bony fishes") |
+        # Cas 1b : code 6 et thon mineur : correction en code 15
+        (fate_code == 6 & species_group == "Tunas nei" & fao_code %in% thon_mineur_sp) |
+        # Cas 1c : code 6 et billfish : correction en code 15
+        (fate_code == 6 & species_group == "Billfishes") |
+        # Cas 2a : code 6 et espèce sensible : correction en code 16
+        (fate_code == 6 & species_group %in% c("Sharks", "Turtles", "Rays")) |
+        # Cas 2b : code 15 et espèce sensible : correction en code 16
+        (fate_code == 15 & species_group %in% c("Sharks", "Turtles", "Rays")) |
+        # Cas 3 : code 15 et thon majeur : correction en code 6
+        (fate_code == 15 & species_group == "Tunas nei" & fao_code %in% thon_majeur_sp) |
+        # Cas 4 : code 1 / 2 et pas RHN / MYS : correction en code 4
+        (fate_code %in% c(1, 2, 3) & !(species_group %in% c("Cetaceans", "Whale shark"))) |
+        # Cas 5 : code 3 et pas RHN / MYS : correction en code 5
+        (fate_code == 3 & !(species_group %in% c("Cetaceans", "Whale shark"))) |
+        # Cas 6 : RHN / MYS et code 4 : correction en code 2
+        (fate_code == 4 & species_group %in% c("Cetaceans", "Whale shark")) |
+        # Cas 7 : RHN / MYS et code 5 : correction en code 3
+        (fate_code == 5 & species_group %in% c("Cetaceans", "Whale shark"))
+    )
   cat(
-    " Number of observations in catch with an inconsistent fate according to the species group :",
+    "Number of observations in catch with an inconsistent fate according to the species group :",
     nrow(catch_fate_by_species_group),
-    "(corresponding to",
+    " (corresponding to",
     sum(catch_fate_by_species_group$count, na.rm = TRUE),
     "individuals)",
+    "\n",
+    "Number of observations in catch with an inconsistent fate according to the species group that can be automatically corrected :",
+    nrow(catch_correction_automatic),
+    "\n",
+    "Proportion of observations that can be automatically corrected :",
+    round(100 * nrow(catch_correction_automatic) / nrow(catch_fate_by_species_group)),
+    "%",
     "\n"
   )
+  # Sample
   sample_fate_by_species_group <- sample %>%
     dplyr::filter(
       (fate_code %in% c(1, 2, 3) & !(species_group %in% c("Cetaceans", "Whale shark"))) |
@@ -185,12 +225,45 @@ fate_by_species_group_control <- function(data_connection,
         (fate_code == 15 & (!(species_group %in% c("Billfishes", "Other bony fishes") | (species_group == "Tunas nei" & !(fao_code %in% c("YFT", "BET", "SKJ", "ALB")))))) |
         (fate_code == 10 & species_group != "Sharks")
     )
+  # On a les sample avec un fate by species group qui pose souci
+  # Combien peuvent être corrigés automatiquement ?
+  sample_correction_automatic <- sample_fate_by_species_group %>%
+    # On ne garde que ce qui peut être corrigé automatiquement
+    dplyr::filter(
+      # Cas 1a : code 6 et bycatch
+      (fate_code == 6 & species_group == "Other bony fishes") |
+        # Cas 1b : code 6 et thon mineur
+        (fate_code == 6 & species_group == "Tunas nei" & fao_code %in% thon_mineur_sp) |
+        # Cas 1c : code 6 et billfish
+        (fate_code == 6 & species_group == "Billfishes") |
+        # Cas 2a : code 6 et espèce sensible
+        (fate_code == 6 & species_group %in% c("Sharks", "Turtles", "Rays")) |
+        # Cas 2b : code 15 et espèce sensible
+        (fate_code == 15 & species_group %in% c("Sharks", "Turtles", "Rays")) |
+        # Cas 3 : code 15 et thon majeur
+        (fate_code == 15 & species_group == "Tunas nei" & fao_code %in% thon_majeur_sp) |
+        # Cas 4 : code 1 / 2 et pas RHN / MYS
+        (fate_code %in% c(1, 2, 3) & !(species_group %in% c("Cetaceans", "Whale shark"))) |
+        # Cas 5 : code 3 et pas RHN / MYS
+        (fate_code == 3 & !(species_group %in% c("Cetaceans", "Whale shark"))) |
+        # Cas 6 : RHN / MYS et code 4
+        (fate_code == 4 & species_group %in% c("Cetaceans", "Whale shark")) |
+        # Cas 7 : RHN / MYS et code 5
+        (fate_code == 5 & species_group %in% c("Cetaceans", "Whale shark"))
+    )
   cat(
     " Number of observations in sample with an inconsistent fate according to the species group :",
     nrow(sample_fate_by_species_group),
     "(corresponding to",
     sum(sample_fate_by_species_group$count, na.rm = TRUE),
     "individuals)",
+    "\n",
+    "Number of observations in sample with an inconsistent fate according to the species group that can be automatically corrected :",
+    nrow(sample_correction_automatic),
+    "\n",
+    "Proportion of observations that can be automatically corrected :",
+    round(100 * nrow(sample_correction_automatic) / nrow(sample_fate_by_species_group)),
+    "%",
     "\n"
   )
   # 4 - Export ----
