@@ -321,13 +321,15 @@ fate_by_species_group_correction <- function(data_connection,
     }
   }
 
-  queries <- c(queries_catch, queries_sample)
-  for (k in seq_along(queries)) {
-    cat("[[", k, "]] ", queries[[k]], collapse = "\n\n", sep = "")
+  if (length(queries_catch) + length(queries_sample) > 0) {
+    queries <- c(queries_catch, queries_sample)
+    for (k in seq_along(queries)) {
+      cat("[[", k, "]] ", queries[[k]], collapse = "\n\n", sep = "")
+    }
   }
 
-  # 4 - Query execution ----
   if (length(queries) > 0) {
+    # 4 - Query execution ----
     ## Connection to database
     con1 <- data_connection[[2]]
     cat("Number of update queries to be run : ", length(queries), "\n", sep = "")
@@ -421,82 +423,82 @@ fate_by_species_group_correction <- function(data_connection,
       )
     )
     utils::View(catch_updated_topiaid)
-  }
 
-  # 5 - Exportation of the final check ----
-  ## Data extraction to see corrected catch by the topiaid
-  observe_catch_corrected_sql <- paste(readLines(con = system.file("sql",
-                                                                   "observe_catch.sql",
-                                                                   package = "codama"
-  )), collapse = "\n")
-  ## Data extraction to see corrected samples by the topiaid
-  observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
-                                                                    "observe_sample.sql",
-                                                                    package = "codama"
-  )), collapse = "\n")
-  # Correction of the sql queries
-  observe_catch_corrected_sql <- sub(
-    pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)",
-    replacement = paste0("c.topiaid in (", corrected_catch_topiaid, ")"),
-    x = observe_catch_corrected_sql,
-    fixed = TRUE
-  )
-  observe_sample_corrected_sql <- sub(
-    pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)",
-    replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
-    x = observe_sample_corrected_sql,
-    fixed = TRUE
-  )
-  catch_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
-    conn = data_connection[[2]],
-    statement = observe_catch_corrected_sql
-  ))
-  sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
-    conn = data_connection[[2]],
-    statement = observe_sample_corrected_sql
-  ))
+    # 5 - Exportation of the final check ----
+    ## Data extraction to see corrected catch by the topiaid
+    observe_catch_corrected_sql <- paste(readLines(con = system.file("sql",
+                                                                     "observe_catch.sql",
+                                                                     package = "codama"
+    )), collapse = "\n")
+    ## Data extraction to see corrected samples by the topiaid
+    observe_sample_corrected_sql <- paste(readLines(con = system.file("sql",
+                                                                      "observe_sample.sql",
+                                                                      package = "codama"
+    )), collapse = "\n")
+    # Correction of the sql queries
+    observe_catch_corrected_sql <- sub(
+      pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)",
+      replacement = paste0("c.topiaid in (", corrected_catch_topiaid, ")"),
+      x = observe_catch_corrected_sql,
+      fixed = TRUE
+    )
+    observe_sample_corrected_sql <- sub(
+      pattern = "extract(year from r.date) between (?start_year) and (?end_year)\nAND p.topiaid in (?program)\nAND o.label1 in (?ocean)\nAND co.iso3code in (?country_code)",
+      replacement = paste0("sm.topiaid in (", corrected_samplemeasure_topiaid, ")"),
+      x = observe_sample_corrected_sql,
+      fixed = TRUE
+    )
+    catch_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
+      conn = data_connection[[2]],
+      statement = observe_catch_corrected_sql
+    ))
+    sample_corrected_data <- dplyr::tibble(DBI::dbGetQuery(
+      conn = data_connection[[2]],
+      statement = observe_sample_corrected_sql
+    ))
 
-  # 6 - Exportation ----
-  timestamp <- format(
-    lubridate::now(),
-    "%Y%m%d_%H%M%S"
-  )
-  if (!is.null(x = path_file)) {
-    openxlsx::write.xlsx(catch_corrected_data,
-                         file = paste0(
-                           path_file,
-                           "/catch_fate_by_species_group_corrected_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
+    # 6 - Exportation ----
+    timestamp <- format(
+      lubridate::now(),
+      "%Y%m%d_%H%M%S"
     )
-    openxlsx::write.xlsx(sample_corrected_data,
-                         file = paste0(
-                           path_file,
-                           "/sample_fate_by_species_group_corrected_",
-                           country_code,
-                           "_",
-                           ocean,
-                           "_",
-                           start_year,
-                           "-",
-                           end_year,
-                           "_",
-                           timestamp,
-                           ".xlsx"
-                         ),
-                         rowNames = FALSE
-    )
+    if (!is.null(x = path_file)) {
+      openxlsx::write.xlsx(catch_corrected_data,
+                           file = paste0(
+                             path_file,
+                             "/catch_fate_by_species_group_corrected_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+      openxlsx::write.xlsx(sample_corrected_data,
+                           file = paste0(
+                             path_file,
+                             "/sample_fate_by_species_group_corrected_",
+                             country_code,
+                             "_",
+                             ocean,
+                             "_",
+                             start_year,
+                             "-",
+                             end_year,
+                             "_",
+                             timestamp,
+                             ".xlsx"
+                           ),
+                           rowNames = FALSE
+      )
+    }
+    ## Close the connection
+    DBI::dbDisconnect(con1)
   }
-  ## Close the connection
-  DBI::dbDisconnect(con1)
 }
