@@ -321,14 +321,12 @@ fate_by_species_group_correction <- function(data_connection,
     }
   }
 
-  if (length(queries_catch) + length(queries_sample) > 0) {
+  if (nrow(catch_to_be_corrected) + nrow(samples_to_be_corrected) > 0) {
     queries <- c(queries_catch, queries_sample)
     for (k in seq_along(queries)) {
       cat("[[", k, "]] ", queries[[k]], collapse = "\n\n", sep = "")
     }
-  }
 
-  if (length(queries) > 0) {
     # 4 - Query execution ----
     ## Connection to database
     con1 <- data_connection[[2]]
