@@ -203,16 +203,16 @@ fate_by_species_group_control <- function(data_connection,
         (fate_code == 5 & species_group %in% c("Cetaceans", "Whale shark"))
     )
   cat(
-    " Number of observations in catch with an inconsistent fate according to the species group :",
+    " Number of observations in catch with an inconsistent fate according to the species group:",
     nrow(catch_fate_by_species_group),
-    " (corresponding to",
+    "(corresponding to",
     sum(catch_fate_by_species_group$count, na.rm = TRUE),
     "individuals)",
     "\n",
-    "Number of observations in catch with an inconsistent fate according to the species group that can be automatically corrected :",
+    "Number of observations in catch with an inconsistent fate according to the species group that can be automatically corrected:",
     nrow(catch_correction_automatic),
     "\n",
-    "Proportion of observations that can be automatically corrected :",
+    "Proportion of observations that can be automatically corrected:",
     round(100 * nrow(catch_correction_automatic) / nrow(catch_fate_by_species_group)),
     "%",
     "\n"
@@ -252,16 +252,16 @@ fate_by_species_group_control <- function(data_connection,
         (fate_code == 5 & species_group %in% c("Cetaceans", "Whale shark"))
     )
   cat(
-    " Number of observations in sample with an inconsistent fate according to the species group :",
+    " Number of observations in sample with an inconsistent fate according to the species group:",
     nrow(sample_fate_by_species_group),
     "(corresponding to",
     sum(sample_fate_by_species_group$count, na.rm = TRUE),
     "individuals)",
     "\n",
-    "Number of observations in sample with an inconsistent fate according to the species group that can be automatically corrected :",
+    "Number of observations in sample with an inconsistent fate according to the species group that can be automatically corrected:",
     nrow(sample_correction_automatic),
     "\n",
-    "Proportion of observations that can be automatically corrected :",
+    "Proportion of observations that can be automatically corrected:",
     round(100 * nrow(sample_correction_automatic) / nrow(sample_fate_by_species_group)),
     "%",
     "\n"
