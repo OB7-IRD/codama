@@ -350,8 +350,8 @@ size_distribution_and_outliers_control <- function(data_connection,
           ) +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_sample), color = "blue") +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_catch), color = "red") +
-          ggplot2::annotate(x = mean_catch, y = (mid_counts) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "blue", size = 3) +
-          ggplot2::annotate(x = mean_sample, y = (mid_counts) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "red", size = 3) +
+          ggplot2::annotate(x = mean_sample, y = (mid_counts) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "blue", size = 3) +
+          ggplot2::annotate(x = mean_catch, y = (mid_counts) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "red", size = 3) +
           ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
           ggplot2::scale_fill_manual(
             values = c("#000000", "#CCCCCC"),
@@ -404,8 +404,8 @@ size_distribution_and_outliers_control <- function(data_connection,
           ) +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_sample), color = "blue") +
           ggplot2::geom_vline(ggplot2::aes(xintercept = mean_catch), color = "red") +
-          ggplot2::annotate(x = mean_catch, y = (mid_dens) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "blue", size = 3) +
-          ggplot2::annotate(x = mean_sample, y = (mid_dens) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "red", size = 3) +
+          ggplot2::annotate(x = mean_sample, y = (mid_dens) * 0.25, label = paste("Mean_s =", mean_sample), vjust = 1, geom = "label", color = "blue", size = 3) +
+          ggplot2::annotate(x = mean_catch, y = (mid_dens) * 0.5, label = paste("Mean_c =", mean_catch), vjust = 1, geom = "label", color = "red", size = 3) +
           ggplot2::scale_x_continuous(breaks = seq((10 * floor(min / 10)), max, 10)) +
           ggplot2::scale_fill_manual(
             values = c("#000000", "#CCCCCC"),
