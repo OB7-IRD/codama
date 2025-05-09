@@ -366,12 +366,15 @@ size_distribution_and_outliers_control <- function(data_connection,
             panel.grid.minor = ggplot2::element_blank()
           )
         ## Export plot sample vs catch counts
+        if (country_code == "%") {
+          country_code_2 <- "allflags"
+        }
         ggplot2::ggsave(plot_sample_catch_counts,
                         file = paste0(
                           path_file,
                           "/length_dist_sample_catch",
                           "/length_dist_sample_catch_",
-                          country_code,
+                          country_code_2,
                           "_",
                           ocean,
                           "_",
@@ -421,12 +424,15 @@ size_distribution_and_outliers_control <- function(data_connection,
           )
 
         ## Export plot sample vs catch density
+        if (country_code == "%") {
+          country_code_2 <- "allflags"
+        }
         ggplot2::ggsave(plot_sample_catch_density,
                         file = paste0(
                           path_file,
                           "/length_dist_sample_catch",
                           "/length_dist_sample_catch_",
-                          country_code,
+                          country_code_2,
                           "_",
                           ocean,
                           "_",
@@ -525,12 +531,15 @@ size_distribution_and_outliers_control <- function(data_connection,
                   panel.grid.minor = ggplot2::element_blank()
                 )
               ### Export plot size distribution in count
+              if (country_code == "%") {
+                country_code_2 <- "allflags"
+              }
               ggplot2::ggsave(plot_size_dist_count,
                               file = paste0(
                                 path_file,
                                 "/length_dist_by_species",
                                 "/length_dist_by_species_",
-                                country_code,
+                                country_code_2,
                                 "_",
                                 ocean,
                                 "_",
@@ -597,12 +606,15 @@ size_distribution_and_outliers_control <- function(data_connection,
                   panel.grid.minor = ggplot2::element_blank()
                 )
               ### Export plot size distribution in density
+              if (country_code == "%") {
+                country_code_2 <- "allflags"
+              }
               ggplot2::ggsave(plot_size_dist_density,
                               file = paste0(
                                 path_file,
                                 "/length_dist_by_species",
                                 "/length_dist_by_species_",
-                                country_code,
+                                country_code_2,
                                 "_",
                                 ocean,
                                 "_",
@@ -642,12 +654,15 @@ size_distribution_and_outliers_control <- function(data_connection,
       if (file.exists(folder_outliers_all) == FALSE) {
         dir.create(folder_outliers_all)
       }
+      if (country_code == "%") {
+        country_code_2 <- "allflags"
+      }
       ### Fold creation for all outliers between the selected year, country and ocean
       folder_outliers_country_program <- paste0(
         path_file,
         "/outliers",
         "/outliers_",
-        country_code,
+        country_code_2,
         "_",
         ocean,
         "_",
@@ -664,7 +679,7 @@ size_distribution_and_outliers_control <- function(data_connection,
         path_file,
         "/outliers",
         "/outliers_",
-        country_code,
+        country_code_2,
         "_",
         ocean,
         "_",
@@ -684,7 +699,7 @@ size_distribution_and_outliers_control <- function(data_connection,
                                path_file,
                                "/outliers",
                                "/outliers_",
-                               country_code,
+                               country_code_2,
                                "_",
                                ocean,
                                "_",
@@ -696,7 +711,7 @@ size_distribution_and_outliers_control <- function(data_connection,
                                "_",
                                lg,
                                "_",
-                               country_code,
+                               country_code_2,
                                "_",
                                ocean,
                                "_",
