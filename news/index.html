@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -52,6 +52,26 @@
       <small>Source: <a href="https://github.com/OB7-IRD/codama/blob/development/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.3.0" id="codama-130--20250512">codama 1.3.0- 2025.05.12<a class="anchor" aria-label="anchor" href="#codama-130--20250512"></a></h2>
+<div class="section level3">
+<h3 id="changed-1-3-0">Changed<a class="anchor" aria-label="anchor" href="#changed-1-3-0"></a></h3>
+<ul><li>sample_with_no_fate_control.R, sex_control.R, fate_by_species_group_control.R, weight_null_control.R : Add parametre export_table<br></li>
+<li>measure_type_correction.R, sample_with_no_fate_correction.R : Remove condition on database name + Add of the case where there is no sample</li>
+<li>weight_null_control.R : Change filter for catch and sample (preservation of tuna destined for the cannery)</li>
+<li>fate_by_species_group_control.R : Add percentage of automatic corrections that can be made</li>
+<li>size_distribution_and_outliers_control.R : Invert colors in the plot</li>
+</ul></div>
+<div class="section level3">
+<h3 id="added-1-3-0">Added<a class="anchor" aria-label="anchor" href="#added-1-3-0"></a></h3>
+<ul><li>observe_sex.sql : Sex id, code and label mapping table</li>
+<li>sex_correction.R : Corrects the samples with an incorrect sex</li>
+<li>weight_null_correction.R : Corrects the samples with weight = 0</li>
+<li>round_size_control.R : Controls the accuracy (decimals) of size samples</li>
+<li>round_size_correction.R : Corrects unrounded size samples to the inferior centimeter (or half centimeter for PD1)</li>
+<li>fate_by_species_group_correction.R : Corrects erroneous fate in catch and samples for species according to the species group</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.2.0" id="codama-120--20250220">codama 1.2.0- 2025.02.20<a class="anchor" aria-label="anchor" href="#codama-120--20250220"></a></h2>
 <div class="section level3">
