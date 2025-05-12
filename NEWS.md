@@ -1,3 +1,20 @@
+# codama 1.3.0- 2025.05.12
+
+## Changed
+* sample_with_no_fate_control.R, sex_control.R, fate_by_species_group_control.R, weight_null_control.R : Add parametre export_table  
+* measure_type_correction.R, sample_with_no_fate_correction.R : Remove condition on database name + Add of the case where there is no sample
+* weight_null_control.R : Change filter for catch and sample (preservation of tuna destined for the cannery)
+* fate_by_species_group_control.R : Add percentage of automatic corrections that can be made
+* size_distribution_and_outliers_control.R : Invert colors in the plot
+
+## Added
+* observe_sex.sql : Sex id, code and label mapping table
+* sex_correction.R : Corrects the samples with an incorrect sex
+* weight_null_correction.R : Corrects the samples with weight = 0
+* round_size_control.R : Controls the accuracy (decimals) of size samples
+* round_size_correction.R : Corrects unrounded size samples to the inferior centimeter (or half centimeter for PD1)
+* fate_by_species_group_correction.R : Corrects erroneous fate in catch and samples for species according to the species group
+
 # codama 1.2.0- 2025.02.20
 
 ## Changed
