@@ -39,5 +39,5 @@ Identifies in the Observer data all the occurrences of observations with a numbe
 Version 1.0
 }
 \author{
-Esther Mollier, Philippe S. Sabarros
+Chloe Tellier, Esther Mollier, Philippe S. Sabarros
 }

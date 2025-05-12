@@ -1,6 +1,6 @@
 #' @name more_samples_than_count_control
 #' @title More samples than count control
-#' @author Esther Mollier, Philippe S. Sabarros
+#' @author Chloe Tellier, Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description Identifies in the Observer data all the occurrences of observations with a number of samples superior to the number of catches.
 #' @param data_connection {\link[base]{list}} expected. Either output of the function {\link[furdeb]{postgresql_dbconnection}}, which must be done before using the more_samples_than_count.
@@ -181,7 +181,7 @@ more_samples_than_count_control <- function(data_connection,
       "fate_code"
     ),
     all.x = TRUE,
-    all.y = FALSE
+    all.y = TRUE
   )
   ## Add zero if catch is NA after merging (meaning there is no catch observation for this sampled species and fate)
   summarise_sample_catch <- summarise_sample_catch %>%
