@@ -2,7 +2,7 @@
 #' @title Checking for r object type
 #' @description Typing and structure checking for r object.
 #' @param r_object R object expected.
-#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "numeric", "integer", "logical", "data.frame", "tbl" or "NULL".
+#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "PqConnection", "numeric", "integer", "logical", "data.frame", "tbl" or "NULL".
 #' @param length Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.
 #' @param allowed_value Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".
@@ -24,6 +24,7 @@ r_type_checking <- function(r_object,
              || ! type %in% c("character",
                               "list",
                               "PostgreSQLConnection",
+                              "PqConnection",
                               "numeric",
                               "integer",
                               "logical",
@@ -37,6 +38,7 @@ r_type_checking <- function(r_object,
          " \"character\"",
          ", \"list\"",
          ", \"PostgreSQLConnection\"",
+         ", \"PqConnection\"",
          ", \"numeric\"",
          ", \"integer\"",
          ", \"logical\"",
