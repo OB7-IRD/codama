@@ -1,3 +1,8 @@
+# codama 1.3.1- 2025.06.06
+
+## Changed
+* r_type_checking.R : Add PqConnection to choices for argument type
+
 # codama 1.3.0- 2025.05.12
 
 ## Changed
