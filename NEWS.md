@@ -1,3 +1,8 @@
+# codama 1.3.2- 2025.08.27
+
+## Changed
+* r_type_checking.R : Add Date to choices for argument type
+
 # codama 1.3.1- 2025.06.06
 
 ## Changed
