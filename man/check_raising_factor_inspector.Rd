@@ -12,8 +12,8 @@ check_raising_factor_inspector(
   output,
   country_species = list(`1` = c("TUN", "ALB", "YFT", "BET", "SKJ"), `4` = c("LOT",
     "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")),
-  speciesfate = "6",
-  vesselactivity = c("23", "25", "27", "29"),
+  species_fate = "6",
+  vessel_activity = c("23", "25", "27", "29"),
   threshold = c(0.9, 1.1)
 )
 }
@@ -30,9 +30,9 @@ check_raising_factor_inspector(
 
 \item{country_species}{{\link[base]{character}} expected. Default values: list("1" = c("TUN", "ALB", "YFT", "BET", "SKJ"), "4" = c("LOT", "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")). list of the inventory of species (FAO code) used to calculate catch weight in RF1 by country (country code).}
 
-\item{speciesfate}{{\link[base]{character}} expected. Default values: "6". Vector of inventory of fate used to calculate catch weight in RF1.}
+\item{species_fate}{{\link[base]{character}} expected. Default values: "6". Vector of inventory of fate used to calculate catch weight in RF1.}
 
-\item{vesselactivity}{{\link[base]{character}} expected. Default values: c("23", "25", "27", "29"). Vector of inventory of vessel activity NOT used to calculate catch weight in RF1.}
+\item{vessel_activity}{{\link[base]{character}} expected. Default values: c("23", "25", "27", "29"). Vector of inventory of vessel activity NOT used to calculate catch weight in RF1.}
 
 \item{threshold}{{\link[base]{numeric}} expected. Default values: 0.9 and 1.1. Vector containing the lower and upper acceptable threshold for RF1.}
 }
@@ -47,6 +47,8 @@ The input dataframe must contain all these columns for the function to work :
 \itemize{
 Dataframe 1:
 \item{\code{  trip_id}}
+}
+\itemize{
 Dataframe 2:
 \item{\code{  catch_id}}
 \item{\code{  catch_weight}}
@@ -54,15 +56,42 @@ Dataframe 2:
 \item{\code{  species_fao_code}}
 \item{\code{  vesselactivity_code}}
 \item{\code{  trip_id}}
+}
+\itemize{
 Dataframe 3:
 \item{\code{  landing_id}}
 \item{\code{  landing_weight}}
 \item{\code{  species_fao_code}}
 \item{\code{  trip_id}}
+}
+\itemize{
 Dataframe 4:
 \item{\code{  trip_id}}
 \item{\code{  trip_end_full_trip_id}}
 \item{\code{  vessel_id}}
 \item{\code{  country_fleetcountry}}
 }
+}
+\examples{
+#Trip 1, 3, 4 and 7 are ok,
+#Trip 2 has an RF1 outside the thresholds,
+#Trip 5 has no landing weight,
+#Trip 6 has no catch weight
+dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"))
+dataframe2 <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
+                         catch_weight = c(10, 2, 15, 8, 5, 25, 4, 5, 9),
+                         speciesfate_code = c("6", "6", "1", "6", "6", "6", "6", "6", "6"),
+                         species_fao_code = c("TUN", "YFT", "TUN", "TUN", "TUN", "SKJ", "SKJ",
+                                              "LOT", "BET"),
+                         vesselactivity_code = c("1", "1", "1", "1", "1", "1", "23", "1", "1"),
+                         trip_id = c("1", "1", "1", "2", "2", "3", "3", "3", "5"))
+dataframe3 <- data.frame(landing_id = c("1" , "2", "3", "4", "5"),
+                         landing_weight = c(9, 2, 8, 25, 12),
+                         species_fao_code = c("YFT", "TUN", "TUN", "TUN", "BET"),
+                         trip_id = c("1", "1", "2", "4", "6"))
+dataframe4 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"),
+                         trip_end_full_trip_id = c("1", "2", "4", "4", "5", "6", "7"),
+                         vessel_id = c("1", "1", "1", "1", "1", "1", "1"),
+                         country_fleetcountry = c("1", "1", "1", "1", "1", "1", "1"))
+check_raising_factor_inspector(dataframe1, dataframe2, dataframe3, dataframe4, output = "report")
 }
