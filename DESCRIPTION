@@ -51,7 +51,7 @@ Description: This package aims is to provide a series of standardised and generi
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, roclets = c("collate", "rd", "namespace", "doctest::dt_roclet"), packages = "doctest") 
 RoxygenNote: 7.3.2
 URL: https://github.com/OB7-IRD/codama
 BugReports: https://github.com/OB7-IRD/codama/issues
@@ -70,6 +70,7 @@ Imports:
 Remotes: 
     OB7-IRD/furdeb
 Suggests: 
+    doctest (>= 0.3.0),
     testthat (>= 3.0.0),
     furdeb (>= 0.0.0.9000)
 Config/testthat/edition: 3
