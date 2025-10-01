@@ -24,8 +24,7 @@
 #'                          transmittingbuoyoperation_code = c("2","3","2","4", "2", "3"),
 #'                          transmittingbuoy_code = c("1","2","3","3", "1", "1"))
 #'
-#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"),
-#' transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(FALSE, FALSE, FALSE, FALSE, TRUE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -5L)))
+#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"), transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(FALSE, FALSE, FALSE, FALSE, TRUE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -5L)))
 #' logbook_floating_object_buoy_id_redundancy_control(dataframe1, dataframe2, output = "report")
 #' @export
 logbook_floating_object_buoy_id_redundancy_control <- function(dataframe1,
