@@ -2,7 +2,7 @@
 #' @title Checking for r object type
 #' @description Typing and structure checking for r object.
 #' @param r_object R object expected.
-#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "PqConnection", "numeric", "integer", "logical", "data.frame", "tbl" or "NULL".
+#' @param type Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "PqConnection", "numeric", "integer", "logical", "Date", "data.frame", "tbl" or "NULL".
 #' @param length Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.
 #' @param allowed_value Object of class \code{\link[base]{vector}} (excepted a list) expected. Be default NULL. Allowed value(s) in the r object.
 #' @param output {\link[base]{character}} expected. Kind of expected output. By default "error". You can choose between "error", "message" or "logical".
@@ -28,6 +28,7 @@ r_type_checking <- function(r_object,
                               "numeric",
                               "integer",
                               "logical",
+                              "Date",
                               "data.frame",
                               "tbl",
                               "NULL")) {
@@ -42,6 +43,7 @@ r_type_checking <- function(r_object,
          ", \"numeric\"",
          ", \"integer\"",
          ", \"logical\"",
+         ", \"Date\"",
          ", \"data.frame\"",
          ", \"tbl\"",
          " or \"NULL\".\n")
@@ -58,7 +60,8 @@ r_type_checking <- function(r_object,
                 || ! class(x = allowed_value) %in% c("character",
                                                       "numeric",
                                                       "integer",
-                                                      "logical"))) {
+                                                      "logical",
+                                                      "Date"))) {
     stop(format(x = Sys.time(),
                 "%Y-%m-%d %H:%M:%S"),
          " - Error, invalid \"allowed_value\" argument.\n",
@@ -66,7 +69,8 @@ r_type_checking <- function(r_object,
          " \"character\"",
          ", \"numeric\"",
          ", \"integer\"",
-         " or \"logical\" with at least a length of 1.\n")
+         ", \"logical\"",
+         " or \"Date\" with at least a length of 1.\n")
   } else if (!inherits(x = output, what = "character")
              || length(x = output) != 1
              || ! output %in% c("error",

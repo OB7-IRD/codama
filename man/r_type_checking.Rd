@@ -15,7 +15,7 @@ r_type_checking(
 \arguments{
 \item{r_object}{R object expected.}
 
-\item{type}{Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "PqConnection", "numeric", "integer", "logical", "data.frame", "tbl" or "NULL".}
+\item{type}{Object of class \code{\link[base]{character}} expected. Type or class expected of the r object. you can choose between arguments "character", "list", "PostgreSQLConnection", "PqConnection", "numeric", "integer", "logical", "Date", "data.frame", "tbl" or "NULL".}
 
 \item{length}{Object of class \code{\link[base]{integer}} expected. By default NULL. Specify the vector length expected. Fill with NULL with you don't know the length expected.}
 
