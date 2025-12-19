@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.1</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">logbook_temporal_limit_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, <span class="va">output</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">logbook_temporal_limit_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, <span class="va">dataframe3</span>, <span class="va">output</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -70,6 +70,10 @@
 
 
 <dt id="arg-dataframe-">dataframe2<a class="anchor" aria-label="anchor" href="#arg-dataframe-"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> expected. Csv or output of the function <a href="https://rdrr.io/pkg/furdeb/man/data_extraction.html" class="external-link">data_extraction</a>, which must be done before using the logbook_temporal_limit_control () function.</p></dd>
+
+
+<dt id="arg-dataframe-">dataframe3<a class="anchor" aria-label="anchor" href="#arg-dataframe-"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> expected. Csv or output of the function <a href="https://rdrr.io/pkg/furdeb/man/data_extraction.html" class="external-link">data_extraction</a>, which must be done before using the logbook_temporal_limit_control () function.</p></dd>
 
 
@@ -89,6 +93,8 @@
 </ul><ul><li><p><code>  route_id</code></p></li>
 <li><p><code>  activity_date</code></p></li>
 <li><p><code>  trip_id</code></p></li>
+</ul><ul><li><p><code>  activity_id</code></p></li>
+<li><p><code>  route_id</code></p></li>
 </ul></div>
 
     <div id="ref-examples">
@@ -99,19 +105,26 @@
 <span class="r-in"><span><span class="co">#Trip 4 has no trip_enddate,</span></span></span>
 <span class="r-in"><span><span class="co">#Trip 5 has a missing day (2020/02/02),</span></span></span>
 <span class="r-in"><span><span class="co">#Trip 6 has a double day (2020/02/13)</span></span></span>
-<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="co">#Trip 7 has a day without activity (2020/03/11)</span></span></span>
+<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         trip_startdate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020/01/01"</span>, <span class="st">"2020/01/01"</span>, <span class="cn">NA</span>, <span class="st">"2020/01/24"</span>,</span></span>
-<span class="r-in"><span>                                                    <span class="st">"2020/02/01"</span>, <span class="st">"2020/02/13"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                    <span class="st">"2020/02/01"</span>, <span class="st">"2020/02/13"</span>, <span class="st">"2020/03/10"</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         trip_enddate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020/01/02"</span>, <span class="st">"2020/01/02"</span>, <span class="st">"2020/01/24"</span>, <span class="cn">NA</span>,</span></span>
-<span class="r-in"><span>                                                  <span class="st">"2020/02/03"</span>, <span class="st">"2020/02/14"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                                  <span class="st">"2020/02/03"</span>, <span class="st">"2020/02/14"</span>, <span class="st">"2020/03/11"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>route_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>,</span></span>
-<span class="r-in"><span>                                      <span class="st">"12"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                      <span class="st">"12"</span>, <span class="st">"13"</span>, <span class="st">"14"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         activity_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2020/01/01"</span>, <span class="st">"2020/01/02"</span>, <span class="st">"2020/01/01"</span>,</span></span>
 <span class="r-in"><span>                                                   <span class="st">"2020/01/02"</span>, <span class="st">"2020/01/03"</span>, <span class="st">"2020/01/24"</span>,</span></span>
 <span class="r-in"><span>                                                   <span class="st">"2020/01/24"</span>, <span class="st">"2020/02/01"</span>, <span class="st">"2020/02/03"</span>,</span></span>
-<span class="r-in"><span>                                                   <span class="st">"2020/02/13"</span>, <span class="st">"2020/02/13"</span>, <span class="st">"2020/02/14"</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"6"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">logbook_temporal_limit_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                                   <span class="st">"2020/02/13"</span>, <span class="st">"2020/02/13"</span>, <span class="st">"2020/02/14"</span>,</span></span>
+<span class="r-in"><span>                                                   <span class="st">"2020/03/10"</span>, <span class="st">"2020/03/11"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>,</span></span>
+<span class="r-in"><span>                                     <span class="st">"7"</span>, <span class="st">"7"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataframe3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>,</span></span>
+<span class="r-in"><span>                                      <span class="st">"12"</span>, <span class="st">"13"</span>, <span class="st">"14"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         route_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>,</span></span>
+<span class="r-in"><span>                                      <span class="st">"12"</span>, <span class="st">"13"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">logbook_temporal_limit_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, <span class="va">dataframe3</span>, output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   trip_id logical</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       1    TRUE</span>
@@ -120,6 +133,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4       4   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5       5   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       6   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       7   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    trip_id trip_startdate trip_enddate activity_date inter_activity_date</span>
@@ -134,6 +148,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9        5     2020-02-01   2020-02-03    2020-02-03                TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10       6     2020-02-13   2020-02-14    2020-02-13                TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11       6     2020-02-13   2020-02-14    2020-02-14                TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       7     2020-03-10   2020-03-11    2020-03-10                TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    exter_activity_date count_freq logical</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                FALSE          1    TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                FALSE          1    TRUE</span>
@@ -146,6 +161,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9                FALSE          1    TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10               FALSE          2   FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11               FALSE          1    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12               FALSE          1    TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
