@@ -5,11 +5,13 @@ test_that("Doctest: logbook_anapo_activity_control", {
   # Created from @doctest for `logbook_anapo_activity_control`
   # Source file: R/logbook_anapo_activity_control.R
   # Source line: 25
-  dataframe1 <- data.frame(vms_id = c("1", "2", "3", "4", "5"), vms_date = as.Date(c("2020/01/01", "2020/01/02", "2020/02/02", "2020/02/02", "2020/02/03")), vessel_code = c(
-    "1", "1", "2", "3", "4"), vms_codevessel = c("vessel_1", "vessel_1", "vessel_2", "vessel_2", "vessel_4"), vessel_type = c("1", "1", "1", "1", "3"))
+  dataframe1 <- data.frame(vms_id = c("1", "2", "3", "4", "5"), vms_date = as.Date(c("2020/01/01", "2020/01/02", "2020/02/02", "2020/02/02",
+    "2020/02/03")), vessel_code = c("1", "1", "2", "3", "4"), vms_codevessel = c("vessel_1", "vessel_1", "vessel_2", "vessel_2", "vessel_4"),
+  vessel_type = c("1", "1", "1", "1", "3"))
   dataframe2 <- data.frame(activity_id = c("1", "2"), activity_date = as.Date(c("2020/01/01", "2020/02/02")), vessel_code = c("1", "2"))
-  expect_equal(logbook_anapo_activity_control(dataframe1, dataframe2, output = "report"), structure(list(vms_id = c("1", "2", "3", "4", "5"), vessel_code = c("1", "1",
-    "2", "3", "4"), vms_date = structure(c(18262, 18263, 18294, 18294, 18295), class = "Date"), vms_codevessel = c("vessel_1", "vessel_1", "vessel_2", "vessel_2",
-    "vessel_4"), vessel_type = c("1", "1", "1", "1", "3"), logical = c(TRUE, FALSE, TRUE, TRUE, TRUE), nb_activity = c(1, 0, 1, 0, 0)), row.names = c(NA, -5L), class = "data.frame"))
+  expect_equal(logbook_anapo_activity_control(dataframe1, dataframe2, output = "report"), structure(list(vms_id = c("1", "2", "3", "4", "5"),
+  vessel_code = c("1", "1", "2", "3", "4"), vms_date = structure(c(18262, 18263, 18294, 18294, 18295), class = "Date"), vms_codevessel = c(
+    "vessel_1", "vessel_1", "vessel_2", "vessel_2", "vessel_4"), vessel_type = c("1", "1", "1", "1", "3"), logical = c(TRUE, FALSE, TRUE, TRUE, TRUE),
+  nb_activity = c(1, 0, 1, 0, 0)), row.names = c(NA, -5L), class = "data.frame"))
 })
 

@@ -4,12 +4,14 @@
 \alias{logbook_temporal_limit_control}
 \title{Gives the inconsistencies between trip start and end date and the dates of activity}
 \usage{
-logbook_temporal_limit_control(dataframe1, dataframe2, output)
+logbook_temporal_limit_control(dataframe1, dataframe2, dataframe3, output)
 }
 \arguments{
 \item{dataframe1}{{\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.}
 
 \item{dataframe2}{{\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.}
+
+\item{dataframe3}{{\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.}
 
 \item{output}{{\link[base]{character}} expected.Kind of expected output. You can choose between "message", "report" or "logical".}
 }
@@ -33,6 +35,11 @@ Dataframe 2:
 \item{\code{  activity_date}}
 \item{\code{  trip_id}}
 }
+\itemize{
+Dataframe 3:
+\item{\code{  activity_id}}
+\item{\code{  route_id}}
+}
 }
 \examples{
 #Trip 1 is ok,
@@ -41,17 +48,24 @@ Dataframe 2:
 #Trip 4 has no trip_enddate,
 #Trip 5 has a missing day (2020/02/02),
 #Trip 6 has a double day (2020/02/13)
-dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6"),
+#Trip 7 has a day without activity (2020/03/11)
+dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"),
                          trip_startdate = as.Date(c("2020/01/01", "2020/01/01", NA, "2020/01/24",
-                                                    "2020/02/01", "2020/02/13")),
+                                                    "2020/02/01", "2020/02/13", "2020/03/10")),
                          trip_enddate = as.Date(c("2020/01/02", "2020/01/02", "2020/01/24", NA,
-                                                  "2020/02/03", "2020/02/14")))
+                                                  "2020/02/03", "2020/02/14", "2020/03/11")))
 dataframe2 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
-                                      "12"),
+                                      "12", "13", "14"),
                          activity_date = as.Date(c("2020/01/01", "2020/01/02", "2020/01/01",
                                                    "2020/01/02", "2020/01/03", "2020/01/24",
                                                    "2020/01/24", "2020/02/01", "2020/02/03",
-                                                   "2020/02/13", "2020/02/13", "2020/02/14")),
-                         trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6"))
-logbook_temporal_limit_control(dataframe1, dataframe2, output = "report")
+                                                   "2020/02/13", "2020/02/13", "2020/02/14",
+                                                   "2020/03/10", "2020/03/11")),
+                         trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6",
+                                     "7", "7"))
+dataframe3 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+                                      "12", "13", "14"),
+                         route_id = c("1", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+                                      "12", "13"))
+logbook_temporal_limit_control(dataframe1, dataframe2, dataframe3, output = "report")
 }

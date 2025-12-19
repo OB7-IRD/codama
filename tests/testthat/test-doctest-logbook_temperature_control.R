@@ -6,7 +6,7 @@ test_that("Doctest: logbook_temperature_control", {
   # Source file: R/logbook_temperature_control.R
   # Source line: 15
   dataframe1 <- data.frame(activity_id = c("1", "2", "3"), activity_seasurfacetemperature = c(20, 4, 35))
-  expect_equal(logbook_temperature_control(dataframe1, output = "report"), structure(list(activity_id = c("1", "2", "3"), logical = c(TRUE, FALSE, FALSE),
-  activity_seasurfacetemperature = c(20, 4, 35)), row.names = c(NA, 3L), class = "data.frame"))
+  expect_equal(logbook_temperature_control(dataframe1, output = "report"), structure(list(activity_id = c("1", "2", "3"), logical = c(TRUE, FALSE,
+    FALSE), activity_seasurfacetemperature = c(20, 4, 35)), row.names = c(NA, 3L), class = "data.frame"))
 })
 

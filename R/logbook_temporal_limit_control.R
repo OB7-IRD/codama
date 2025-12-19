@@ -3,6 +3,7 @@
 #' @description The purpose of the logbook_temporal_limit_control function is to provide a table of data that contains an inconsistency between trip start and end date and the dates of activity (activity date outside the trip ranges, several occurrences of the activity date, ...)
 #' @param dataframe1 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.
 #' @param dataframe2 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.
+#' @param dataframe3 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_temporal_limit_control () function.
 #' @param output {\link[base]{character}} expected.Kind of expected output. You can choose between "message", "report" or "logical".
 #' @return The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first at the trip level and the second at the activity date level), a {\link[base]{logical}} with output is "logical"
 #' @details
@@ -19,6 +20,11 @@
 #'  \item{\code{  activity_date}}
 #'  \item{\code{  trip_id}}
 #' }
+#' \itemize{
+#' Dataframe 3:
+#'  \item{\code{  activity_id}}
+#'  \item{\code{  route_id}}
+#' }
 #' @doctest
 #' #Trip 1 is ok,
 #' #Trip 2 has an extra day (2020/01/03),
@@ -26,28 +32,37 @@
 #' #Trip 4 has no trip_enddate,
 #' #Trip 5 has a missing day (2020/02/02),
 #' #Trip 6 has a double day (2020/02/13)
-#' dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6"),
+#' #Trip 7 has a day without activity (2020/03/11)
+#' dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"),
 #'                          trip_startdate = as.Date(c("2020/01/01", "2020/01/01", NA, "2020/01/24",
-#'                                                     "2020/02/01", "2020/02/13")),
+#'                                                     "2020/02/01", "2020/02/13", "2020/03/10")),
 #'                          trip_enddate = as.Date(c("2020/01/02", "2020/01/02", "2020/01/24", NA,
-#'                                                   "2020/02/03", "2020/02/14")))
+#'                                                   "2020/02/03", "2020/02/14", "2020/03/11")))
 #' dataframe2 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
-#'                                       "12"),
+#'                                       "12", "13", "14"),
 #'                          activity_date = as.Date(c("2020/01/01", "2020/01/02", "2020/01/01",
 #'                                                    "2020/01/02", "2020/01/03", "2020/01/24",
 #'                                                    "2020/01/24", "2020/02/01", "2020/02/03",
-#'                                                    "2020/02/13", "2020/02/13", "2020/02/14")),
-#'                          trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6"))
-#' @expect equal(., list(structure(list(trip_id = c("1", "2", "3", "4", "5", "6"), logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE)), row.names = c(NA, -6L), class = "data.frame"), structure(list(trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6"), trip_startdate = structure(c(18262, 18262, 18262, 18262, 18262, NA, 18285, 18293, 18293, 18305, 18305), class = "Date"), trip_enddate = structure(c(18263, 18263, 18263, 18263, 18263, 18285, NA, 18295, 18295, 18306, 18306), class = "Date"), activity_date = structure(c(18262, 18263, 18262, 18263, 18264, 18285, 18285, 18293, 18295, 18305, 18306), class = "Date"), inter_activity_date = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE), exter_activity_date = c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), count_freq = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 1L), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE)), row.names = c(NA, -11L), class = "data.frame")))
-#' logbook_temporal_limit_control(dataframe1, dataframe2, output = "report")
+#'                                                    "2020/02/13", "2020/02/13", "2020/02/14",
+#'                                                    "2020/03/10", "2020/03/11")),
+#'                          trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6",
+#'                                      "7", "7"))
+#' dataframe3 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+#'                                       "12", "13", "14"),
+#'                          route_id = c("1", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+#'                                       "12", "13"))
+#' @expect equal(., list(structure(list(trip_id = c("1", "2", "3", "4", "5", "6", "7"), logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)), row.names = c(NA, -7L), class = "data.frame"), structure(list(trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "7"), trip_startdate = structure(c(18262, 18262, 18262, 18262, 18262, NA, 18285, 18293, 18293, 18305, 18305, 18331), class = "Date"), trip_enddate = structure(c(18263, 18263, 18263, 18263, 18263, 18285, NA, 18295, 18295, 18306, 18306, 18332), class = "Date"), activity_date = structure(c(18262, 18263, 18262, 18263, 18264, 18285, 18285, 18293, 18295, 18305, 18306, 18331), class = "Date"), inter_activity_date = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE), exter_activity_date = c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), count_freq = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 1L, 1L), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)), row.names = c(NA, -12L), class = "data.frame")))
+#' logbook_temporal_limit_control(dataframe1, dataframe2, dataframe3, output = "report")
 #' @export
 logbook_temporal_limit_control <- function(dataframe1,
                                            dataframe2,
+                                           dataframe3,
                                            output) {
   # 0 - Global variables assignement ----
   trip_id <- NULL
   trip_startdate <- NULL
   trip_enddate <- NULL
+  route_id <- NULL
   activity_date <- NULL
   inter_activity_date <- NULL
   exter_activity_date <- NULL
@@ -89,6 +104,23 @@ logbook_temporal_limit_control <- function(dataframe1,
   } else {
     dataframe2 <- dataframe2[, c("route_id", "activity_date", "trip_id")]
   }
+  if (!codama::r_table_checking(
+    r_table = dataframe3,
+    type = "data.frame",
+    column_name = c("activity_id", "route_id"),
+    column_type = c("character", "character"),
+    output = "logical"
+  )) {
+    codama::r_table_checking(
+      r_table = dataframe3,
+      type = "data.frame",
+      column_name = c("activity_id", "route_id"),
+      column_type = c("character", "character"),
+      output = "error"
+    )
+  } else {
+    dataframe3 <- dataframe3[, c("activity_id", "route_id")]
+  }
   # Checks the type and values of output
   if (!codama::r_type_checking(
     r_object = output,
@@ -106,7 +138,13 @@ logbook_temporal_limit_control <- function(dataframe1,
   select <- dataframe1$trip_id
   nrow_first <- length(unique(select))
   # 2 - Data design ----
-  # Merge date
+  # List route with activity
+  dataframe3 <- dataframe3 %>%
+    dplyr::select(route_id) %>%
+    dplyr::distinct()
+  # Remove route without activity
+  dataframe2 <- dplyr::inner_join(dataframe2, dataframe3, by = dplyr::join_by(route_id))
+  # Merge date route and trip
   dataframe1 <- dplyr::left_join(dataframe1, dataframe2, by = dplyr::join_by(trip_id))
   # Calculate the temporal indicator per trip (Management of NA: if known value performs the sum of the values and ignores the NA, if no known value indicates NA)
   trip_date_activity_data_detail <- dataframe1

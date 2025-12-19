@@ -6,8 +6,10 @@ test_that("Doctest: logbook_landing_total_weight_control", {
   # Source file: R/logbook_landing_total_weight_control.R
   # Source line: 22
   dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5"), trip_landingtotalweight = c(10, 15, NA, 0, 4))
-  dataframe2 <- data.frame(landing_id = c("1", "2", "3", "4", "5", "6"), landing_weight = c(4, 6, 10, 6, 2, NA), trip_id = c("1", "1", "2", "2", "3", "4"))
-  expect_equal(logbook_landing_total_weight_control(dataframe1, dataframe2, output = "report"), structure(list(trip_id = c("1", "2", "3", "4", "5"), logical = c(TRUE,
-    FALSE, FALSE, TRUE, FALSE), trip_landingtotalweight = c(10, 15, NA, 0, 4), sum_weightlanding = c(10, 16, 2, NA, NA)), row.names = c(NA, 5L), class = "data.frame"))
+  dataframe2 <- data.frame(landing_id = c("1", "2", "3", "4", "5", "6"), landing_weight = c(4, 6, 10, 6, 2, NA), trip_id = c("1", "1", "2", "2", "3",
+    "4"))
+  expect_equal(logbook_landing_total_weight_control(dataframe1, dataframe2, output = "report"), structure(list(trip_id = c("1", "2", "3", "4", "5"),
+  logical = c(TRUE, FALSE, FALSE, TRUE, FALSE), trip_landingtotalweight = c(10, 15, NA, 0, 4), sum_weightlanding = c(10, 16, 2, NA, NA)), row.names = c(
+    NA, 5L), class = "data.frame"))
 })
 

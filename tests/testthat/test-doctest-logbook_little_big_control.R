@@ -5,18 +5,20 @@ test_that("Doctest: logbook_little_big_control", {
   # Created from @doctest for `logbook_little_big_control`
   # Source file: R/logbook_little_big_control.R
   # Source line: 37
-  dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), sample_smallsweight = c(10, 20, 1, 30, 3, 7, 4, 12, 0, 0, 3, 0),
-  sample_bigsweight = c(NA, 2, 9, 3, 5, 4, 13, 5, 0, NA, 0, 4), sample_totalweight = c(NA, NA, NA, 33, NA, NA, 7, 2, 0, 5, 0, 0))
-  dataframe2 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), species_fao_code = c("YFT", "BET", "BET", "YFT", "ALB",
-    "YFT", "YFT", "BET", "YFT", "ALB", "YFT", "YFT"), sizemeasuretype_code = c("PD1", "PD1", "FL", "PD1", "FL", "FL", "PD1", "FL", "PD1", "PD1", "PD1", "PD1"),
-  sample_id = c("1", "2", "2", "3", "4", "5", "5", "6", "6", "8", "9", "10"))
-  dataframe3 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), samplespeciesmeasure_sizeclass = c(20, 26, 70, 20,
-    10, 45, 36, 30, 32, 24, 13, 13), samplespeciesmeasure_count = c(5, 1, 9, 8, 10, 25, 2, 16, 4, 3, 6, 6), samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8",
-    "9", "10", "11", "12"))
-  expect_equal(logbook_little_big_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(sample_id = c("1", "10", "11", "12", "2", "3", "4", "5",
-    "6", "7", "8", "9"), logical = c(TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE), sample_smallsweight = c(10, 0, 3, 0, 20, 1, 30, 3, 7,
-    4, 12, 0), sample_bigsweight = c(NA, NA, 0, 4, 2, 9, 3, 5, 4, 13, 5, 0), sample_totalweight = c(NA, 5, 0, 0, NA, NA, 33, NA, NA, 7, 2, 0), little_percentage = c(1, 1,
-    0, 0, 0.9, 1, 1, 0.925925925925926, 0.8, 0, 0, 1), big_percentage = c(0, 0, 0, 0, 0.1, 0, 0, 0.0740740740740741, 0.2, 0, 1, 0), measure1_percentage = c(0, 0, 0, 0,
-    0.9, 0, 1, 0.925925925925926, 0.8, 0, 0, 0), measure2_percentage = c(1, 1, 0, 0, 0.1, 1, 0, 0.0740740740740741, 0.2, 0, 1, 1)), row.names = c(NA, -12L), class = "data.frame"))
+  dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), sample_smallsweight = c(10, 20, 1, 30, 3, 7,
+    4, 12, 0, 0, 3, 0), sample_bigsweight = c(NA, 2, 9, 3, 5, 4, 13, 5, 0, NA, 0, 4), sample_totalweight = c(NA, NA, NA, 33, NA, NA, 7, 2, 0, 5, 0,
+    0))
+  dataframe2 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), species_fao_code = c("YFT", "BET",
+    "BET", "YFT", "ALB", "YFT", "YFT", "BET", "YFT", "ALB", "YFT", "YFT"), sizemeasuretype_code = c("PD1", "PD1", "FL", "PD1", "FL", "FL", "PD1",
+    "FL", "PD1", "PD1", "PD1", "PD1"), sample_id = c("1", "2", "2", "3", "4", "5", "5", "6", "6", "8", "9", "10"))
+  dataframe3 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"),
+  samplespeciesmeasure_sizeclass = c(20, 26, 70, 20, 10, 45, 36, 30, 32, 24, 13, 13), samplespeciesmeasure_count = c(5, 1, 9, 8, 10, 25, 2, 16, 4, 3,
+    6, 6), samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"))
+  expect_equal(logbook_little_big_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(sample_id = c("1", "10", "11", "12",
+    "2", "3", "4", "5", "6", "7", "8", "9"), logical = c(TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE),
+  sample_smallsweight = c(10, 0, 3, 0, 20, 1, 30, 3, 7, 4, 12, 0), sample_bigsweight = c(NA, NA, 0, 4, 2, 9, 3, 5, 4, 13, 5, 0), sample_totalweight = c(
+    NA, 5, 0, 0, NA, NA, 33, NA, NA, 7, 2, 0), little_percentage = c(1, 1, 0, 0, 0.9, 1, 1, 0.925925925925926, 0.8, 0, 0, 1), big_percentage = c(0,
+    0, 0, 0, 0.1, 0, 0, 0.0740740740740741, 0.2, 0, 1, 0), measure1_percentage = c(0, 0, 0, 0, 0.9, 0, 1, 0.925925925925926, 0.8, 0, 0, 0),
+  measure2_percentage = c(1, 1, 0, 0, 0.1, 1, 0, 0.0740740740740741, 0.2, 0, 1, 1)), row.names = c(NA, -12L), class = "data.frame"))
 })
 
