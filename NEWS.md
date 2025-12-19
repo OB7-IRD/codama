@@ -1,3 +1,12 @@
+# codama 1.4.1 - 2025.12.19
+
+## Added
+AkadoR check added :
+* logbook_floating_object_buoy_id_redundancy_control.R : Identification of incoherent buoy operation on a same object
+
+## Changed
+* logbook_temporal_limit_control.R : Add dataframe3 with activity_id (Patch route without activity)
+
 # codama 1.4.0 - 2025.09.08
 
 ## Added
