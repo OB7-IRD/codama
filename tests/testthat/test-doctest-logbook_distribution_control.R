@@ -5,20 +5,19 @@ test_that("Doctest: logbook_distribution_control", {
   # Created from @doctest for `logbook_distribution_control`
   # Source file: R/logbook_distribution_control.R
   # Source line: 44
-  dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7"), sample_well = c("well_1", "well_2", "well_3", "well_4", "well_5",
-    "well_6", "well_7"), trip_id = c("1", "1", "1", "1", "1", "1", "1"), sample_smallsweight = c(6, 25, 14, 0, NA, 10, 8), sample_bigsweight = c(12,
-    0, 9, NA, 6, 0, 0))
-  dataframe2 <- data.frame(well_id = c("1", "2", "3", "4", "5", "6", "7"), well_label = c("well_1", "well_2", "well_3", "well_4", "well_5", "well_6",
-    "well_7"), trip_id = c("1", "1", "1", "1", "1", "1", "1"))
+  dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7"), sample_well = c("well_1", "well_2", "well_3", "well_4", "well_5", "well_6", "well_7"),
+  trip_id = c("1", "1", "1", "1", "1", "1", "1"), sample_smallsweight = c(6, 25, 14, 0, NA, 10, 8), sample_bigsweight = c(12, 0, 9, NA, 6, 0, 0))
+  dataframe2 <- data.frame(well_id = c("1", "2", "3", "4", "5", "6", "7"), well_label = c("well_1", "well_2", "well_3", "well_4", "well_5", "well_6", "well_7"),
+  trip_id = c("1", "1", "1", "1", "1", "1", "1"))
   dataframe3 <- data.frame(wellactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8"), well_id = c("1", "1", "2", "3", "4", "5", "6", "7"))
-  dataframe4 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), wellactivity_id = c(
-    "1", "1", "1", "2", "3", "4", "4", "5", "6", "7", "7", "7", "8", "8"), weightcategory_code = c("W-1", "W-9", "W-2", "W-2", "W-1", "W-2", "W-9",
-    "W-2", "W-2", "W-1", "W-9", "W-9", "W-1", "W-1"), species_fao_code = c("BET", "SKJ", "SKJ", "ALB", "SKJ", "BET", "BET", "ALB", "SKJ", "SKJ",
-    "SKJ", "BET", "ALB", "JOS"), wellactivityspecies_weight = c(4, 2, 7, 5, 25, 9, 14, 5, 17, 10, 5, 2, 7, 1))
-  expect_equal(logbook_distribution_control(dataframe1, dataframe2, dataframe3, dataframe4, output = "report"), structure(list(sample_id = c("1",
-    "2", "3", "4", "5", "6", "7"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE), sample_smallsweight = c(6, 25, 14, 0, NA, 10, 8),
-  sample_bigsweight = c(12, 0, 9, NA, 6, 0, 0), sample_well = c("well_1", "well_2", "well_3", "well_4", "well_5", "well_6", "well_7"),
-  weight_sum_small_filter = c(6, 25, NaN, NaN, NaN, 15, 7), weight_sum_big_filter = c(12, NaN, 9, 5, 17, NaN, NaN), weight_sum_small = c(6, 25, 14,
-    NaN, NaN, 17, 8), weight_sum_big = c(12, NaN, 9, 5, 17, NaN, NaN)), row.names = c(NA, -7L), class = "data.frame"))
+  dataframe4 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), wellactivity_id = c("1", "1", "1",
+    "2", "3", "4", "4", "5", "6", "7", "7", "7", "8", "8"), weightcategory_code = c("W-1", "W-9", "W-2", "W-2", "W-1", "W-2", "W-9", "W-2", "W-2", "W-1", "W-9", "W-9",
+    "W-1", "W-1"), species_fao_code = c("BET", "SKJ", "SKJ", "ALB", "SKJ", "BET", "BET", "ALB", "SKJ", "SKJ", "SKJ", "BET", "ALB", "JOS"), wellactivityspecies_weight = c(
+    4, 2, 7, 5, 25, 9, 14, 5, 17, 10, 5, 2, 7, 1))
+  expect_equal(logbook_distribution_control(dataframe1, dataframe2, dataframe3, dataframe4, output = "report"), structure(list(sample_id = c("1", "2", "3", "4", "5",
+    "6", "7"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE), sample_smallsweight = c(6, 25, 14, 0, NA, 10, 8), sample_bigsweight = c(12, 0, 9, NA, 6, 0,
+    0), sample_well = c("well_1", "well_2", "well_3", "well_4", "well_5", "well_6", "well_7"), weight_sum_small_filter = c(6, 25, NaN, NaN, NaN, 15, 7),
+  weight_sum_big_filter = c(12, NaN, 9, 5, 17, NaN, NaN), weight_sum_small = c(6, 25, 14, NaN, NaN, 17, 8), weight_sum_big = c(12, NaN, 9, 5, 17, NaN, NaN)),
+  row.names = c(NA, -7L), class = "data.frame"))
 })
 

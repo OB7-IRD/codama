@@ -5,22 +5,19 @@ test_that("Doctest: logbook_temporal_limit_control", {
   # Created from @doctest for `logbook_temporal_limit_control`
   # Source file: R/logbook_temporal_limit_control.R
   # Source line: 28
-  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"), trip_startdate = as.Date(c("2020/01/01", "2020/01/01", NA, "2020/01/24",
-    "2020/02/01", "2020/02/13", "2020/03/10")), trip_enddate = as.Date(c("2020/01/02", "2020/01/02", "2020/01/24", NA, "2020/02/03", "2020/02/14",
-    "2020/03/11")))
-  dataframe2 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), activity_date = as.Date(c(
-    "2020/01/01", "2020/01/02", "2020/01/01", "2020/01/02", "2020/01/03", "2020/01/24", "2020/01/24", "2020/02/01", "2020/02/03", "2020/02/13",
-    "2020/02/13", "2020/02/14", "2020/03/10", "2020/03/11")), trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6", "7", "7"))
-  dataframe3 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), route_id = c("1", "1", "2",
-    "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"))
-  expect_equal(logbook_temporal_limit_control(dataframe1, dataframe2, dataframe3, output = "report"), list(structure(list(trip_id = c("1", "2", "3",
-    "4", "5", "6", "7"), logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)), row.names = c(NA, -7L), class = "data.frame"), structure(list(
-    trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "7"), trip_startdate = structure(c(18262, 18262, 18262, 18262, 18262, NA,
-      18285, 18293, 18293, 18305, 18305, 18331), class = "Date"), trip_enddate = structure(c(18263, 18263, 18263, 18263, 18263, 18285, NA, 18295,
-      18295, 18306, 18306, 18332), class = "Date"), activity_date = structure(c(18262, 18263, 18262, 18263, 18264, 18285, 18285, 18293, 18295, 18305,
-      18306, 18331), class = "Date"), inter_activity_date = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE),
-    exter_activity_date = c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), count_freq = c(1L, 1L, 1L, 1L, 1L,
-      1L, 1L, 1L, 1L, 2L, 1L, 1L), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)), row.names = c(NA, -12L),
-  class = "data.frame")))
+  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5", "6", "7"), trip_startdate = as.Date(c("2020/01/01", "2020/01/01", NA, "2020/01/24", "2020/02/01",
+    "2020/02/13", "2020/03/10")), trip_enddate = as.Date(c("2020/01/02", "2020/01/02", "2020/01/24", NA, "2020/02/03", "2020/02/14", "2020/03/11")))
+  dataframe2 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), activity_date = as.Date(c("2020/01/01",
+    "2020/01/02", "2020/01/01", "2020/01/02", "2020/01/03", "2020/01/24", "2020/01/24", "2020/02/01", "2020/02/03", "2020/02/13", "2020/02/13", "2020/02/14",
+    "2020/03/10", "2020/03/11")), trip_id = c("1", "1", "2", "2", "2", "3", "4", "5", "5", "6", "6", "6", "7", "7"))
+  dataframe3 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"), route_id = c("1", "1", "2", "3", "4", "5", "6",
+    "7", "8", "9", "10", "11", "12", "13"))
+  expect_equal(logbook_temporal_limit_control(dataframe1, dataframe2, dataframe3, output = "report"), list(structure(list(trip_id = c("1", "2", "3", "4", "5", "6", "7"),
+  logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)), row.names = c(NA, -7L), class = "data.frame"), structure(list(trip_id = c("1", "1", "2", "2", "2", "3",
+    "4", "5", "5", "6", "6", "7"), trip_startdate = structure(c(18262, 18262, 18262, 18262, 18262, NA, 18285, 18293, 18293, 18305, 18305, 18331), class = "Date"),
+  trip_enddate = structure(c(18263, 18263, 18263, 18263, 18263, 18285, NA, 18295, 18295, 18306, 18306, 18332), class = "Date"), activity_date = structure(c(18262,
+    18263, 18262, 18263, 18264, 18285, 18285, 18293, 18295, 18305, 18306, 18331), class = "Date"), inter_activity_date = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE,
+    TRUE, TRUE, TRUE, TRUE, TRUE), exter_activity_date = c(FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), count_freq = c(1L, 1L,
+    1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 1L, 1L), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE)), row.names = c(NA, -12L), class = "data.frame")))
 })
 

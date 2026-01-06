@@ -6,10 +6,10 @@ test_that("Doctest: logbook_floating_object_buoy_id_redundancy_control", {
   # Source file: R/logbook_floating_object_buoy_id_redundancy_control.R
   # Source line: 20
   dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5"))
-  dataframe2 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6"), floatingobject_id = c("1", "2", "3", "3", "5", "5"),
-  transmittingbuoyoperation_code = c("2", "3", "2", "4", "2", "3"), transmittingbuoy_code = c("1", "2", "3", "3", "1", "1"))
-  expect_equal(logbook_floating_object_buoy_id_redundancy_control(dataframe1, dataframe2, output = "report"), structure(list(floatingobject_id = c(
-    "1", "2", "3", "4", "5"), transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(FALSE, FALSE, FALSE, FALSE, TRUE)), class = c("tbl_df",
-    "tbl", "data.frame"), row.names = c(NA, -5L)))
+  dataframe2 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6"), floatingobject_id = c("1", "2", "3", "3", "5", "5"), transmittingbuoyoperation_code = c(
+    "2", "3", "2", "4", "2", "3"), transmittingbuoy_code = c("1", "2", "3", "3", "1", "1"))
+  expect_equal(logbook_floating_object_buoy_id_redundancy_control(dataframe1, dataframe2, output = "report"), structure(list(floatingobject_id = c("1", "2", "3", "4",
+    "5"), transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(FALSE, FALSE, FALSE, FALSE, TRUE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA,
+    -5L)))
 })
 

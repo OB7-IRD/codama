@@ -8,7 +8,6 @@
 #' @param harbour_crs {\link[base]{numeric}} expected. Default values: 4326. Coordinate Reference Systems for the position harbour
 #' @param vms_crs {\link[base]{numeric}} expected. Default values: 4326. Coordinate Reference Systems for the position VMS
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
-#' @param threshold_number_vms {\link[base]{numeric}} expected. Default values: 20. Minimum number of VMS positions required per day.
 #' @param threshold_geographical {\link[base]{numeric}} expected. Default values: 10. Maximum valid distance threshold (Nautical miles) between position and nearest VMS point.
 #' @param threshold_time {\link[base]{numeric}} expected. Default values: 7200000. Maximum valid distance threshold (milliseconds) between position and VMS point.
 #' @param threshold_score {\link[base]{numeric}} expected. Default values: 0.5. Minimum valid score between position and VMS point.
@@ -40,7 +39,8 @@
 #' @return The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first without geographical location and the second with geographical location), a {\link[base]{logical}} with output is "logical"
 #' @doctest
 #' #Activity 1, 2 and 3 are ok,
-#' #Activity 4 has a number of VMS below the threshold (threshold_number_vms),
+#' #Activity 4 has a geographical distance above the threshold (threshold_geographical) and
+#' #           a score below the threshold (threshold_score),
 #' #Activity 5 has no position,
 #' #Activity 6 has has a geographical distance above the threshold (threshold_geographical) and
 #' #           a score below the threshold (threshold_score)
@@ -61,7 +61,7 @@
 #'                          vms_position = c("POINT (4 4)", "POINT (0 0.1)", "POINT (3 0.3)"),
 #'                          vessel_code = c("1", "1", "1"))
 #' @expect equal(., list(structure(list(activity_id = c("1", "2", "3", "4", "5", "6"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE), nb_vms = c(1L, 2L, 2L, NA, 2L, 2L), min_distance = structure(c(NA, 6.004055139173, 18.012165417519, 230.106883933216, NA, 18.012165417519), units = structure(list(numerator = "NM", denominator = character(0)), class = "symbolic_units"), class = "units"), max_score = c(NA, NA, 2.17959673670807, 0, NA, 0.209441144555651)), row.names = c(NA, 6L), class = "data.frame"), structure(list(activity_id = c("3", "3", "4", "4", "6", "6", "1", "2", "2", "5", "5"), activity_date = structure(c(18273, 18273, 18274, 18274, 18273, 18273, 18262, 18273, 18273, 18273, 18273), class = "Date"), activity_time = c("16:41:15", "16:41:15", "03:12:34", "03:12:34", "23:26:47", "23:26:47", "05:26:01", "10:41:15", "10:41:15", "05:56:12", "05:56:12"), activity_position = c("POINT (3 0)", "POINT (3 0)", "POINT (4 4)", "POINT (4 4)", "POINT (3 0.6)", "POINT (3 0.6)", "POINT (1 1)", "POINT (0 0)", "POINT (0 0)", NA, NA), vms_date = structure(c(18273, 18273, 18273, 18273, 18273, 18273, 18262, 18273, 18273, 18273, 18273), class = "Date"), vms_time = c("10:55:15", "22:32:17", "10:55:15", "22:32:17", "10:55:15", "22:32:17", "15:26:01", "10:55:15", "22:32:17", "10:55:15", "22:32:17"), vms_position = c("POINT (0 0.1)", "POINT (3 0.3)", "POINT (0 0.1)", "POINT (3 0.3)", "POINT (0 0.1)", "POINT (3 0.3)", "POINT (4 4)", "POINT (0 0.1)", "POINT (3 0.3)", "POINT (0 0.1)", "POINT (3 0.3)"), distance = structure(c(180.221602566745, 18.012165417519, 335.278629168604, 230.106883933216, 182.602328607533, 18.012165417519, NA, 6.004055139173, 181.019203021658, NA, NA), units = structure(list(numerator = "NM", denominator = character(0)), class = "symbolic_units"), class = "units"), duration = structure(c(20760000, -21062000, -27761000, -69583000, 45092000, 3270000, NA, NA, NA, NA, NA), units = structure(list(numerator = "ms", denominator = character(0)), class = "symbolic_units"), class = "units"), score = c(0, 2.17959673670807, 0, 0, 0, 0.209441144555651, NA, NA, NA, NA, NA), vms_crs = c(4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326), activity_crs = c(4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326, 4326)), row.names = c(NA, -11L), class = "data.frame")))
-#' logbook_anapo_control(dataframe1,dataframe2, dataframe3, output = "report",threshold_number_vms = 1)
+#' logbook_anapo_control(dataframe1,dataframe2, dataframe3, output = "report")
 #' @export
 logbook_anapo_control <- function(dataframe1,
                                   dataframe2,
@@ -70,7 +70,6 @@ logbook_anapo_control <- function(dataframe1,
                                   harbour_crs = 4326,
                                   vms_crs = 4326,
                                   output,
-                                  threshold_number_vms = 20,
                                   threshold_geographical = 10,
                                   threshold_time = 7200000,
                                   threshold_score = 0.5,
@@ -211,19 +210,6 @@ logbook_anapo_control <- function(dataframe1,
       r_object = output,
       type = "character",
       allowed_value = c("message", "report", "logical"),
-      output = "error"
-    ))
-  }
-  if (!codama::r_type_checking(
-    r_object = threshold_number_vms,
-    type = "numeric",
-    length = 1L,
-    output = "logical"
-  )) {
-    return(codama::r_type_checking(
-      r_object = threshold_number_vms,
-      type = "numeric",
-      length = 1L,
       output = "error"
     ))
   }
@@ -470,8 +456,6 @@ logbook_anapo_control <- function(dataframe1,
   dataframe1 <- dplyr::left_join(dataframe1, dataframe_score_max, by = dplyr::join_by(activity_id))
   # Check the maximum score between activity and VMS
   dataframe1[!is.na(dataframe1$max_score) & dataframe1$max_score >= threshold_score, "logical"] <- TRUE
-  # Check if the number of vms for the day exceeds the threshold
-  dataframe1[dataframe1$nb_vms_bis < threshold_number_vms, "logical"] <- FALSE
   # Recovers all activity positions for the detailed table
   # Data with calcul VMS
   dataframe_detail <- dplyr::bind_rows(dataframe_calcul, dplyr::anti_join(subset(dataframe3, select = -c(logical)), dataframe_calcul, by = c("activity_id", "activity_date", "vms_date", "vessel_code", "vms_time", "vms_position", "activity_time", "activity_position")))

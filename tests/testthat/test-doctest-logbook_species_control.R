@@ -6,7 +6,7 @@ test_that("Doctest: logbook_species_control", {
   # Source file: R/logbook_species_control.R
   # Source line: 15
   dataframe1 <- data.frame(samplespecies_id = c("1", "2"), species_fao_code = c("YFT", "JOS"))
-  expect_equal(logbook_species_control(dataframe1, output = "report"), structure(list(samplespecies_id = c("1", "2"), logical = c(TRUE, FALSE),
-  species_fao_code = c("YFT", "JOS")), row.names = c(NA, -2L), class = "data.frame"))
+  expect_equal(logbook_species_control(dataframe1, output = "report"), structure(list(samplespecies_id = c("1", "2"), logical = c(TRUE, FALSE), species_fao_code = c(
+    "YFT", "JOS")), row.names = c(NA, -2L), class = "data.frame"))
 })
 

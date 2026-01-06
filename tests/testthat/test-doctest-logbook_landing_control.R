@@ -5,9 +5,9 @@ test_that("Doctest: logbook_landing_control", {
   # Created from @doctest for `logbook_landing_control`
   # Source file: R/logbook_landing_control.R
   # Source line: 16
-  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4"), trip_landingtotalweight = c(10, 15, 2, NA), trip_localmarkettotalweight = c(2, 1, 7, NA),
-  vessel_capacity = c(20, 10, NA, 13))
-  expect_equal(logbook_landing_control(dataframe1, output = "report"), structure(list(trip_id = c("1", "2", "3", "4"), logical = c(TRUE, FALSE,
-    FALSE, TRUE), vessel_capacity = c(14, 7, NA, 9.1), trip_weighttotal = c(12, 16, 9, 0)), row.names = c(NA, 4L), class = "data.frame"))
+  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4"), trip_landingtotalweight = c(10, 15, 2, NA), trip_localmarkettotalweight = c(2, 1, 7, NA), vessel_capacity = c(
+    20, 10, NA, 13))
+  expect_equal(logbook_landing_control(dataframe1, output = "report"), structure(list(trip_id = c("1", "2", "3", "4"), logical = c(TRUE, FALSE, FALSE, TRUE),
+  vessel_capacity = c(14, 7, NA, 9.1), trip_weighttotal = c(12, 16, 9, 0)), row.names = c(NA, 4L), class = "data.frame"))
 })
 

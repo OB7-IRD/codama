@@ -7,7 +7,7 @@ test_that("Doctest: logbook_activity_sample_control", {
   # Source line: 19
   dataframe1 <- data.frame(sample_id = c("1", "2"))
   dataframe2 <- data.frame(sample_id = c("1"), activity_id = c("1"))
-  expect_equal(logbook_activity_sample_control(dataframe1, dataframe2, output = "report"), structure(list(sample_id = c("1", "2"), logical = c(TRUE,
-    FALSE)), row.names = c(NA, -2L), class = "data.frame"))
+  expect_equal(logbook_activity_sample_control(dataframe1, dataframe2, output = "report"), structure(list(sample_id = c("1", "2"), logical = c(TRUE, FALSE)),
+  row.names = c(NA, -2L), class = "data.frame"))
 })
 

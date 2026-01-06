@@ -5,14 +5,12 @@ test_that("Doctest: logbook_time_route_control", {
   # Created from @doctest for `logbook_time_route_control`
   # Source file: R/logbook_time_route_control.R
   # Source line: 35
-  dataframe1 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8"), route_seatime = c(6, 2, 0, NA, 8, 26, 15, 8), route_fishingtime = c(
-    5, 0, 2, 4, NA, 7, 14, 9))
-  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"), vesselactivity_code = c("2", "13", "103", "15", "6"), route_id = c("1", "1",
-    "2", "2", "3"))
+  dataframe1 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8"), route_seatime = c(6, 2, 0, NA, 8, 26, 15, 8), route_fishingtime = c(5, 0, 2, 4, NA, 7,
+    14, 9))
+  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"), vesselactivity_code = c("2", "13", "103", "15", "6"), route_id = c("1", "1", "2", "2", "3"))
   dataframe3 <- data.frame(floatingobject_id = c("1"), objectoperation_code = c("1"), activity_id = c("2"))
-  expect_equal(logbook_time_route_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(route_id = c("1", "2", "3", "4",
-    "5", "6", "7", "8"), logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), route_seatime = c(6, 2, 0, NA, 8, 26, 15, 8),
-  route_fishingtime = c(5, 0, 2, 4, NA, 7, 14, 9), nb_activity_must_seatime = c(2, 2, 1, 0, 0, 0, 0, 0), nb_activity_must_fishingtime = c(2, 1, 1, 0,
-    0, 0, 0, 0)), row.names = c(NA, 8L), class = "data.frame"))
+  expect_equal(logbook_time_route_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(route_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
+  logical = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), route_seatime = c(6, 2, 0, NA, 8, 26, 15, 8), route_fishingtime = c(5, 0, 2, 4, NA, 7, 14, 9),
+  nb_activity_must_seatime = c(2, 2, 1, 0, 0, 0, 0, 0), nb_activity_must_fishingtime = c(2, 1, 1, 0, 0, 0, 0, 0)), row.names = c(NA, 8L), class = "data.frame"))
 })
 
