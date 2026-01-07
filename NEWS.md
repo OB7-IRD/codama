@@ -1,3 +1,8 @@
+# codama 1.4.2 - 2026.01.07
+
+## Changed
+* logbook_anapo_control.R : Remove argument threshold_number_vms (remove check min 20 VMS)
+
 # codama 1.4.1 - 2025.12.19
 
 ## Added
