@@ -49,7 +49,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Gives the inconsistencies activity position and VMS position</h1>
-    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/main/R/logbook_anapo_control.R" class="external-link"><code>R/logbook_anapo_control.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/development/R/logbook_anapo_control.R" class="external-link"><code>R/logbook_anapo_control.R</code></a></small>
     <div class="hidden name"><code>logbook_anapo_control.Rd</code></div>
     </div>
 
@@ -66,7 +66,6 @@
 <span>  harbour_crs <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>  vms_crs <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>  <span class="va">output</span>,</span>
-<span>  threshold_number_vms <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  threshold_geographical <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  threshold_time <span class="op">=</span> <span class="fl">7200000</span>,</span>
 <span>  threshold_score <span class="op">=</span> <span class="fl">0.5</span>,</span>
@@ -104,10 +103,6 @@
 
 <dt id="arg-output">output<a class="anchor" aria-label="anchor" href="#arg-output"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Kind of expected output. You can choose between "message", "report" or "logical".</p></dd>
-
-
-<dt id="arg-threshold-number-vms">threshold_number_vms<a class="anchor" aria-label="anchor" href="#arg-threshold-number-vms"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> expected. Default values: 20. Minimum number of VMS positions required per day.</p></dd>
 
 
 <dt id="arg-threshold-geographical">threshold_geographical<a class="anchor" aria-label="anchor" href="#arg-threshold-geographical"></a></dt>
@@ -150,7 +145,8 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Activity 1, 2 and 3 are ok,</span></span></span>
-<span class="r-in"><span><span class="co">#Activity 4 has a number of VMS below the threshold (threshold_number_vms),</span></span></span>
+<span class="r-in"><span><span class="co">#Activity 4 has a geographical distance above the threshold (threshold_geographical) and</span></span></span>
+<span class="r-in"><span><span class="co">#           a score below the threshold (threshold_score),</span></span></span>
 <span class="r-in"><span><span class="co">#Activity 5 has no position,</span></span></span>
 <span class="r-in"><span><span class="co">#Activity 6 has has a geographical distance above the threshold (threshold_geographical) and</span></span></span>
 <span class="r-in"><span><span class="co">#           a score below the threshold (threshold_score)</span></span></span>
@@ -170,7 +166,7 @@
 <span class="r-in"><span>                         vms_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"15:26:01"</span>, <span class="st">"10:55:15"</span>, <span class="st">"22:32:17"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         vms_position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"POINT (4 4)"</span>, <span class="st">"POINT (0 0.1)"</span>, <span class="st">"POINT (3 0.3)"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         vessel_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">logbook_anapo_control</span><span class="op">(</span><span class="va">dataframe1</span>,<span class="va">dataframe2</span>, <span class="va">dataframe3</span>, output <span class="op">=</span> <span class="st">"report"</span>,threshold_number_vms <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">logbook_anapo_control</span><span class="op">(</span><span class="va">dataframe1</span>,<span class="va">dataframe2</span>, <span class="va">dataframe3</span>, output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   activity_id logical nb_vms    min_distance max_score</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1           1    TRUE      1         NA [NM]        NA</span>
