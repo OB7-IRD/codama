@@ -4,13 +4,15 @@
 test_that("Doctest: logbook_weighting_sample_control", {
   # Created from @doctest for `logbook_weighting_sample_control`
   # Source file: R/logbook_weighting_sample_control.R
-  # Source line: 32
-  dataframe1 <- data.frame(activity_id = c("1", "2", "3", "4", "5"))
-  dataframe2 <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6"), catch_weight = c(4, 2, 5, 10, 3, 8), speciesfate_code = c("6", "6", "6", "6", "6", "6"),
-  species_fao_code = c("YFT", "JOS", "ALB", "YFT", "YFT", "FRI"), activity_id = c("1", "1", "1", "2", "2", "5"))
-  dataframe3 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5"), sampleactivity_weightedweight = c(3, 6, 12.5, NA, 26), activity_id = c("1", "1", "2", "3",
-    "4"))
-  expect_equal(logbook_weighting_sample_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(activity_id = c("1", "2", "3", "4", "5"),
-  logical = c(TRUE, FALSE, TRUE, FALSE, TRUE), weight = c(9, 13, NA, NA, 8), weightedweight = c(9, 12.5, 0, 26, NA)), row.names = c(NA, 5L), class = "data.frame"))
+  # Source line: 27
+  dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"), sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA),
+  sample_well = c("well_1", "well_2", "well_1", "well_1", "well_2", "well_1", "well_1", "well_1", "well_1"), activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7"))
+  dataframe2 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"), wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5,
+    5, 11, 4, 26, 2, 13, 6), species_fao_code = c("YFT", "SKJ", "ALB", "JOS", "YFT", "FRI", "YFT", "SKJ", "BET", "ALB", "YFT", "BET", "ALB"), well_label = c("well_1",
+    "well_2", "well_2", "well_2", "well_1", "well_2", "well_1", "well_2", "well_3", "well_1", "well_1", "well_1", "well_2"), activity_id = c("1", "1", "1", "1", "2", "2", "3",
+    "3", "3", "5", "5", "6", "6"))
+  expect_equal(logbook_weighting_sample_control(dataframe1, dataframe2, output = "report"), structure(list(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
+  sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), weightedweight_well = c(3, 6,
+    20, 6.25, 13.75, NA, 28, 19, NA)), row.names = c(NA, 9L), class = "data.frame"))
 })
 

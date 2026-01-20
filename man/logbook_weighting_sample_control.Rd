@@ -2,15 +2,13 @@
 % Please edit documentation in R/logbook_weighting_sample_control.R
 \name{logbook_weighting_sample_control}
 \alias{logbook_weighting_sample_control}
-\title{Gives the inconsistencies between the sample weighting and catch weight}
+\title{Gives the inconsistencies between the sample weighting and weight in well}
 \usage{
 logbook_weighting_sample_control(
   dataframe1,
   dataframe2,
-  dataframe3,
   output,
   species = c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT"),
-  species_fate = "6",
   epsilon = 0.01
 )
 }
@@ -19,13 +17,9 @@ logbook_weighting_sample_control(
 
 \item{dataframe2}{{\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_weighting_sample_control () function.}
 
-\item{dataframe3}{{\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_weighting_sample_control () function.}
-
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
 \item{species}{{\link[base]{character}} expected. Default values: c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT"). list of the inventory of species (FAO code) used to compare to sample weighting.}
-
-\item{species_fate}{{\link[base]{character}} expected. Default values: "6". Vector of inventory of fate used to compare to sample weighting.}
 
 \item{epsilon}{{\link[base]{numeric}} expected, default : 0.01. Gives the threshold at which the difference is considered too large.}
 }
@@ -33,41 +27,46 @@ logbook_weighting_sample_control(
 The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 }
 \description{
-The purpose of the logbook_weighting_sample_control function is to provide a table of data that contains an inconsistency between the sample weighting and catch weight for activity
+The purpose of the logbook_weighting_sample_control function is to provide a table of data that contains an inconsistency between the sample weighting and weight in well
 }
 \details{
 The input dataframe must contain all these columns for the function to work :
 \itemize{
 Dataframe 1:
+\item{\code{  sampleactivity_id}}
+\item{\code{  sampleactivity_weightedweight}}
+\item{\code{  sample_well}}
 \item{\code{  activity_id}}
 }
 \itemize{
 Dataframe 2:
-\item{\code{  catch_id}}
-\item{\code{  catch_weight}}
-\item{\code{  speciesfate_code}}
+\item{\code{  wellactivityspecies_id}}
+\item{\code{  wellactivityspecies_weight}}
 \item{\code{  species_fao_code}}
-\item{\code{  activity_id}}
-}
-\itemize{
-Dataframe 3:
-\item{\code{  sampleactivity_id}}
-\item{\code{  sampleactivity_weightedweight}}
+\item{\code{  well_label}}
 \item{\code{  activity_id}}
 }
 }
 \examples{
-#Activity 1, 3 and 5 are ok,
-#Activity 2 has different weight,
-#Activity 4 has weighted weight
-dataframe1 <- data.frame(activity_id = c("1", "2", "3", "4", "5"))
-dataframe2 <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6"),
-                         catch_weight = c(4, 2, 5, 10, 3, 8),
-                         speciesfate_code = c("6", "6", "6", "6", "6", "6"),
-                         species_fao_code = c("YFT", "JOS", "ALB", "YFT", "YFT", "FRI"),
-                         activity_id = c("1", "1", "1", "2", "2", "5"))
-dataframe3 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5"),
-                         sampleactivity_weightedweight = c(3, 6, 12.5, NA, 26),
-                         activity_id = c("1", "1", "2", "3", "4"))
-logbook_weighting_sample_control(dataframe1, dataframe2, dataframe3, output = "report")
+#Sample activity 1, 2, 3, 4 and 5 are ok,
+#Sample Activity 6 has weights missing from the well,
+#Sample Activity 7 does not take into account all species
+#Sample Activity 8 does not take into account all well
+#Sample Activity 9 has weighted weight missing
+dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
+                         sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA),
+                         sample_well = c("well_1", "well_2", "well_1", "well_1", "well_2",
+                                         "well_1", "well_1", "well_1", "well_1"),
+                         activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7"))
+dataframe2 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                                    "10", "11", "12", "13"),
+                         wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5, 5, 11, 4, 26, 2, 13, 6),
+                         species_fao_code = c("YFT", "SKJ", "ALB", "JOS", "YFT", "FRI", "YFT",
+                                              "SKJ", "BET", "ALB", "YFT", "BET", "ALB"),
+                         well_label = c("well_1", "well_2", "well_2", "well_2", "well_1", "well_2",
+                                        "well_1", "well_2", "well_3", "well_1", "well_1", "well_1",
+                                        "well_2"),
+                         activity_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "5", "5", "6",
+                                         "6"))
+logbook_weighting_sample_control(dataframe1, dataframe2, output = "report")
 }

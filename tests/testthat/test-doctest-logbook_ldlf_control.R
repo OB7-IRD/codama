@@ -5,12 +5,11 @@ test_that("Doctest: logbook_ldlf_control", {
   # Created from @doctest for `logbook_ldlf_control`
   # Source file: R/logbook_ldlf_control.R
   # Source line: 28
-  dataframe1 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6"), species_fao_code = c("SKJ", "SKJ", "JOS", "SKJ", "SKJ", "JOS"), sizemeasuretype_code = c(
-    "FL", "PD1", "PD1", "FL", "FL", "PD1"), sample_id = c("1", "1", "1", "2", "3", "4"))
-  dataframe2 <- data.frame(sample_id = c("1", "2", "3", "4"), sample_smallsweight = c(5, 0, 0, 7), sample_bigsweight = c(12, NA, 6, 0), sample_totalweight = c(0, 23,
-    NA, NA))
-  expect_equal(logbook_ldlf_control(dataframe1, dataframe2, output = "report"), structure(list(samplespecies_id = c("1", "2", "3", "4", "5", "6"), logical = c(TRUE,
-    FALSE, TRUE, TRUE, FALSE, FALSE), sizemeasuretype_code = c("FL", "PD1", "PD1", "FL", "FL", "PD1"), species_fao_code = c("SKJ", "SKJ", "JOS", "SKJ", "SKJ", "JOS"),
+  dataframe1 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6"), species_fao_code = c("SKJ", "SKJ", "JOS", "SKJ", "SKJ", "JOS"), sizemeasuretype_code = c("FL",
+    "PD1", "PD1", "FL", "FL", "PD1"), sample_id = c("1", "1", "1", "2", "3", "4"))
+  dataframe2 <- data.frame(sample_id = c("1", "2", "3", "4"), sample_smallsweight = c(5, 0, 0, 7), sample_bigsweight = c(12, NA, 6, 0), sample_totalweight = c(0, 23, NA, NA))
+  expect_equal(logbook_ldlf_control(dataframe1, dataframe2, output = "report"), structure(list(samplespecies_id = c("1", "2", "3", "4", "5", "6"), logical = c(TRUE, FALSE,
+    TRUE, TRUE, FALSE, FALSE), sizemeasuretype_code = c("FL", "PD1", "PD1", "FL", "FL", "PD1"), species_fao_code = c("SKJ", "SKJ", "JOS", "SKJ", "SKJ", "JOS"),
   sample_bigsweight = c(12, 12, 12, NA, 6, 0), sample_smallsweight = c(5, 5, 5, 0, 0, 7), sample_totalweight = c(0, 0, 0, 23, NA, NA)), row.names = c(NA, 6L), class = "data.frame"))
 })
 
