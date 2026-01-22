@@ -18,13 +18,15 @@
 #'  \item{\code{  transmittingbuoy_code}}
 #' }
 #' @doctest
+#' # Floating object 1,2,3,4 are ok,
+#' # Floating object 5 has buoy with two contradictory buoy operation (operation_code)
 #' dataframe1 <- data.frame(floatingobject_id = c("1","2","3","4", "5"))
 #' dataframe2 <- data.frame(transmittingbuoy_id = c("1","2","3","4", "5", "6"),
 #'                          floatingobject_id = c("1","2","3","3","5","5"),
 #'                          transmittingbuoyoperation_code = c("2","3","2","4", "2", "3"),
 #'                          transmittingbuoy_code = c("1","2","3","3", "1", "1"))
 #'
-#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"), transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(FALSE, FALSE, FALSE, FALSE, TRUE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -5L)))
+#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"), transmittingbuoy_code = c("1", "2", "3", NA, "1"), logical = c(TRUE, TRUE, TRUE,TRUE, FALSE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -5L)))
 #' logbook_floating_object_buoy_id_redundancy_control(dataframe1, dataframe2, output = "report")
 #' @export
 logbook_floating_object_buoy_id_redundancy_control <- function(dataframe1,
@@ -107,20 +109,15 @@ logbook_floating_object_buoy_id_redundancy_control <- function(dataframe1,
   # Check buoy id and redundance in operation 2,3
   dataframe1 <- dataframe1 %>%
     dplyr::group_by(floatingobject_id, transmittingbuoy_code) %>%
-    dplyr::summarise(logical = sum(operation_code %in% transmittingbuoyoperation_code) == length(operation_code), .groups = "drop")
-
-
+    dplyr::summarise(logical = sum(operation_code %in% transmittingbuoyoperation_code) != length(operation_code), .groups = "drop")
   # Control of raw's number
 
-  if ((sum(dataframe1$logical, na.rm = TRUE) + sum(!dataframe1$logical, na.rm = TRUE)) != nrow_first || sum(is.na(dataframe1$logical)) > 0) {
+  if ((sum(dataframe1$logical, na.rm = TRUE) + sum(!dataframe1$logical, na.rm = TRUE)) < nrow_first || sum(is.na(dataframe1$logical)) > 0) {
     all <- c(select, dataframe1$floatingobject_id)
     number_occurrences <- table(all)
     text <- ""
     if (sum(number_occurrences == 1) > 0) {
       text <- paste0(text, "Missing item ", "(", sum(number_occurrences == 1), "):", paste0(names(number_occurrences[number_occurrences == 1]), collapse = ", "), "\n")
-    }
-    if (sum(number_occurrences > 2) > 0) {
-      text <- paste0(text, "Too many item ", "(", sum(number_occurrences > 2), "):", paste0(names(number_occurrences[number_occurrences > 2]), collapse = ", "))
     }
     if (sum(is.na(dataframe1$logical)) > 0) {
       text <- paste0(text, "Unknown control result", "(", sum(is.na(dataframe1$logical)), "):", paste0(dataframe1$floatingobject_id[is.na(dataframe1$logical)], collapse = ", "))
