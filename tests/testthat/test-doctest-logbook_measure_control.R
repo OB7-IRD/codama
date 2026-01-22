@@ -5,11 +5,10 @@ test_that("Doctest: logbook_measure_control", {
   # Created from @doctest for `logbook_measure_control`
   # Source file: R/logbook_measure_control.R
   # Source line: 22
-  dataframe1 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6"), samplespecies_measuredcount = c(4, 6, 15, 6, 7, NA), sample_id = c("1", "1", "2", "3",
-    "4", "5"))
-  dataframe2 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5", "6"), samplespeciesmeasure_count = c(10, 10, 5, 3, 2, 8), samplespecies_id = c("1", "3",
-    "3", "4", "4", "6"))
-  expect_equal(logbook_measure_control(dataframe1, dataframe2, output = "report"), structure(list(sample_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE,
-    FALSE, FALSE), sum_measuredcount = c(10, 15, 6, 7, NA), sum_count = c(10, 15, 5, NA, 8)), row.names = c(NA, -5L), class = "data.frame"))
+  dataframe1 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6"), samplespecies_measuredcount = c(4, 6, 15, 6, 7, NA), sample_id = c("1", "1", "2", "3", "4", "5"))
+  dataframe2 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5", "6"), samplespeciesmeasure_count = c(10, 10, 5, 3, 2, 8), samplespecies_id = c("1", "3", "3",
+    "4", "4", "6"))
+  expect_equal(logbook_measure_control(dataframe1, dataframe2, output = "report"), structure(list(sample_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE, FALSE,
+    FALSE), sum_measuredcount = c(10, 15, 6, 7, NA), sum_count = c(10, 15, 5, NA, 8)), row.names = c(NA, -5L), class = "data.frame"))
 })
 

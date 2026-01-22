@@ -1,6 +1,6 @@
 Package: codama
 Title: Common prOcesses for Data quAlity Monitoring
-Version: 1.4.2
+Version: 1.4.3
 Authors@R:
     c(person(given = "Oceane",
               family = "Bouhineau",

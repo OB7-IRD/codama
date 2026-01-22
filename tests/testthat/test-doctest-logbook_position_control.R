@@ -15,9 +15,9 @@ test_that("Doctest: logbook_position_control", {
   logical = c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE), type = c("Sea", "Sea", "Harbour", "Sea", "Excluding shapes oceans", "No position", "Sea"), ocean_label = c(
     "ocean_1", "ocean_2", "ocean_2", "ocean_2", "ocean_2", "ocean_1", NA), ocean_calculate = c("ocean_1", "ocean_1", NA, "ocean_1 ocean_2", NA, NA, "ocean_1 ocean_2")),
   row.names = c(NA, 7L), class = "data.frame"), structure(list(activity_id = c("1", "2", "3", "4", "5", "6", "7"), activity_position = c("POINT (0 0)", "POINT (0 0)",
-    "POINT (-1 -1)", "POINT (1 1)", "POINT (3 3)", NA, "POINT (1 1)"), logical_harbour = c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE), logical_ocean = c(TRUE,
-    FALSE, FALSE, TRUE, FALSE, FALSE, FALSE), logical = c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE), type = c("Sea", "Sea", "Harbour", "Sea",
-    "Excluding shapes oceans", "No position", "Sea"), ocean_label = c("ocean_1", "ocean_2", "ocean_2", "ocean_2", "ocean_2", "ocean_1", NA), ocean_calculate = c(
-    "ocean_1", "ocean_1", NA, "ocean_1 ocean_2", NA, NA, "ocean_1 ocean_2"), activity_crs = c(4326, 4326, 4326, 4326, 4326, 4326, 4326)), row.names = c(NA, 7L), class = "data.frame")))
+    "POINT (-1 -1)", "POINT (1 1)", "POINT (3 3)", NA, "POINT (1 1)"), logical_harbour = c(FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE), logical_ocean = c(TRUE, FALSE,
+    FALSE, TRUE, FALSE, FALSE, FALSE), logical = c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE), type = c("Sea", "Sea", "Harbour", "Sea", "Excluding shapes oceans",
+    "No position", "Sea"), ocean_label = c("ocean_1", "ocean_2", "ocean_2", "ocean_2", "ocean_2", "ocean_1", NA), ocean_calculate = c("ocean_1", "ocean_1", NA,
+    "ocean_1 ocean_2", NA, NA, "ocean_1 ocean_2"), activity_crs = c(4326, 4326, 4326, 4326, 4326, 4326, 4326)), row.names = c(NA, 7L), class = "data.frame")))
 })
 

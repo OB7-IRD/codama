@@ -40,6 +40,8 @@ Dataframe 2:
 }
 }
 \examples{
+# Floating object 1,2,3,4 are ok,
+# Floating object 5 has buoy with two contradictory buoy operation (operation_code)
 dataframe1 <- data.frame(floatingobject_id = c("1","2","3","4", "5"))
 dataframe2 <- data.frame(transmittingbuoy_id = c("1","2","3","4", "5", "6"),
                          floatingobject_id = c("1","2","3","3","5","5"),

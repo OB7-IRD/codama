@@ -1,3 +1,8 @@
+# codama 1.4.3 - 2026.01.22
+
+## Changed
+* logbook_floating_object_buoy_id_redundancy_control.R : Patch function
+
 # codama 1.4.2 - 2026.01.07
 
 ## Changed
