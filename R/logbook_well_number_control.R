@@ -1,5 +1,5 @@
 #' @name logbook_well_number_control
-#' @title Gives the inconsistencies between sample well number and associated trip well numbers
+#' @title Gives the inconsistencies between the well number of sampling activity and well plan trip
 #' @description The purpose of the logbook_well_number_control  function is to provide a table of data that contains an inconsistency between sample well number and associated trip well numbers
 #' @param dataframe1 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_well_number_control () function.
 #' @param dataframe2 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_well_number_control () function.
@@ -10,15 +10,16 @@
 #' The input dataframe must contain all these columns for the function to work :
 #' \itemize{
 #' Dataframe 1:
-#'  \item{\code{  sample_id}}
+#'  \item{\code{  sampleactivity_id}}
 #'  \item{\code{  sample_well}}
+#'  \item{\code{  activity_id}}
 #'  \item{\code{  trip_id}}
 #' }
 #' \itemize{
 #' Dataframe 2:
-#'  \item{\code{  well_id}}
-#'  \item{\code{  trip_id}}
+#'  \item{\code{  wellactivity_id}}
 #'  \item{\code{  well_label}}
+#'  \item{\code{  activity_id}}
 #' }
 #' \itemize{
 #' Dataframe 3:
@@ -27,18 +28,22 @@
 #' }
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 #' @doctest
-#' #Sample 1, 2 and 3 are ok,
-#' #Sample 4 has different well,
-#' #Sample 5 has no well
-#' dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5"),
-#'                          sample_well = c("well_1", "well_2", "well_2", "well_2", NA),
-#'                          trip_id = c("1", "1", "2", "3", "3"))
-#' dataframe2 <- data.frame(well_id = c("1", "2", "3"),
-#'                          trip_id = c("1", "1", "3"),
-#'                          well_label = c("well_1", "well_2", "well_1"))
+#' #Sample activity 1, 2 and 3 are ok,
+#' #Sample activity 4 has different well,
+#' #Sample activity 5 has well missing in sample,
+#' #Sample activity 6 has activity missing in well plan,
+#' #Sample activity 7 has well missing in well plan
+#' dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7"),
+#'                          sample_well = c("well_1", "well_2", "well_5", "well_1",
+#'                                          NA, "well_1", "well_2"),
+#'                          activity_id = c("1", "1", "2", "3", "4", "5", "6"),
+#'                          trip_id = c("1", "1", "2", "3", "3", "3", "3"))
+#' dataframe2 <- data.frame(wellactivity_id = c("1", "2", "3", "4", "5"),
+#'                          well_label = c("well_1", "well_2", "well_2", "well_2", NA),
+#'                          activity_id = c("1", "1", "3", "4", "6"))
 #' dataframe3 <- data.frame(trip_id = c("1", "2", "3"),
 #'                          vesseltype_code = c("6", "1", "6"))
-#' @expect equal(., structure(list(sample_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE), sample_well = c("well_1", "well_2", "well_2", "well_2", NA)), row.names = c(NA, 5L), class = "data.frame"))
+#' @expect equal(., structure(list(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), sample_well = c("well_1", "well_2", "well_5", "well_1", NA, "well_1", "well_2")), row.names = c(NA, 7L), class = "data.frame"))
 #' logbook_well_number_control(dataframe1, dataframe2, dataframe3, output = "report")
 #' @export
 logbook_well_number_control <- function(dataframe1,
@@ -49,43 +54,44 @@ logbook_well_number_control <- function(dataframe1,
   # 0 - Global variables assignement ----
   trip_id <- NULL
   sample_well <- NULL
-  well_id <- NULL
+  activity_id <- NULL
+  wellactivity_id <- NULL
   vesseltype_code <- NULL
   well_label <- NULL
   # 1 - Arguments verification ----
   if (!codama::r_table_checking(
     r_table = dataframe1,
     type = "data.frame",
-    column_name = c("sample_id", "sample_well", "trip_id"),
-    column_type = c("character", "character", "character"),
+    column_name = c("sampleactivity_id", "sample_well", "activity_id", "trip_id"),
+    column_type = c("character", "character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = dataframe1,
       type = "data.frame",
-      column_name = c("sample_id", "sample_well", "trip_id"),
-      column_type = c("character", "character", "character"),
+      column_name = c("sampleactivity_id", "sample_well", "activity_id", "trip_id"),
+      column_type = c("character", "character", "character", "character"),
       output = "error"
     )
   } else {
-    dataframe1 <- dataframe1[, c("sample_id", "sample_well", "trip_id")]
+    dataframe1 <- dataframe1[, c("sampleactivity_id", "sample_well", "activity_id", "trip_id")]
   }
   if (!codama::r_table_checking(
     r_table = dataframe2,
     type = "data.frame",
-    column_name = c("well_id", "trip_id", "well_label"),
+    column_name = c("wellactivity_id", "well_label", "activity_id"),
     column_type = c("character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = dataframe2,
       type = "data.frame",
-      column_name = c("well_id", "trip_id", "well_label"),
+      column_name = c("wellactivity_id", "well_label", "activity_id"),
       column_type = c("character", "character", "character"),
       output = "error"
     )
   } else {
-    dataframe2 <- dataframe2[, c("well_id", "trip_id", "well_label")]
+    dataframe2 <- dataframe2[, c("wellactivity_id", "well_label", "activity_id")]
   }
   if (!codama::r_table_checking(
     r_table = dataframe3,
@@ -129,8 +135,8 @@ logbook_well_number_control <- function(dataframe1,
       output = "error"
     ))
   }
-  select <- dataframe1$sample_id
-  nrow_first <- length(unique(select))
+  select <- dataframe1$sampleactivity_id
+  nrow_first <- length(select)
   # 2 - Data design ----
   # Merge
   if (nrow(dataframe2) > 0) {
@@ -138,19 +144,19 @@ logbook_well_number_control <- function(dataframe1,
   } else {
     dataframe2$logical <- logical()
   }
-  dataframe1 <- dplyr::left_join(dataframe1, dataframe2, by = dplyr::join_by(trip_id == trip_id, sample_well == well_label))
+  dataframe1 <- dplyr::left_join(dataframe1, dataframe2, by = dplyr::join_by(activity_id == activity_id, sample_well == well_label))
   dataframe1 <- dplyr::left_join(dataframe1, dataframe3, by = dplyr::join_by(trip_id))
   # Search well not link
-  dataframe1[is.na(dataframe1$logical), "logical"] <- FALSE
+  dataframe1[is.na(dataframe1$wellactivity_id), "logical"] <- FALSE
   # Case the well number is empty
   dataframe1[is.na(dataframe1$sample_well), "logical"] <- FALSE
   # Vessel types without a well plan
   dataframe1[!(dataframe1$vesseltype_code %in% vessel_type), "logical"] <- TRUE
   # Modify the table for display purposes: add, remove and order column
-  dataframe1 <- subset(dataframe1, select = -c(trip_id, well_id, vesseltype_code))
+  dataframe1 <- subset(dataframe1, select = -c(trip_id, activity_id, wellactivity_id, vesseltype_code))
   dataframe1 <- dplyr::relocate(.data = dataframe1, sample_well, .after = logical)
   if ((sum(dataframe1$logical, na.rm = TRUE) + sum(!dataframe1$logical, na.rm = TRUE)) != nrow_first || any(is.na(dataframe1$logical))) {
-    all <- c(select, dataframe1$sample_id)
+    all <- c(select, dataframe1$sampleactivity_id)
     number_occurrences <- table(all)
     text <- ""
     if (any(number_occurrences == 1)) {
@@ -174,7 +180,7 @@ logbook_well_number_control <- function(dataframe1,
   }
   # 3 - Export ----
   if (output == "message") {
-    return(print(paste0("There are ", sum(!dataframe1$logical), " samples inconsistency with well number", collapse = ", ")))
+    return(print(paste0("There are ", sum(!dataframe1$logical), " samples activity inconsistency with well number", collapse = ", ")))
   }
   if (output == "report") {
     return(dataframe1)
