@@ -1,3 +1,13 @@
+# codama 1.4.4 - 2026.01.26
+
+## Added
+AkadoR check added :
+* logbook_weigh_catch_well_control.R : Identification of incoherent the catch weight and weight in well
+
+## Changed
+* logbook_weighting_sample_control.R : Remove dataframe3 and species_fate (Remove comparaison weighted weight with catch and add comparaison weighted weight with well)
+* logbook_well_number_control.R : Add contraint activity_id
+
 # codama 1.4.3 - 2026.01.22
 
 ## Changed
