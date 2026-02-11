@@ -25,12 +25,15 @@
 #' #Sample 5 has no sample species,
 #' #Sample 6 is a super sample but the numbering starts at 0 instead of 1,
 #' #Sample 7 is a super sample but has only one sub-sample species
-#' dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7"),
-#'                          sample_supersample = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE))
-#' dataframe2 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
-#'                          samplespecies_subsamplenumber = c(0, 1, 2, 1, 1, 1, 0, 1, 1),
-#'                          sample_id = c("1", "2", "2", "3", "4", "4", "6", "6", "7"))
-#' @expect equal(., structure(list(sample_id = c("1", "2", "3", "4", "5", "6", "7"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE), sample_supersample = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE), count_subsamplenumber_n0 = c(0L, 2L, 1L, 2L, NA, 1L, 1L), count_subsamplenumber_0 = c(1L, 0L, 0L, 0L, NA, 1L, 0L), count_subsamplenumber_1 = c(0L, 1L, 1L, 2L, NA, 1L, 1L), count_subsamplenumber = c(1L, 2L, 1L, 1L, NA, 2L, 1L)), row.names = c(NA, 7L), class = "data.frame"))
+#' #Sample 8 is a super sample but has discontinuous numbering of sub-samples
+#' dataframe1 <- data.frame(sample_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
+#'                          sample_supersample = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE))
+#' dataframe2 <- data.frame(samplespecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+#'                                               "11", "12", "13"),
+#'                          samplespecies_subsamplenumber = c(0, 0, 1, 1, 2, 1, 1, 1, 0, 1, 1, 1, 3),
+#'                          sample_id = c("1", "1", "2", "2", "2", "3", "4", "4", "6", "6", "7", "8",
+#'                                        "8"))
+#' @expect equal(., structure(list(sample_id = c("1", "2", "3", "4", "5", "6", "7", "8"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE), sample_supersample = c(FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, TRUE), count_subsamplenumber_n0 = c(0L, 3L, 1L, 2L, NA, 1L, 1L, 2L), count_subsamplenumber_0 = c(2L, 0L, 0L, 0L, NA, 1L, 0L, 0L), count_subsamplenumber_1 = c(0L, 2L, 1L, 2L, NA, 1L, 1L, 1L), count_subsamplenumber = c(1L, 2L, 1L, 1L, NA, 2L, 1L, 2L), count_subsamplenumber_ncontinuous = c(1L, 0L, 0L, 0L, NA, 0L, 0L, 1L)), row.names = c(NA, 8L), class = "data.frame"))
 #' logbook_super_sample_number_control(dataframe1, dataframe2, output = "report")
 #' @export
 logbook_super_sample_number_control <- function(dataframe1,
@@ -53,6 +56,8 @@ logbook_super_sample_number_control <- function(dataframe1,
   sample_supersample <- NULL
   count_subsamplenumber <- NULL
   count_subsamplenumber_bis <- NULL
+  count_subsamplenumber_ncontinuous <- NULL
+  count_subsamplenumber_ncontinuous_bis <- NULL
   # 1 - Arguments verification ----
   if (!codama::r_table_checking(
     r_table = dataframe1,
@@ -108,7 +113,7 @@ logbook_super_sample_number_control <- function(dataframe1,
   # Search subsample number in the associations samples ID
   dataframe2 <- dataframe2 %>%
     dplyr::group_by(sample_id) %>%
-    dplyr::summarise(count_subsamplenumber_n0 = sum(samplespecies_subsamplenumber != 0), count_subsamplenumber_0 = sum(samplespecies_subsamplenumber == 0), count_samplespecies = sum(!is.na(unique(samplespecies_id))), count_subsamplenumber = sum(!is.na(unique(samplespecies_subsamplenumber))), count_subsamplenumber_1 = sum(samplespecies_subsamplenumber == 1))
+    dplyr::summarise(count_subsamplenumber_n0 = sum(samplespecies_subsamplenumber != 0), count_subsamplenumber_0 = sum(samplespecies_subsamplenumber == 0), count_samplespecies = sum(!is.na(unique(samplespecies_id))), count_subsamplenumber = sum(!is.na(unique(samplespecies_subsamplenumber))), count_subsamplenumber_1 = sum(samplespecies_subsamplenumber == 1), count_subsamplenumber_ncontinuous = ifelse(all(is.na(samplespecies_subsamplenumber)), NA_integer_, sum(!(1:max(samplespecies_subsamplenumber) %in% samplespecies_subsamplenumber))))
   # Merge
   if (nrow(dataframe1) > 0) {
     dataframe1$logical <- TRUE
@@ -124,14 +129,17 @@ logbook_super_sample_number_control <- function(dataframe1,
       count_samplespecies_bis = dplyr::coalesce(count_samplespecies, 0),
       count_subsamplenumber_bis = dplyr::coalesce(count_subsamplenumber, 0),
       count_subsamplenumber_1_bis = dplyr::coalesce(count_subsamplenumber_1, 0),
+      count_subsamplenumber_ncontinuous_bis = dplyr::coalesce(count_subsamplenumber_ncontinuous, 0)
     )
   dataframe1[dataframe1$count_samplespecies_bis == 0, "logical"] <- FALSE
+  # Verify that the non super samples have sub-sample numbers only at 0
   dataframe1$only_one_subsampling <- dataframe1$sample_supersample == FALSE & dataframe1$count_subsamplenumber_n0_bis == 0
-  dataframe1$many_subsampling <- dataframe1$sample_supersample == TRUE & dataframe1$count_subsamplenumber_0_bis == 0 & dataframe1$count_subsamplenumber_bis > 1
+  # Verify that the super samples have sub-sample numbers starting at 1 and that the numbers are consecutive
+  dataframe1$many_subsampling <- dataframe1$sample_supersample == TRUE & dataframe1$count_subsamplenumber_0_bis == 0 & dataframe1$count_subsamplenumber_bis > 1 & dataframe1$count_subsamplenumber_ncontinuous_bis == 0
   dataframe1[!(dataframe1$only_one_subsampling | dataframe1$many_subsampling), "logical"] <- FALSE
   dataframe1[dataframe1$count_subsamplenumber_bis == 1 & dataframe1$count_subsamplenumber_1_bis > 0, "logical"] <- FALSE
   # Modify the table for display purposes: add, remove and order column
-  dataframe1 <- subset(dataframe1, select = -c(only_one_subsampling, many_subsampling, count_samplespecies_bis, count_subsamplenumber_bis, count_subsamplenumber_n0_bis, count_subsamplenumber_0_bis, count_subsamplenumber_1_bis, count_samplespecies))
+  dataframe1 <- subset(dataframe1, select = -c(only_one_subsampling, many_subsampling, count_samplespecies_bis, count_subsamplenumber_bis, count_subsamplenumber_n0_bis, count_subsamplenumber_0_bis, count_subsamplenumber_1_bis, count_samplespecies, count_subsamplenumber_ncontinuous_bis))
   dataframe1 <- dplyr::relocate(.data = dataframe1, sample_supersample, count_subsamplenumber_n0, count_subsamplenumber_0, count_subsamplenumber_1, count_subsamplenumber, .after = logical)
   if ((sum(dataframe1$logical, na.rm = TRUE) + sum(!dataframe1$logical, na.rm = TRUE)) != nrow_first || any(is.na(dataframe1$logical))) {
     all <- c(select, dataframe1$sample_id)

@@ -5,11 +5,11 @@ test_that("Doctest: logbook_harbour_control", {
   # Created from @doctest for `logbook_harbour_control`
   # Source file: R/logbook_harbour_control.R
   # Source line: 18
-  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5"), harbour_id_departure = c("1", "2", "3", NA, "1"), harbour_label_departure = c("Harbour_1", "Harbour_2",
-    "Harbour_3", NA, "Harbour_1"), trip_previous_id = c(NA, "1", "2", NA, "6"), harbour_id_landing_trip_previous = c(NA, "2", "2", NA, NA),
+  dataframe1 <- data.frame(trip_id = c("1", "2", "3", "4", "5"), harbour_id_departure = c("1", "2", "3", NA, "1"), harbour_label_departure = c("Harbour_1",
+    "Harbour_2", "Harbour_3", NA, "Harbour_1"), trip_previous_id = c(NA, "1", "2", NA, "6"), harbour_id_landing_trip_previous = c(NA, "2", "2", NA, NA),
   harbour_label_landing_trip_previous = c(NA, "Harbour_2", "Harbour_2", NA, NA))
-  expect_equal(logbook_harbour_control(dataframe1, output = "report"), structure(list(trip_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE),
-  harbour_label_landing_trip_previous = c(NA, "Harbour_2", "Harbour_2", NA, NA), harbour_label_departure = c("Harbour_1", "Harbour_2", "Harbour_3", NA, "Harbour_1")),
-  row.names = c(NA, 5L), class = "data.frame"))
+  expect_equal(logbook_harbour_control(dataframe1, output = "report"), structure(list(trip_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE, FALSE,
+    FALSE), harbour_label_landing_trip_previous = c(NA, "Harbour_2", "Harbour_2", NA, NA), harbour_label_departure = c("Harbour_1", "Harbour_2", "Harbour_3", NA,
+    "Harbour_1")), row.names = c(NA, 5L), class = "data.frame"))
 })
 
