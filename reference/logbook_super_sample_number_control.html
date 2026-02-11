@@ -49,7 +49,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Gives the inconsistencies between the sample and the subsample number</h1>
-    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/1.4.4/R/logbook_super_sample_number_control.R" class="external-link"><code>R/logbook_super_sample_number_control.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/development/R/logbook_super_sample_number_control.R" class="external-link"><code>R/logbook_super_sample_number_control.R</code></a></small>
     <div class="hidden name"><code>logbook_super_sample_number_control.Rd</code></div>
     </div>
 
@@ -98,28 +98,42 @@
 <span class="r-in"><span><span class="co">#Sample 5 has no sample species,</span></span></span>
 <span class="r-in"><span><span class="co">#Sample 6 is a super sample but the numbering starts at 0 instead of 1,</span></span></span>
 <span class="r-in"><span><span class="co">#Sample 7 is a super sample but has only one sub-sample species</span></span></span>
-<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         sample_supersample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>samplespecies_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         samplespecies_subsamplenumber <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         sample_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"7"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#Sample 8 is a super sample but has discontinuous numbering of sub-samples</span></span></span>
+<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         sample_supersample <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>samplespecies_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>,</span></span>
+<span class="r-in"><span>                                              <span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"13"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         samplespecies_subsamplenumber <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         sample_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>,</span></span>
+<span class="r-in"><span>                                       <span class="st">"8"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">logbook_super_sample_number_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   sample_id logical sample_supersample count_subsamplenumber_n0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         1    TRUE              FALSE                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         2    TRUE               TRUE                        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         2    TRUE               TRUE                        3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3         3   FALSE              FALSE                        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4         4   FALSE               TRUE                        2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5         5   FALSE              FALSE                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6         6   FALSE               TRUE                        1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7         7   FALSE               TRUE                        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         8   FALSE               TRUE                        2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   count_subsamplenumber_0 count_subsamplenumber_1 count_subsamplenumber</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       1                       0                     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       0                       1                     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       2                       0                     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       0                       2                     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                       0                       1                     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                       0                       2                     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                      NA                      NA                    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                       1                       1                     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                       0                       1                     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                       0                       1                     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   count_subsamplenumber_ncontinuous</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                 1</span>
 </code></pre></div>
     </div>
   </div>
