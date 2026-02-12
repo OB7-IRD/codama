@@ -21,6 +21,7 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_fishing_context_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_fishing_time_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_floating_object_buoy_id_redundancy_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_floating_object_part_material_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_harbour_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_landing_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_landing_total_weight_control.html</loc></url>
@@ -29,6 +30,7 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_little_big_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_measure_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_operation_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_operationobjet_observedsystem_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_position_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_raising_factor_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_sample_harbour_control.html</loc></url>
@@ -41,6 +43,8 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_temporal_limit_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_time_route_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_trip_activity_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_vessel_activity_floating_object_missing_buoy_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_vessel_activity_missing_floating_object_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weigh_catch_well_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weight_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weight_sample_control.html</loc></url>
