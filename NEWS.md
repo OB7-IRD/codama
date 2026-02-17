@@ -4,8 +4,8 @@
 AkadoR check added :
 * logbook_vessel_activity_missing_floating_object_control.R : Identification of incoherent vessel activity and missing floating object
 * logbook_operationobjet_observedsystem_control.R : Identification of incoherent operation objet and observed system
-* logbook_floating_object_part_material_control .R : Identification of incoherent floating object material
-* logbook_vessel_activity_floating_object_missing_buoy_control .R : Identification of incoherent vessel activity and missing buoy
+* logbook_floating_object_part_material_control.R : Identification of incoherent floating object material
+* logbook_vessel_activity_floating_object_missing_buoy_control.R : Identification of incoherent vessel activity and missing buoy
 
 ## Changed
 * logbook_super_sample_number_control.R : Add check continuous numbering of sub-samples
