@@ -7,9 +7,8 @@
 logbook_length_class_control(
   dataframe1,
   output,
-  species = c("YFT", "BET", "ALB"),
-  size_measure_type = "FL",
-  threshold = 80
+  size_measure_type = c("FL", "PD1"),
+  threshold = c(10, 80)
 )
 }
 \arguments{
@@ -17,11 +16,9 @@ logbook_length_class_control(
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
-\item{species}{{\link[base]{character}} expected. Default values: c("YFT", "BET", "ALB"). Vector of the species inventory controlled.}
+\item{size_measure_type}{{\link[base]{character}} expected. Default values: c("FL", "PD1"). Vector of the size measure type controlled.}
 
-\item{size_measure_type}{{\link[base]{character}} expected. Default values: "FL". Vector of the size measure type controlled.}
-
-\item{threshold}{{\link[base]{numeric}} expected. Default values: 80. Maximum size threshold measured}
+\item{threshold}{{\link[base]{numeric}} expected. Default values: 10 and 80. Vector containing the lower and upper acceptable threshold for the size measured}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
@@ -34,18 +31,17 @@ The input dataframe must contain all these columns for the function to work :
 \itemize{
 Dataframe 1:
 \item{\code{  samplespeciesmeasure_id}}
-\item{\code{  species_fao_code}}
 \item{\code{  sizemeasuretype_code}}
 \item{\code{  samplespeciesmeasure_sizeclass}}
 }
 }
 \examples{
-#Activity 1, 2 and 3 are ok,
+#Activity 1 and 2 are ok,
+#Activity 3 has size class is less than threshold,
 #Activity 4 has size class is greater than threshold,
 #Activity 5 has size class is missing
 dataframe1 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5"),
-                         species_fao_code = c("YFT", "YFT", "LTA", "YFT", "YFT"),
-                         sizemeasuretype_code = c("FL", "PD1", "FL", "FL", "FL"),
-                         samplespeciesmeasure_sizeclass = c(10, 90, 85, 83, NA))
+                         sizemeasuretype_code = c("FL", "PD1", "PD1", "FL", "FL"),
+                         samplespeciesmeasure_sizeclass = c(25, 75, 5, 83, NA))
 logbook_length_class_control(dataframe1, output = "report")
 }
