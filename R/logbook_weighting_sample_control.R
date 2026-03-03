@@ -14,6 +14,7 @@
 #'  \item{\code{  sampleactivity_weightedweight}}
 #'  \item{\code{  sample_well}}
 #'  \item{\code{  activity_id}}
+#'  \item{\code{  trip_id}}
 #' }
 #' \itemize{
 #' Dataframe 2:
@@ -22,30 +23,39 @@
 #'  \item{\code{  species_fao_code}}
 #'  \item{\code{  well_label}}
 #'  \item{\code{  activity_id}}
+#'  \item{\code{  trip_id}}
 #' }
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 #' @doctest
-#' #Sample activity 1, 2, 3, 4 and 5 are ok,
-#' #Sample Activity 6 has weights missing from the well,
-#' #Sample Activity 7 does not take into account all species
-#' #Sample Activity 8 does not take into account all well
-#' #Sample Activity 9 has weighted weight missing
-#' dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
-#'                          sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA),
+#' #Sample activity 1, 2, 3, 4, 5, 6 and 7 are ok,
+#' #Sample Activity 8 has weights missing from the well,
+#' #Sample Activity 9 does not take into account all species
+#' #Sample Activity 10 does not take into account all well
+#' #Sample Activity 11 has weighted weight missing
+#' dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9",
+#'                                                "10", "11"),
+#'                          sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 7.6, 2, 2,
+#'                                                            26, 13, NA),
 #'                          sample_well = c("well_1", "well_2", "well_1", "well_1", "well_2",
-#'                                          "well_1", "well_1", "well_1", "well_1"),
-#'                          activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7"))
+#'                                          "well_1", "well_2", "well_1", "well_1", "well_1",
+#'                                          "well_1"),
+#'                          activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7", "8", "9"),
+#'                          trip_id = c("1", "1", "2", "3", "3", "4", "4", "5", "6", "7", "8"))
 #' dataframe2 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9",
-#'                                                     "10", "11", "12", "13"),
-#'                          wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5, 5, 11, 4, 26, 2, 13, 6),
+#'                                                     "10", "11", "12", "13", "14", "15", "16", "17"),
+#'                          wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5, 5, 11, 4, 4, 6, 9,
+#'                                                         2, 26, 2, 13, 6),
 #'                          species_fao_code = c("YFT", "SKJ", "ALB", "JOS", "YFT", "FRI", "YFT",
-#'                                               "SKJ", "BET", "ALB", "YFT", "BET", "ALB"),
+#'                                               "SKJ", "BET", "YFT", "YFT", "ALB", "YFT", "ALB",
+#'                                               "YFT", "BET", "ALB"),
 #'                          well_label = c("well_1", "well_2", "well_2", "well_2", "well_1", "well_2",
-#'                                         "well_1", "well_2", "well_3", "well_1", "well_1", "well_1",
-#'                                         "well_2"),
-#'                          activity_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "5", "5", "6",
-#'                                          "6"))
-#' @expect equal(., structure(list(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"), sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), weightedweight_well = c(3, 6, 20, 6.25, 13.75, NA, 28, 19, NA)), row.names = c(NA, 9L), class = "data.frame"))
+#'                                         "well_1", "well_2", "well_3", "well_1", "well_2", "well_3",
+#'                                         "well_2", "well_1", "well_1", "well_1", "well_2"),
+#'                          activity_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "4", "4", "4",
+#'                                          "5", "7", "7", "8", "8"),
+#'                          trip_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "4", "4", "4",
+#'                                      "4", "6", "6", "7", "7"))
+#' @expect equal(., structure(list(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"), sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 7.6, 2, 2, 26, 13, NA), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), weightedweight_well = c(3, 6, 20, 6.25, 13.75, 7.6, 2, NA, 28, 19, NA)), row.names = c(NA, 11L), class = "data.frame"))
 #' logbook_weighting_sample_control(dataframe1, dataframe2, output = "report")
 #' @export
 logbook_weighting_sample_control <- function(dataframe1,
@@ -63,40 +73,41 @@ logbook_weighting_sample_control <- function(dataframe1,
   weight_well <- NULL
   weight_all_sampled <- NULL
   weightedweight_well <- NULL
+  trip_id <- NULL
   # 1 - Arguments verification ----
   if (!codama::r_table_checking(
     r_table = dataframe1,
     type = "data.frame",
-    column_name = c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id"),
-    column_type = c("character", "numeric", "character", "character"),
+    column_name = c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id", "trip_id"),
+    column_type = c("character", "numeric", "character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = dataframe1,
       type = "data.frame",
-      column_name = c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id"),
-      column_type = c("character", "numeric", "character", "character"),
+      column_name = c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id", "trip_id"),
+      column_type = c("character", "numeric", "character", "character", "character"),
       output = "error"
     )
   } else {
-    dataframe1 <- dataframe1[, c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id")]
+    dataframe1 <- dataframe1[, c("sampleactivity_id", "sampleactivity_weightedweight", "sample_well", "activity_id", "trip_id")]
   }
   if (!codama::r_table_checking(
     r_table = dataframe2,
     type = "data.frame",
-    column_name = c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id"),
-    column_type = c("character", "numeric", "character", "character", "character"),
+    column_name = c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id", "trip_id"),
+    column_type = c("character", "numeric", "character", "character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = dataframe2,
       type = "data.frame",
-      column_name = c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id"),
-      column_type = c("character", "numeric", "character", "character", "character"),
+      column_name = c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id", "trip_id"),
+      column_type = c("character", "numeric", "character", "character", "character", "character"),
       output = "error"
     )
   } else {
-    dataframe2 <- dataframe2[, c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id")]
+    dataframe2 <- dataframe2[, c("wellactivityspecies_id", "wellactivityspecies_weight", "species_fao_code", "well_label", "activity_id", "trip_id")]
   }
   # Checks the type and values of output
   if (!codama::r_type_checking(
@@ -146,7 +157,8 @@ logbook_weighting_sample_control <- function(dataframe1,
     dplyr::mutate(weight_all = ifelse(all(is.na(wellactivityspecies_weight)), 0, sum(wellactivityspecies_weight, na.rm = TRUE))) %>%
     dplyr::ungroup()
   # Filter the sampled wells
-  dataframe_weight_filter_sampled <- dplyr::inner_join(dataframe_weight_calculation, dataframe1, by = dplyr::join_by(activity_id, well_label == sample_well))
+  # The well is considered sampled if any of its activities have been sampled
+  dataframe_weight_filter_sampled <- dplyr::inner_join(dataframe_weight_calculation, unique(dataframe1[, c("trip_id", "sample_well")]), by = dplyr::join_by(trip_id, well_label == sample_well))
   # Calculation weight all sampled well (Management of NA: if known value performs the sum of the values and ignores the NA, if no known value indicates 0)
   dataframe_weight_calculation <- dataframe_weight_filter_sampled %>%
     dplyr::group_by(activity_id, weight_all) %>%
@@ -175,7 +187,7 @@ logbook_weighting_sample_control <- function(dataframe1,
   dataframe1[is.na(dataframe1$sampleactivity_weightedweight), "logical"] <- FALSE
   # Modify the table for display purposes: add, remove and order column
   dataframe1 <- dplyr::relocate(.data = dataframe1, weightedweight_well, .after = logical)
-  dataframe1 <- subset(dataframe1, select = -c(weight_all_sampled, weight_all, weight_well, sample_well, activity_id))
+  dataframe1 <- subset(dataframe1, select = -c(weight_all_sampled, weight_all, weight_well, sample_well, activity_id, trip_id))
   if ((sum(dataframe1$logical, na.rm = TRUE) + sum(!dataframe1$logical, na.rm = TRUE)) != nrow_first || any(is.na(dataframe1$logical))) {
     all <- c(select, dataframe1$sampleactivity_id)
     number_occurrences <- table(all)

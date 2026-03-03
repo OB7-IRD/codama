@@ -37,6 +37,7 @@ Dataframe 1:
 \item{\code{  sampleactivity_weightedweight}}
 \item{\code{  sample_well}}
 \item{\code{  activity_id}}
+\item{\code{  trip_id}}
 }
 \itemize{
 Dataframe 2:
@@ -45,28 +46,37 @@ Dataframe 2:
 \item{\code{  species_fao_code}}
 \item{\code{  well_label}}
 \item{\code{  activity_id}}
+\item{\code{  trip_id}}
 }
 }
 \examples{
-#Sample activity 1, 2, 3, 4 and 5 are ok,
-#Sample Activity 6 has weights missing from the well,
-#Sample Activity 7 does not take into account all species
-#Sample Activity 8 does not take into account all well
-#Sample Activity 9 has weighted weight missing
-dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
-                         sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 2, 26, 13, NA),
+#Sample activity 1, 2, 3, 4, 5, 6 and 7 are ok,
+#Sample Activity 8 has weights missing from the well,
+#Sample Activity 9 does not take into account all species
+#Sample Activity 10 does not take into account all well
+#Sample Activity 11 has weighted weight missing
+dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                               "10", "11"),
+                         sampleactivity_weightedweight = c(3, 6, 20, 6.25, 13.75, 7.6, 2, 2,
+                                                           26, 13, NA),
                          sample_well = c("well_1", "well_2", "well_1", "well_1", "well_2",
-                                         "well_1", "well_1", "well_1", "well_1"),
-                         activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7"))
+                                         "well_1", "well_2", "well_1", "well_1", "well_1",
+                                         "well_1"),
+                         activity_id = c("1", "1", "2", "3", "3", "4", "5", "6", "7", "8", "9"),
+                         trip_id = c("1", "1", "2", "3", "3", "4", "4", "5", "6", "7", "8"))
 dataframe2 <- data.frame(wellactivityspecies_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                                    "10", "11", "12", "13"),
-                         wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5, 5, 11, 4, 26, 2, 13, 6),
+                                                    "10", "11", "12", "13", "14", "15", "16", "17"),
+                         wellactivityspecies_weight = c(3, 2, 4, 1, 15, 5, 5, 11, 4, 4, 6, 9,
+                                                        2, 26, 2, 13, 6),
                          species_fao_code = c("YFT", "SKJ", "ALB", "JOS", "YFT", "FRI", "YFT",
-                                              "SKJ", "BET", "ALB", "YFT", "BET", "ALB"),
+                                              "SKJ", "BET", "YFT", "YFT", "ALB", "YFT", "ALB",
+                                              "YFT", "BET", "ALB"),
                          well_label = c("well_1", "well_2", "well_2", "well_2", "well_1", "well_2",
-                                        "well_1", "well_2", "well_3", "well_1", "well_1", "well_1",
-                                        "well_2"),
-                         activity_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "5", "5", "6",
-                                         "6"))
+                                        "well_1", "well_2", "well_3", "well_1", "well_2", "well_3",
+                                        "well_2", "well_1", "well_1", "well_1", "well_2"),
+                         activity_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "4", "4", "4",
+                                         "5", "7", "7", "8", "8"),
+                         trip_id = c("1", "1", "1", "1", "2", "2", "3", "3", "3", "4", "4", "4",
+                                     "4", "6", "6", "7", "7"))
 logbook_weighting_sample_control(dataframe1, dataframe2, output = "report")
 }
