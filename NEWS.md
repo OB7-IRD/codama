@@ -1,3 +1,17 @@
+# codama 1.4.6 - 2026.03.09
+
+## Added
+AkadoR check added : 
+* logbook_observed_system_floatting_object_pair_control.R : Identification of incoherent between the presence of floatting object and observed system
+* logbook_vessel_activity_object_operation_control.R : Identification of incoherent vessel activity and object operation
+* logbook_buoy_owner_control.R : Identification of an inconsistent buoy whose owner is missing
+* logbook_buoy_code_control.R : Identification of an inconsistent buoy code and buoy type naming convention
+* logbook_sampleactivity_well_sampled_control.R : Identification of an inconsistencies between the sampling activity and well sampled plan trip
+
+## Changed
+* logbook_length_class_control.R : Remove argument species and add lower threshold in argument threshold
+* logbook_weighting_sample_control.R : Change definition well sampled, add column trip_id for dataframe1 and dataframe2
+
 # codama 1.4.5 - 2026.02.12
 
 ## Added
