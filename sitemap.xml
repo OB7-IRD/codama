@@ -15,6 +15,8 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_activity_sample_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_anapo_activity_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_anapo_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_buoy_code_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_buoy_owner_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_category_species_forbidden_well_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_distribution_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_eez_control.html</loc></url>
@@ -29,6 +31,7 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_length_class_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_little_big_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_measure_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_observed_system_floatting_object_pair_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_operation_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_operationobjet_observedsystem_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_position_control.html</loc></url>
@@ -36,6 +39,7 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_sample_harbour_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_sample_without_measure_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_sample_without_species_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_sampleactivity_well_sampled_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_sea_time_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_species_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_super_sample_number_control.html</loc></url>
@@ -45,6 +49,7 @@
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_trip_activity_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_vessel_activity_floating_object_missing_buoy_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_vessel_activity_missing_floating_object_control.html</loc></url>
+<url><loc>https://ob7-ird.github.io/codama/reference/logbook_vessel_activity_object_operation_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weigh_catch_well_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weight_control.html</loc></url>
 <url><loc>https://ob7-ird.github.io/codama/reference/logbook_weight_sample_control.html</loc></url>

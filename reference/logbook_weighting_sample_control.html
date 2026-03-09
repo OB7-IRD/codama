@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.6</span>
       </span>
     </div>
 
@@ -49,7 +49,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Gives the inconsistencies between the sample weighting and weight in well</h1>
-    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/1.4.5/R/logbook_weighting_sample_control.R" class="external-link"><code>R/logbook_weighting_sample_control.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/OB7-IRD/codama/blob/development/R/logbook_weighting_sample_control.R" class="external-link"><code>R/logbook_weighting_sample_control.R</code></a></small>
     <div class="hidden name"><code>logbook_weighting_sample_control.Rd</code></div>
     </div>
 
@@ -101,46 +101,58 @@
 <li><p><code>  sampleactivity_weightedweight</code></p></li>
 <li><p><code>  sample_well</code></p></li>
 <li><p><code>  activity_id</code></p></li>
+<li><p><code>  trip_id</code></p></li>
 </ul><ul><li><p><code>  wellactivityspecies_id</code></p></li>
 <li><p><code>  wellactivityspecies_weight</code></p></li>
 <li><p><code>  species_fao_code</code></p></li>
 <li><p><code>  well_label</code></p></li>
 <li><p><code>  activity_id</code></p></li>
+<li><p><code>  trip_id</code></p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Sample activity 1, 2, 3, 4 and 5 are ok,</span></span></span>
-<span class="r-in"><span><span class="co">#Sample Activity 6 has weights missing from the well,</span></span></span>
-<span class="r-in"><span><span class="co">#Sample Activity 7 does not take into account all species</span></span></span>
-<span class="r-in"><span><span class="co">#Sample Activity 8 does not take into account all well</span></span></span>
-<span class="r-in"><span><span class="co">#Sample Activity 9 has weighted weight missing</span></span></span>
-<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sampleactivity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         sampleactivity_weightedweight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">20</span>, <span class="fl">6.25</span>, <span class="fl">13.75</span>, <span class="fl">2</span>, <span class="fl">26</span>, <span class="fl">13</span>, <span class="cn">NA</span><span class="op">)</span>,</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Sample activity 1, 2, 3, 4, 5, 6 and 7 are ok,</span></span></span>
+<span class="r-in"><span><span class="co">#Sample Activity 8 has weights missing from the well,</span></span></span>
+<span class="r-in"><span><span class="co">#Sample Activity 9 does not take into account all species</span></span></span>
+<span class="r-in"><span><span class="co">#Sample Activity 10 does not take into account all well</span></span></span>
+<span class="r-in"><span><span class="co">#Sample Activity 11 has weighted weight missing</span></span></span>
+<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>sampleactivity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>,</span></span>
+<span class="r-in"><span>                                               <span class="st">"10"</span>, <span class="st">"11"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         sampleactivity_weightedweight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">6</span>, <span class="fl">20</span>, <span class="fl">6.25</span>, <span class="fl">13.75</span>, <span class="fl">7.6</span>, <span class="fl">2</span>, <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>                                                           <span class="fl">26</span>, <span class="fl">13</span>, <span class="cn">NA</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         sample_well <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_2"</span>,</span></span>
-<span class="r-in"><span>                                         <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                         <span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>,</span></span>
+<span class="r-in"><span>                                         <span class="st">"well_1"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>wellactivityspecies_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>,</span></span>
-<span class="r-in"><span>                                                    <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"13"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         wellactivityspecies_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">11</span>, <span class="fl">4</span>, <span class="fl">26</span>, <span class="fl">2</span>, <span class="fl">13</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                                    <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"12"</span>, <span class="st">"13"</span>, <span class="st">"14"</span>, <span class="st">"15"</span>, <span class="st">"16"</span>, <span class="st">"17"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         wellactivityspecies_weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">15</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">11</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>,</span></span>
+<span class="r-in"><span>                                                        <span class="fl">2</span>, <span class="fl">26</span>, <span class="fl">2</span>, <span class="fl">13</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         species_fao_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"YFT"</span>, <span class="st">"SKJ"</span>, <span class="st">"ALB"</span>, <span class="st">"JOS"</span>, <span class="st">"YFT"</span>, <span class="st">"FRI"</span>, <span class="st">"YFT"</span>,</span></span>
-<span class="r-in"><span>                                              <span class="st">"SKJ"</span>, <span class="st">"BET"</span>, <span class="st">"ALB"</span>, <span class="st">"YFT"</span>, <span class="st">"BET"</span>, <span class="st">"ALB"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                              <span class="st">"SKJ"</span>, <span class="st">"BET"</span>, <span class="st">"YFT"</span>, <span class="st">"YFT"</span>, <span class="st">"ALB"</span>, <span class="st">"YFT"</span>, <span class="st">"ALB"</span>,</span></span>
+<span class="r-in"><span>                                              <span class="st">"YFT"</span>, <span class="st">"BET"</span>, <span class="st">"ALB"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                         well_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_2"</span>, <span class="st">"well_2"</span>, <span class="st">"well_1"</span>, <span class="st">"well_2"</span>,</span></span>
-<span class="r-in"><span>                                        <span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_3"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>,</span></span>
-<span class="r-in"><span>                                        <span class="st">"well_2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>,</span></span>
-<span class="r-in"><span>                                         <span class="st">"6"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                                        <span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_3"</span>, <span class="st">"well_1"</span>, <span class="st">"well_2"</span>, <span class="st">"well_3"</span>,</span></span>
+<span class="r-in"><span>                                        <span class="st">"well_2"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_1"</span>, <span class="st">"well_2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>,</span></span>
+<span class="r-in"><span>                                         <span class="st">"5"</span>, <span class="st">"7"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"8"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         trip_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>,</span></span>
+<span class="r-in"><span>                                     <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"7"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">logbook_weighting_sample_control</span><span class="op">(</span><span class="va">dataframe1</span>, <span class="va">dataframe2</span>, output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   sampleactivity_id sampleactivity_weightedweight logical weightedweight_well</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 1                          3.00    TRUE                3.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 2                          6.00    TRUE                6.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 3                         20.00    TRUE               20.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 4                          6.25    TRUE                6.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 5                         13.75    TRUE               13.75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 6                          2.00   FALSE                  NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 7                         26.00   FALSE               28.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                 8                         13.00   FALSE               19.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 9                            NA   FALSE                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sampleactivity_id sampleactivity_weightedweight logical weightedweight_well</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                  1                          3.00    TRUE                3.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  2                          6.00    TRUE                6.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                  3                         20.00    TRUE               20.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                  4                          6.25    TRUE                6.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  5                         13.75    TRUE               13.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                  6                          7.60    TRUE                7.60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                  7                          2.00    TRUE                2.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                  8                          2.00   FALSE                  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                  9                         26.00   FALSE               28.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                10                         13.00   FALSE               19.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                11                            NA   FALSE                  NA</span>
 </code></pre></div>
     </div>
   </div>
