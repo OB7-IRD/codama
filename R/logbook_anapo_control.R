@@ -439,7 +439,7 @@ logbook_anapo_control <- function(dataframe1,
   dataframe_calcul[is.na(dataframe_calcul$activity_time), "activity_time_bis"] <- "00:00:00"
   # Calculates time between activity and VMS point in milliseconds
   dataframe_calcul <- dataframe_calcul %>%
-    dplyr::mutate(activity_date_time = as.POSIXct(paste(vms_date, activity_time_bis)), vms_date_time = as.POSIXct(paste(vms_date, vms_time)))
+    dplyr::mutate(activity_date_time = as.POSIXct(paste(vms_date, activity_time_bis), tz = "UTC"), vms_date_time = as.POSIXct(paste(vms_date, vms_time), tz = "UTC"))
   units::install_unit("ms", "1000 secs", "Milliseconds")
   dataframe_calcul <- dataframe_calcul %>%
     dplyr::mutate(duration = units::set_units(as.numeric(difftime(activity_date_time, vms_date_time, units = "secs") * 1000), ms))
