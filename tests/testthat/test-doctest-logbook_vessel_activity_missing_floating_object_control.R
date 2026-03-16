@@ -7,7 +7,8 @@ test_that("Doctest: logbook_vessel_activity_missing_floating_object_control", {
   # Source line: 19
   dataframe1 <- data.frame(activity_id = c("1", "2", "3", "4"), vesselactivity_code = c("13", "1", "13", NA))
   dataframe2 <- data.frame(floatingobject_id = c("1"), activity_id = c("1"))
-  expect_equal(logbook_vessel_activity_missing_floating_object_control(dataframe1, dataframe2, output = "report"), structure(list(activity_id = c("1", "2", "3", "4"),
-  vesselactivity_code = c("13", "1", "13", NA), logical = c(TRUE, TRUE, FALSE, FALSE), count_floating_object = c(1, 0, 0, 0)), row.names = c(NA, -4L), class = "data.frame"))
+  expect_equal(logbook_vessel_activity_missing_floating_object_control(dataframe1, dataframe2, output = "report"), structure(list(activity_id = c("1", "2", "3",
+    "4"), vesselactivity_code = c("13", "1", "13", NA), logical = c(TRUE, TRUE, FALSE, FALSE), count_floating_object = c(1, 0, 0, 0)), row.names = c(NA, -4L),
+  class = "data.frame"))
 })
 

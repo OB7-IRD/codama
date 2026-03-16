@@ -5,11 +5,13 @@ test_that("Doctest: logbook_well_number_control", {
   # Created from @doctest for `logbook_well_number_control`
   # Source file: R/logbook_well_number_control.R
   # Source line: 30
-  dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7"), sample_well = c("well_1", "well_2", "well_5", "well_1", NA, "well_1", "well_2"),
-  activity_id = c("1", "1", "2", "3", "4", "5", "6"), trip_id = c("1", "1", "2", "3", "3", "3", "3"))
-  dataframe2 <- data.frame(wellactivity_id = c("1", "2", "3", "4", "5"), well_label = c("well_1", "well_2", "well_2", "well_2", NA), activity_id = c("1", "1", "3", "4", "6"))
+  dataframe1 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7"), sample_well = c("well_1", "well_2", "well_5", "well_1", NA, "well_1",
+    "well_2"), activity_id = c("1", "1", "2", "3", "4", "5", "6"), trip_id = c("1", "1", "2", "3", "3", "3", "3"))
+  dataframe2 <- data.frame(wellactivity_id = c("1", "2", "3", "4", "5"), well_label = c("well_1", "well_2", "well_2", "well_2", NA), activity_id = c("1", "1", "3",
+    "4", "6"))
   dataframe3 <- data.frame(trip_id = c("1", "2", "3"), vesseltype_code = c("6", "1", "6"))
-  expect_equal(logbook_well_number_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7"),
-  logical = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), sample_well = c("well_1", "well_2", "well_5", "well_1", NA, "well_1", "well_2")), row.names = c(NA, 7L), class = "data.frame"))
+  expect_equal(logbook_well_number_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(sampleactivity_id = c("1", "2", "3", "4", "5",
+    "6", "7"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), sample_well = c("well_1", "well_2", "well_5", "well_1", NA, "well_1", "well_2")),
+  row.names = c(NA, 7L), class = "data.frame"))
 })
 

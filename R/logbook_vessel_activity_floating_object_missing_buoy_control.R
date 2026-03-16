@@ -6,12 +6,14 @@
 #' @param dataframe3 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_vessel_activity_floating_object_missing_buoy_control.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
 #' @param vessel_activity {\link[base]{character}} expected. Default values: c("13"). Vector containing the vessel activity code that must have a buoy.
+#' @param object_operation {\link[base]{character}} expected. Default values: c("1"). Vector containing the object operation code that must have a buoy.
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical".
 #' @details
 #' The input dataframe must contain all these columns for the function to work :
 #' \itemize{
 #' Dataframe 1:
 #'  \item{\code{  floatingobject_id}}
+#'  \item{\code{  objectoperation_code}}
 #'  \item{\code{  activity_id}}
 #' }
 #' \itemize{
@@ -25,16 +27,17 @@
 #'  \item{\code{  floatingobject_id}}
 #' }
 #' @doctest
-#' #Floating object 1, 2 and 3 are ok,
-#' #Floating object 4 has buoy missing
-#' #Floating object 5 has vessel activity missing
-#' dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5"),
-#'                          activity_id = c("1", "2", "3", "3", "4"))
-#' dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4"),
-#'                          vesselactivity_code = c("13", "1", "13", NA))
+#' #Floating object 1, 2, 3 and 4 are ok,
+#' #Floating object 5 has buoy missing
+#' #Floating object 6 has vessel activity missing
+#' dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5", "6"),
+#'                          objectoperation_code = c("1", "1", "2", "1", "1", "1"),
+#'                          activity_id = c("1", "2", "3", "4", "4", "5"))
+#' dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
+#'                          vesselactivity_code = c("13", "1", "13", "13", NA))
 #' dataframe3 <- data.frame(transmittingbuoy_id = c("1", "2"),
-#'                          floatingobject_id = c("1", "3"))
-#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE), count_buoy = c(1, 0, 1, 0, 0), vesselactivity_code = c("13", "1", "13", "13", NA)), row.names = c(NA, 5L), class = "data.frame"))
+#'                          floatingobject_id = c("1", "4"))
+#' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5", "6"), objectoperation_code = c("1", "1", "2", "1", "1", "1"), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE), count_buoy = c(1, 0, 0, 1, 0, 0), vesselactivity_code = c("13", "1", "13", "13", "13", NA)), row.names = c(NA, 6L), class = "data.frame"))
 #' logbook_vessel_activity_floating_object_missing_buoy_control(dataframe1,
 #'                                                              dataframe2,
 #'                                                              dataframe3,
@@ -44,7 +47,8 @@ logbook_vessel_activity_floating_object_missing_buoy_control <- function(datafra
                                                                          dataframe2,
                                                                          dataframe3,
                                                                          output,
-                                                                         vessel_activity = c("13")) {
+                                                                         vessel_activity = c("13"),
+                                                                         object_operation = c("1")) {
   # 0 - Global variables assignement ----
   activity_id <- NULL
   floatingobject_id <- NULL
@@ -53,19 +57,19 @@ logbook_vessel_activity_floating_object_missing_buoy_control <- function(datafra
   if (!codama::r_table_checking(
     r_table = dataframe1,
     type = "data.frame",
-    column_name = c("floatingobject_id", "activity_id"),
-    column_type = c("character", "character"),
+    column_name = c("floatingobject_id", "objectoperation_code", "activity_id"),
+    column_type = c("character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = dataframe1,
       type = "data.frame",
-      column_name = c("floatingobject_id", "activity_id"),
-      column_type = c("character", "character"),
+      column_name = c("floatingobject_id", "objectoperation_code", "activity_id"),
+      column_type = c("character", "character", "character"),
       output = "message"
     )
   } else {
-    dataframe1 <- dataframe1[, c("floatingobject_id", "activity_id"), drop = FALSE]
+    dataframe1 <- dataframe1[, c("floatingobject_id", "objectoperation_code", "activity_id"), drop = FALSE]
   }
   if (!codama::r_table_checking(
     r_table = dataframe2,
@@ -115,7 +119,7 @@ logbook_vessel_activity_floating_object_missing_buoy_control <- function(datafra
       output = "message"
     ))
   }
-  # Checks the type of country_species
+  # Checks the type of vessel_activity
   if (!codama::r_type_checking(
     r_object = vessel_activity,
     type = "character",
@@ -123,6 +127,18 @@ logbook_vessel_activity_floating_object_missing_buoy_control <- function(datafra
   )) {
     return(codama::r_type_checking(
       r_object = vessel_activity,
+      type = "character",
+      output = "message"
+    ))
+  }
+  # Checks the type of object_operation
+  if (!codama::r_type_checking(
+    r_object = object_operation,
+    type = "character",
+    output = "logical"
+  )) {
+    return(codama::r_type_checking(
+      r_object = object_operation,
       type = "character",
       output = "message"
     ))
@@ -144,6 +160,8 @@ logbook_vessel_activity_floating_object_missing_buoy_control <- function(datafra
   # If vessel activity not mandatory buoy
   dataframe1 <- dplyr::left_join(dataframe1, dataframe2, by = dplyr::join_by(activity_id))
   dataframe1[!(dataframe1$vesselactivity_code %in% vessel_activity),  "logical"] <- TRUE
+  # If object operation not mandatory buoy
+  dataframe1[!(dataframe1$objectoperation_code %in% object_operation),  "logical"] <- TRUE
   # If missing vessel activity and no buoy
   dataframe1[is.na(dataframe1$vesselactivity_code) & dataframe1$count_buoy == 0,  "logical"] <- FALSE
   # Modify the table for display purposes: add, remove and order column

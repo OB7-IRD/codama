@@ -10,7 +10,8 @@ logbook_vessel_activity_floating_object_missing_buoy_control(
   dataframe2,
   dataframe3,
   output,
-  vessel_activity = c("13")
+  vessel_activity = c("13"),
+  object_operation = c("1")
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ logbook_vessel_activity_floating_object_missing_buoy_control(
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
 \item{vessel_activity}{{\link[base]{character}} expected. Default values: c("13"). Vector containing the vessel activity code that must have a buoy.}
+
+\item{object_operation}{{\link[base]{character}} expected. Default values: c("1"). Vector containing the object operation code that must have a buoy.}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical".
@@ -35,6 +38,7 @@ The input dataframe must contain all these columns for the function to work :
 \itemize{
 Dataframe 1:
 \item{\code{  floatingobject_id}}
+\item{\code{  objectoperation_code}}
 \item{\code{  activity_id}}
 }
 \itemize{
@@ -49,15 +53,16 @@ Dataframe 3:
 }
 }
 \examples{
-#Floating object 1, 2 and 3 are ok,
-#Floating object 4 has buoy missing
-#Floating object 5 has vessel activity missing
-dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5"),
-                         activity_id = c("1", "2", "3", "3", "4"))
-dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4"),
-                         vesselactivity_code = c("13", "1", "13", NA))
+#Floating object 1, 2, 3 and 4 are ok,
+#Floating object 5 has buoy missing
+#Floating object 6 has vessel activity missing
+dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5", "6"),
+                         objectoperation_code = c("1", "1", "2", "1", "1", "1"),
+                         activity_id = c("1", "2", "3", "4", "4", "5"))
+dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
+                         vesselactivity_code = c("13", "1", "13", "13", NA))
 dataframe3 <- data.frame(transmittingbuoy_id = c("1", "2"),
-                         floatingobject_id = c("1", "3"))
+                         floatingobject_id = c("1", "4"))
 logbook_vessel_activity_floating_object_missing_buoy_control(dataframe1,
                                                              dataframe2,
                                                              dataframe3,

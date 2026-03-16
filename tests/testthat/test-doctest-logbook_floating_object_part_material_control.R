@@ -7,7 +7,7 @@ test_that("Doctest: logbook_floating_object_part_material_control", {
   # Source line: 19
   dataframe1 <- data.frame(floatingobject_id = c("1", "2"))
   dataframe2 <- data.frame(floatingobjectpart_id = c("1", "2"), objectmaterial_code = c("1-1", "1-2"), floatingobject_id = c("1", "2"))
-  expect_equal(logbook_floating_object_part_material_control(dataframe1, dataframe2, output = "report"), structure(list(floatingobject_id = c("1", "2"), logical = c(TRUE,
-    FALSE)), row.names = c(NA, -2L), class = "data.frame"))
+  expect_equal(logbook_floating_object_part_material_control(dataframe1, dataframe2, output = "report"), structure(list(floatingobject_id = c("1", "2"), logical = c(
+    TRUE, FALSE)), row.names = c(NA, -2L), class = "data.frame"))
 })
 
