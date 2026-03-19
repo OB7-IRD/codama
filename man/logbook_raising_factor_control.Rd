@@ -28,7 +28,7 @@ logbook_raising_factor_control(
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
-\item{country_species}{{\link[base]{character}} expected. Default values: list("1" = c("TUN", "ALB", "YFT", "BET", "SKJ"), "4" = c("LOT", "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")). list of the inventory of species (FAO code) used to calculate catch weight in RF1 by country (country code).}
+\item{country_species}{{\link[base]{character}} expected. Default values: list("1" = c("TUN", "ALB", "YFT", "BET", "SKJ"), "4" = c("LOT", "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")). list of the inventory of species (FAO code) used to calculate catch weight in RF1 by country (country code) or a vector with inventory of species (FAO code) (all countries combined)}
 
 \item{species_fate}{{\link[base]{character}} expected. Default values: "6". Vector of inventory of fate used to calculate catch weight in RF1.}
 

@@ -6,7 +6,7 @@
 #' @param dataframe3 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_raising_factor_control () function.
 #' @param dataframe4 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_raising_factor_control () function.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
-#' @param country_species {\link[base]{character}} expected. Default values: list("1" = c("TUN", "ALB", "YFT", "BET", "SKJ"), "4" = c("LOT", "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")). list of the inventory of species (FAO code) used to calculate catch weight in RF1 by country (country code).
+#' @param country_species {\link[base]{character}} expected. Default values: list("1" = c("TUN", "ALB", "YFT", "BET", "SKJ"), "4" = c("LOT", "TUN", "ALB", "YFT", "BET", "SKJ", "LTA", "FRI", "BLF", "RAV*", "KAW", "FRZ", "BLT")). list of the inventory of species (FAO code) used to calculate catch weight in RF1 by country (country code) or a vector with inventory of species (FAO code) (all countries combined)
 #' @param species_fate {\link[base]{character}} expected. Default values: "6". Vector of inventory of fate used to calculate catch weight in RF1.
 #' @param vessel_activity {\link[base]{character}} expected. Default values: c("23", "25", "27", "29"). Vector of inventory of vessel activity NOT used to calculate catch weight in RF1.
 #' @param threshold {\link[base]{numeric}} expected. Default values: 0.9 and 1.1. Vector containing the lower and upper acceptable threshold for RF1.
@@ -90,6 +90,7 @@ logbook_raising_factor_control <- function(dataframe1,
   trip_end_full_trip_id <- NULL
   vessel_id <- NULL
   logical_full_trip <- NULL
+  species_fao_code <- NULL
   # 1 - Arguments verification ----
   if (!codama::r_table_checking(
     r_table = dataframe1,
@@ -178,12 +179,16 @@ logbook_raising_factor_control <- function(dataframe1,
     r_object = country_species,
     type = "list",
     output = "logical"
+  ) && !codama::r_type_checking(
+    r_object = country_species,
+    type = "character",
+    output = "logical"
   )) {
-    return(codama::r_type_checking(
-      r_object = country_species,
-      type = "list",
-      output = "error"
-    ))
+    stop(paste0(format(x = Sys.time(),
+                       "%Y-%m-%d %H:%M:%S"),
+                " - Failure,",
+                " invalid \"r_object\" argument: country_species \n",
+                "Argument of type \"list\" or \"character\" is expected.\n"))
   }
   # Checks the type of species_fate
   if (!codama::r_type_checking(
@@ -230,11 +235,19 @@ logbook_raising_factor_control <- function(dataframe1,
   dataframe2 <- dplyr::left_join(dataframe2, unique(dataframe4[, c("trip_id", "country_fleetcountry")]), by = dplyr::join_by(trip_id))
   # Catch filtration for RF1
   ## Selection species when the list is available for the country and selection species
-  condition <- as.list(as.data.frame(t(data.frame(country = names(country_species), species = I(unname(country_species))))))
-  dataframe2_select_species <- purrr::map(condition, ~ dataframe2 %>% dplyr::filter((country_fleetcountry %in% .x[[1]] & species_fao_code %in% .x[[2]])))
-  dataframe2_select_species <- dplyr::bind_rows(dataframe2_select_species)
+  if (inherits(x = country_species, what = "list")) {
+    condition <- as.list(as.data.frame(t(data.frame(country = names(country_species), species = I(unname(country_species))))))
+    dataframe2_select_species <- purrr::map(condition, ~ dataframe2 %>% dplyr::filter((country_fleetcountry %in% .x[[1]] & species_fao_code %in% .x[[2]])))
+    dataframe2_select_species <- dplyr::bind_rows(dataframe2_select_species)
+  } else {
+    dataframe2_select_species <- dataframe2 %>% dplyr::filter(species_fao_code %in% country_species)
+  }
   ## Selection all species when the list is not available for the country
-  dataframe2 <- dplyr::bind_rows(dataframe2_select_species, dataframe2 %>% dplyr::filter(!(country_fleetcountry %in% names(country_species))))
+  if (inherits(x = country_species, what = "list")) {
+    dataframe2 <- dplyr::bind_rows(dataframe2_select_species, dataframe2 %>% dplyr::filter(!(country_fleetcountry %in% names(country_species))))
+  } else {
+    dataframe2 <- dataframe2_select_species
+  }
   ## Selection species fate
   dataframe2 <- dataframe2 %>%
     dplyr::filter((speciesfate_code %in% species_fate))
@@ -251,11 +264,19 @@ logbook_raising_factor_control <- function(dataframe1,
   dataframe3 <- dplyr::left_join(dataframe3, unique(dataframe4[, c("trip_id", "country_fleetcountry")]), by = dplyr::join_by(trip_id))
   # Landing filtration for RF1
   ## Selection species when the list is available for the country and selection species fate
-  condition <- as.list(as.data.frame(t(data.frame(country = names(country_species), species = I(unname(country_species))))))
-  dataframe3_select_species <- purrr::map(condition, ~ dataframe3 %>% dplyr::filter((country_fleetcountry %in% .x[[1]] & species_fao_code %in% .x[[2]])))
-  dataframe3_select_species <- dplyr::bind_rows(dataframe3_select_species)
+  if (inherits(x = country_species, what = "list")) {
+    condition <- as.list(as.data.frame(t(data.frame(country = names(country_species), species = I(unname(country_species))))))
+    dataframe3_select_species <- purrr::map(condition, ~ dataframe3 %>% dplyr::filter((country_fleetcountry %in% .x[[1]] & species_fao_code %in% .x[[2]])))
+    dataframe3_select_species <- dplyr::bind_rows(dataframe3_select_species)
+  } else {
+    dataframe3_select_species <- dataframe3 %>% dplyr::filter(species_fao_code %in% country_species)
+  }
   ## Selection all species when the list is not available for the country
-  dataframe3 <- dplyr::bind_rows(dataframe3_select_species, dataframe3 %>% dplyr::filter(!(country_fleetcountry %in% names(country_species))))
+  if (inherits(x = country_species, what = "list")) {
+    dataframe3 <- dplyr::bind_rows(dataframe3_select_species, dataframe3 %>% dplyr::filter(!(country_fleetcountry %in% names(country_species))))
+  } else {
+    dataframe3 <- dataframe3_select_species
+  }
   # Calculation of the sum of weights caught per trip (Management of NA: if known value performs the sum of the values and ignores the NA, if no known value indicates NA)
   dataframe3 <- dataframe3 %>%
     dplyr::group_by(trip_id) %>%
