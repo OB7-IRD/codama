@@ -1,3 +1,123 @@
+# codama 1.4.6 - 2026.03.09
+
+## Added
+AkadoR check added : 
+* logbook_observed_system_floatting_object_pair_control.R : Identification of incoherent between the presence of floatting object and observed system
+* logbook_vessel_activity_object_operation_control.R : Identification of incoherent vessel activity and object operation
+* logbook_buoy_owner_control.R : Identification of an inconsistent buoy whose owner is missing
+* logbook_buoy_code_control.R : Identification of an inconsistent buoy code and buoy type naming convention
+* logbook_sampleactivity_well_sampled_control.R : Identification of an inconsistencies between the sampling activity and well sampled plan trip
+
+## Changed
+* logbook_length_class_control.R : Remove argument species and add lower threshold in argument threshold
+* logbook_weighting_sample_control.R : Change definition well sampled, add column trip_id for dataframe1 and dataframe2
+
+# codama 1.4.5 - 2026.02.12
+
+## Added
+AkadoR check added :
+* logbook_vessel_activity_missing_floating_object_control.R : Identification of incoherent vessel activity and missing floating object
+* logbook_operationobjet_observedsystem_control.R : Identification of incoherent operation objet and observed system
+* logbook_floating_object_part_material_control.R : Identification of incoherent floating object material
+* logbook_vessel_activity_floating_object_missing_buoy_control.R : Identification of incoherent vessel activity and missing buoy
+
+## Changed
+* logbook_super_sample_number_control.R : Add check continuous numbering of sub-samples
+
+# codama 1.4.4 - 2026.01.26
+
+## Added
+AkadoR check added :
+* logbook_weigh_catch_well_control.R : Identification of incoherent the catch weight and weight in well
+
+## Changed
+* logbook_weighting_sample_control.R : Remove dataframe3 and species_fate (Remove comparaison weighted weight with catch and add comparaison weighted weight with well)
+* logbook_well_number_control.R : Add contraint activity_id
+
+# codama 1.4.3 - 2026.01.22
+
+## Changed
+* logbook_floating_object_buoy_id_redundancy_control.R : Patch function
+
+# codama 1.4.2 - 2026.01.07
+
+## Changed
+* logbook_anapo_control.R : Remove argument threshold_number_vms (remove check min 20 VMS)
+
+# codama 1.4.1 - 2025.12.19
+
+## Added
+AkadoR check added :
+* logbook_floating_object_buoy_id_redundancy_control.R : Identification of incoherent buoy operation on a same object
+
+## Changed
+* logbook_temporal_limit_control.R : Add dataframe3 with activity_id (Patch route without activity)
+
+# codama 1.4.0 - 2025.09.08
+
+## Added
+AkadoR check added : 
+* logbook_activity_sample_control.R : Gives inconsistencies between the sample and the activity in terms of presence
+* logbook_anapo_activity_control.R : Gives the inconsistencies between the VMS and the presence of activity
+* logbook_anapo_control.R : Gives the inconsistencies activity position and VMS position
+* logbook_category_species_forbidden_well_control. R : Gives the inconsistencies between the weight categories and the species in the well
+* logbook_distribution_control.R : Gives the inconsistencies between the weights of small and big sample fish and the sum of the small and big weights in the associated well
+* logbook_eez_control.R : Gives the inconsistencies between the fishing area declared and calculated for the activity
+* logbook_fishing_context_control.R : Gives the inconsistencies between the school type and the association
+* logbook_fishing_time_control.R : Gives the inconsistencies between the sum of the fishing times indicated for the route and the one indicated for the trip 
+* logbook_harbour_control.R : Gives the inconsistencies between the harbour of landing of the previous trip and the harbour of departure of the current trip
+* logbook_landing_control.R : Gives the inconsistencies between the total landed weight for canneries and local market in the trip and vessel capacity link to trip
+* logbook_landing_total_weight_control.R : Gives the inconsistencies between the total weight landed during the trip for the canneries and the sum of the weights of each landing for the canneries linked to the trip
+* logbook_ldlf_control.R : Gives the inconsistencies between the sample measurement types and species or weight values
+* logbook_length_class_control.R : Gives the inconsistencies between size class of the samples depending on the species and measurement type and the valid threshold
+* logbook_little_big_control.R : Gives the inconsistencies between the percentage of little and big fish sampled
+* logbook_measure_control.R : Gives the inconsistencies between the total number of individuals measured per sample and the sum of individuals per sample, species and size class
+* logbook_operation_control.R : Gives the inconsistencies between fishing success status, vessel activity, type of school or weight caught
+* logbook_position_control.R : Gives the inconsistencies between the ocean declared for the trip and the position of the activity
+* logbook_raising_factor_control.R : Gives the inconsistencies between RF1 and threshold values
+* logbook_sample_harbour_control.R : Gives inconsistencies between the presence of a sample and the absence of a harbour of landing
+* logbook_sample_without_measure_control.R : Gives inconsistencies between the sample and the measurement in terms of presence
+* logbook_sample_without_species_control.R : Gives inconsistencies between the sample and the species sampled in terms of presence
+* logbook_sea_time_control.R : Gives the inconsistencies between the sum of the sea times indicated for the route and the one indicated for the trip
+* logbook_species_control.R : Gives the inconsistencies between species sampled and species authorized
+* logbook_super_sample_number_control.R : Gives the inconsistencies between the sample and the subsample number
+* logbook_temperature_control.R : Gives the inconsistencies between activity sea surface temperature and valid threshold
+* logbook_temporal_limit_control.R : Gives the inconsistencies between trip start and end date and the dates of activity
+* logbook_time_route_control.R : Gives the inconsistencies between the fishing times or sea times indicated for the route and activities carried out
+* logbook_trip_activity_control.R : Gives the inconsistencies between the trip and the associated activities in terms of presence
+* logbook_weight_control.R : Gives the inconsistencies between the sum of the weight indicated for catches and the one indicated for the activity
+* logbook_weight_sample_control.R : Gives the inconsistencies between the sample weight (m10 and p10) and the global sample weight
+* logbook_weighting_control.R : Gives the inconsistencies between the sample weighting and sample weight or landed weight
+* logbook_weighting_sample_control.R : Gives the inconsistencies between the sample weighting and catch weight
+* logbook_well_number_control.R : Gives the inconsistencies between sample well number and associated trip well numbers
+
+# codama 1.3.2- 2025.08.27
+
+## Changed
+* r_type_checking.R : Add Date to choices for argument type
+
+# codama 1.3.1- 2025.06.06
+
+## Changed
+* r_type_checking.R : Add PqConnection to choices for argument type
+
+# codama 1.3.0- 2025.05.12
+
+## Changed
+* sample_with_no_fate_control.R, sex_control.R, fate_by_species_group_control.R, weight_null_control.R : Add parametre export_table  
+* measure_type_correction.R, sample_with_no_fate_correction.R : Remove condition on database name + Add of the case where there is no sample
+* weight_null_control.R : Change filter for catch and sample (preservation of tuna destined for the cannery)
+* fate_by_species_group_control.R : Add percentage of automatic corrections that can be made
+* size_distribution_and_outliers_control.R : Invert colors in the plot
+
+## Added
+* observe_sex.sql : Sex id, code and label mapping table
+* sex_correction.R : Corrects the samples with an incorrect sex
+* weight_null_correction.R : Corrects the samples with weight = 0
+* round_size_control.R : Controls the accuracy (decimals) of size samples
+* round_size_correction.R : Corrects unrounded size samples to the inferior centimeter (or half centimeter for PD1)
+* fate_by_species_group_correction.R : Corrects erroneous fate in catch and samples for species according to the species group
+
 # codama 1.2.0- 2025.02.20
 
 ## Changed
