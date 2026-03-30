@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.7</span>
       </span>
     </div>
 
@@ -63,7 +63,8 @@
 <span>  <span class="va">dataframe2</span>,</span>
 <span>  <span class="va">dataframe3</span>,</span>
 <span>  <span class="va">output</span>,</span>
-<span>  vessel_activity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"13"</span><span class="op">)</span></span>
+<span>  vessel_activity <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"13"</span><span class="op">)</span>,</span>
+<span>  object_operation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -90,6 +91,10 @@
 <dt id="arg-vessel-activity">vessel_activity<a class="anchor" aria-label="anchor" href="#arg-vessel-activity"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Default values: c("13"). Vector containing the vessel activity code that must have a buoy.</p></dd>
 
+
+<dt id="arg-object-operation">object_operation<a class="anchor" aria-label="anchor" href="#arg-object-operation"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> expected. Default values: c("1"). Vector containing the object operation code that must have a buoy.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -98,6 +103,7 @@
     <div id="details">
     <h2>Details</h2>
     <p>The input dataframe must contain all these columns for the function to work :</p><ul><li><p><code>  floatingobject_id</code></p></li>
+<li><p><code>  objectoperation_code</code></p></li>
 <li><p><code>  activity_id</code></p></li>
 </ul><ul><li><p><code>  activity_id</code></p></li>
 <li><p><code>  vesselactivity_code</code></p></li>
@@ -107,25 +113,27 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Floating object 1, 2 and 3 are ok,</span></span></span>
-<span class="r-in"><span><span class="co">#Floating object 4 has buoy missing</span></span></span>
-<span class="r-in"><span><span class="co">#Floating object 5 has vessel activity missing</span></span></span>
-<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>floatingobject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         vesselactivity_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"13"</span>, <span class="st">"1"</span>, <span class="st">"13"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#Floating object 1, 2, 3 and 4 are ok,</span></span></span>
+<span class="r-in"><span><span class="co">#Floating object 5 has buoy missing</span></span></span>
+<span class="r-in"><span><span class="co">#Floating object 6 has vessel activity missing</span></span></span>
+<span class="r-in"><span><span class="va">dataframe1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>floatingobject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         objectoperation_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dataframe2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         vesselactivity_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"13"</span>, <span class="st">"1"</span>, <span class="st">"13"</span>, <span class="st">"13"</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dataframe3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>transmittingbuoy_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                         floatingobject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>                         floatingobject_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"4"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">logbook_vessel_activity_floating_object_missing_buoy_control</span><span class="op">(</span><span class="va">dataframe1</span>,</span></span>
 <span class="r-in"><span>                                                             <span class="va">dataframe2</span>,</span></span>
 <span class="r-in"><span>                                                             <span class="va">dataframe3</span>,</span></span>
 <span class="r-in"><span>                                                             output <span class="op">=</span> <span class="st">"report"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   floatingobject_id logical count_buoy vesselactivity_code</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 1    TRUE          1                  13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 2    TRUE          0                   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 3    TRUE          1                  13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 4   FALSE          0                  13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 5   FALSE          0                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   floatingobject_id objectoperation_code logical count_buoy vesselactivity_code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 1                    1    TRUE          1                  13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 2                    1    TRUE          0                   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 3                    2    TRUE          0                  13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 4                    1    TRUE          1                  13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 5                    1   FALSE          0                  13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                 6                    1   FALSE          0                &lt;NA&gt;</span>
 </code></pre></div>
     </div>
   </div>
