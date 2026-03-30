@@ -1,3 +1,16 @@
+# codama 1.4.7 - 2026.03.30
+
+## Added
+AkadoR check added : 
+* logbook_buoy_time_control.R : Identification of incoherent between the time elapsed for an operation on the same buoy
+* logbook_floating_object_part_when_leaving_control.R : Identification of incoherent between the number of part of objects for floating object when arriving and when leaving
+* function_reason_for_discard_unknown_control.R : Identifies in the observer data cases where the reason for discard is 99 or NA
+
+## Changed
+* logbook_vessel_activity_floating_object_missing_buoy_control.R : Add argument object_operation for filter
+* logbook_raising_factor_control.R : Change value accepted for argument country_species (add possibility to pass vector with species FAO code for country_species for all countries)
+* logbook_anapo_control.R : Patch if activity at the time of the summer/winter time change
+
 # codama 1.4.6 - 2026.03.09
 
 ## Added
