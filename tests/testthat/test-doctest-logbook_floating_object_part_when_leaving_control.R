@@ -5,11 +5,15 @@ test_that("Doctest: logbook_floating_object_part_when_leaving_control", {
   # Created from @doctest for `logbook_floating_object_part_when_leaving_control`
   # Source file: R/logbook_floating_object_part_when_leaving_control.R
   # Source line: 21
-  dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5"), objectoperation_code = c("1", "8", "8", "8", "8"))
-  dataframe2 <- data.frame(floatingobjectpart_id = c("1", "2", "3", "4", "5", "6", "7", "8"), floatingobjectpart_whenarriving = c("true", NA, "false", "true", NA, "true",
-    "true", NA), floatingobjectpart_whenleaving = c(NA, "true", "true", "true", "9", "true", "false", "true"), floatingobject_id = c("1", "2", "2", "3", "3", "4", "5", "5"))
-  expect_equal(logbook_floating_object_part_when_leaving_control(dataframe1, dataframe2, output = "report"), structure(list(floatingobject_id = c("1", "2", "3", "4", "5"),
-  objectoperation_code = c("1", "8", "8", "8", "8"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE), objet_part_additional_leaving = c(FALSE, TRUE, TRUE, FALSE, TRUE),
-  objet_part_retained_leaving = c(FALSE, TRUE, TRUE, TRUE, FALSE)), row.names = c(NA, 5L), class = "data.frame"))
+  dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5"), objectoperation_code = c("1", "8", "8", "8",
+    "8"))
+  dataframe2 <- data.frame(floatingobjectpart_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
+  floatingobjectpart_whenarriving = c("true", NA, "false", "true", NA, "true", "true", NA),
+  floatingobjectpart_whenleaving = c(NA, "true", "true", "true", "9", "true", "false", "true"), floatingobject_id = c("1",
+    "2", "2", "3", "3", "4", "5", "5"))
+  expect_equal(logbook_floating_object_part_when_leaving_control(dataframe1, dataframe2, output = "report"), structure(
+    list(floatingobject_id = c("1", "2", "3", "4", "5"), objectoperation_code = c("1", "8", "8", "8", "8"), logical = c(
+      TRUE, TRUE, TRUE, FALSE, FALSE), objet_part_additional_leaving = c(FALSE, TRUE, TRUE, FALSE, TRUE),
+    objet_part_retained_leaving = c(FALSE, TRUE, TRUE, TRUE, FALSE)), row.names = c(NA, 5L), class = "data.frame"))
 })
 

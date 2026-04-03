@@ -1,8 +1,8 @@
-#' @name function_reason_for_discard_unknown_control
-#' @title Reason for discard unknown control
+#' @name function_catch_reason_for_discard_unknown_control
+#' @title Catch reason for discard unknown control
 #' @author Chloé Tellier, Philippe S. Sabarros
 #' @note Version 1.0
-#' @description Identifies in the observer data cases where the reason for discard is 99 or NA.
+#' @description Identifies in the observer data catches where the reason for discard is 99 or NA.
 #' @param catch {\link[base]{data.frame}} expected. All catches during the time range selected.
 #' @return The function returns one {\link[base]{data.frame}}.
 #' @details
@@ -22,9 +22,9 @@
 #'                     speciesfate_code = c("6", "4", "5", "14"),
 #'                     reasonfordiscard_code = c(NA, "1", NA, "99"))
 #' @expect equal(., structure(list(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("6", "4", "5", "14"), reasonfordiscard_code = c(NA, "1", NA, "99"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
-#' function_reason_for_discard_unknown_control(catch)
+#' function_catch_reason_for_discard_unknown_control(catch)
 #' @export
-function_reason_for_discard_unknown_control <- function(catch) {
+function_catch_reason_for_discard_unknown_control <- function(catch) {
   # 0 - Global variables assignment ----
   speciesfate_code <- NULL
   reasonfordiscard_code <- NULL
