@@ -17,9 +17,8 @@ test_that("Doctest: logbook_weighting_sample_control", {
     "1", "1", "2", "2", "3", "3", "3", "4", "4", "4", "5", "7", "7", "8", "8"), trip_id = c("1", "1", "1", "1", "2", "2",
     "3", "3", "3", "4", "4", "4", "4", "6", "6", "7", "7"))
   expect_equal(logbook_weighting_sample_control(dataframe1, dataframe2, output = "report"), structure(list(
-    sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"), sampleactivity_weightedweight = c(3,
-      6, 20, 6.25, 13.75, 7.6, 2, 2, 26, 13, NA), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE,
-      FALSE, FALSE), weightedweight_well = c(3, 6, 20, 6.25, 13.75, 7.6, 2, NA, 28, 19, NA)), row.names = c(NA, 11L),
-  class = "data.frame"))
+    sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"), sampleactivity_weightedweight = c(3, 6,
+      20, 6.25, 13.75, 7.6, 2, 2, 26, 13, NA), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE,
+      FALSE), weightedweight_well = c(3, 6, 20, 6.25, 13.75, 7.6, 2, NA, 28, 19, NA)), row.names = c(NA, 11L), class = "data.frame"))
 })
 

@@ -11,9 +11,9 @@ test_that("Doctest: logbook_weighting_control", {
     33, 8, 9, 142, 2, 14, 10, 3, 0, NA, 0, 0, 104, 24, 36, 12), trip_id = c("1", "1", "2", "3", "4", "5", "6", "7", "8",
     "8", "8", "8", "8", "8", "1", "1", "1", "1", "1"), sampletype_code = c("1", "1", "1", "11", "11", "1", "1", NA, "1",
     "1", "1", "1", "1", "1", "1", NA, NA, NA, NA))
-  dataframe2 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-    "14", "15", "16", "17"), sampleactivity_weightedweight = c(70, 5, 18, 12, 33, 5, 9, 4, 13, 7, 4, 15, 116, 104, 24, 35,
-    11), sample_id = c("1", "1", "2", "3", "4", "5", "6", "8", "9", "11", "12", "14", "15", "16", "17", "18", "19"))
+  dataframe2 <- data.frame(sampleactivity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+    "15", "16", "17"), sampleactivity_weightedweight = c(70, 5, 18, 12, 33, 5, 9, 4, 13, 7, 4, 15, 116, 104, 24, 35, 11),
+  sample_id = c("1", "1", "2", "3", "4", "5", "6", "8", "9", "11", "12", "14", "15", "16", "17", "18", "19"))
   dataframe3 <- data.frame(trip_id = c("1", "2", "3", "4", "6", "7", "8"), vesseltype_code = c("6", "6", "2", "2", "3",
     "2", "2"), vesseltype_label = c("vessel_type_1", "vessel_type_1", "vessel_type_2", "vessel_type_2", "vessel_type_3",
     "vessel_type_2", "vessel_type_2"))
@@ -26,8 +26,8 @@ test_that("Doctest: logbook_weighting_control", {
       FALSE, TRUE, TRUE, FALSE), sample_smallsweight = c(10, 32, 2.5, 30, 12, 7, NA, 6, NA, 4, 8, 3, 7, 13, 54, 3, 8, 2,
       16), sample_bigsweight = c(50, 2, 9, 3, 6, 13, 0, 3, 7, 2, 0, 2, 8, 3, 62, 8, 15, 6, 1), sample_totalweight = c(NA,
       NA, NA, 33, 8, 9, 142, 2, 14, 10, 3, 0, NA, 0, 0, 104, 24, 36, 12), sampletype_code = c("1", "1", "1", "11", "11",
-      "1", "1", NA, "1", "1", "1", "1", "1", "1", "1", NA, NA, NA, NA), weightedweight = c(75, 18, 12, 33, 5, 9, NA, 4,
-      13, NA, 7, 4, NA, 15, 116, 104, 24, 35, 11), vesseltype_label = c("vessel_type_1", "vessel_type_1", "vessel_type_1",
+      "1", "1", NA, "1", "1", "1", "1", "1", "1", "1", NA, NA, NA, NA), weightedweight = c(75, 18, 12, 33, 5, 9, NA, 4, 13,
+      NA, 7, 4, NA, 15, 116, 104, 24, 35, 11), vesseltype_label = c("vessel_type_1", "vessel_type_1", "vessel_type_1",
       "vessel_type_2", "vessel_type_2", NA, "vessel_type_3", "vessel_type_2", "vessel_type_2", "vessel_type_2",
       "vessel_type_2", "vessel_type_2", "vessel_type_2", "vessel_type_2", "vessel_type_1", "vessel_type_1",
       "vessel_type_1", "vessel_type_1", "vessel_type_1"), sum_landing_weight_baitboat = c(NA, NA, NA, 32.6, 20, NA, NA, 3,

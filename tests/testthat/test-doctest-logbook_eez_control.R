@@ -7,8 +7,8 @@ test_that("Doctest: logbook_eez_control", {
   # Source line: 28
   dataframe1 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8"), vesselactivity_code = c("6", "6", "6",
     "6", "1", "6", "6", "6"), fpazone_code = c("SYC", "XSG", "XIN", "SYC", NA, NA, "AZE", "AZE"), fpazone_country_iso3 = c(
-    "SYC", "XXX", "XIN", "SYC", NA, NA, "AZE", "AZE"), activity_position = c("POINT (1 1)", "POINT (4 3)",
-    "POINT (-1 -1)", "POINT (-1 -1)", "POINT (1 1)", "POINT (1 1)", "POINT (1 1)", "POINT (6 6)"))
+    "SYC", "XXX", "XIN", "SYC", NA, NA, "AZE", "AZE"), activity_position = c("POINT (1 1)", "POINT (4 3)", "POINT (-1 -1)",
+    "POINT (-1 -1)", "POINT (1 1)", "POINT (1 1)", "POINT (1 1)", "POINT (6 6)"))
   dataframe2 <- sf::st_sf(data.frame(ISO_TER1 = c("SYC", "XSG"), ISO_TER2 = c(NA, NA), ISO_TER3 = c(NA, NA), geometry = sf::st_sfc(
     sf::st_polygon(list(rbind(c(0, 0), c(2, 0), c(2, 2), c(0, 2), c(0, 0)))), sf::st_polygon(list(rbind(c(3, 3), c(3, 5),
     c(5, 5), c(5, 3), c(3, 3)))), crs = 4326)))

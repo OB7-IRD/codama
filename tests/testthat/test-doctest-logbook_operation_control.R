@@ -9,10 +9,10 @@ test_that("Doctest: logbook_operation_control", {
     "2", "1", "2", NA, NA, NA, "1", "0", "0", "0", "1"), successstatus_code = c("1", "0", "2", NA, "2", "2", NA, "2", "1",
     "2", "0"), activity_weight = c(10, 0, 0, NA, NA, 6, 8, 2, 8, NA, 4), vesselactivity_code = c("6", "6", "6", "1", "1",
     "6", "6", "6", "6", "6", "6"))
-  expect_equal(logbook_operation_control(dataframe1, output = "report"), structure(list(activity_id = c("1", "2", "3",
-    "4", "5", "6", "7", "8", "9", "10", "11"), logical = c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE,
-    FALSE, FALSE), vesselactivity_code = c("6", "6", "6", "1", "1", "6", "6", "6", "6", "6", "6"), successstatus_code = c(
-    "1", "0", "2", NA, "2", "2", NA, "2", "1", "2", "0"), schooltype_code = c("2", "1", "2", NA, NA, NA, "1", "0", "0",
-    "0", "1"), activity_weight = c(10, 0, 0, NA, NA, 6, 8, 2, 8, NA, 4)), row.names = c(NA, 11L), class = "data.frame"))
+  expect_equal(logbook_operation_control(dataframe1, output = "report"), structure(list(activity_id = c("1", "2", "3", "4",
+    "5", "6", "7", "8", "9", "10", "11"), logical = c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE,
+    FALSE), vesselactivity_code = c("6", "6", "6", "1", "1", "6", "6", "6", "6", "6", "6"), successstatus_code = c("1",
+    "0", "2", NA, "2", "2", NA, "2", "1", "2", "0"), schooltype_code = c("2", "1", "2", NA, NA, NA, "1", "0", "0", "0",
+    "1"), activity_weight = c(10, 0, 0, NA, NA, 6, 8, 2, 8, NA, 4)), row.names = c(NA, 11L), class = "data.frame"))
 })
 
