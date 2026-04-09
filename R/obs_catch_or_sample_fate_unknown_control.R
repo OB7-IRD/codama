@@ -1,4 +1,4 @@
-#' @name function_catch_or_sample_fate_unknown_control
+#' @name obs_catch_or_sample_fate_unknown_control
 #' @title Catch or sample fate unknown control
 #' @author Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
@@ -26,9 +26,9 @@
 #' catch <- data.frame(catch_id = c("1", "2", "3", "4"),
 #'                     speciesfate_code = c("4", "15", "9", "11"))
 #' @expect equal(., structure(list(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("4", "15", "9", "11"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
-#' function_catch_or_sample_fate_unknown_control(catch)
+#' obs_catch_or_sample_fate_unknown_control(catch)
 #' @export
-function_catch_or_sample_fate_unknown_control <- function(data) {
+obs_catch_or_sample_fate_unknown_control <- function(data) {
   # 0 - Global variables assignment ----
   speciesfate_code <- NULL
   # 1 - Arguments verification ----

@@ -5,10 +5,11 @@ test_that("Doctest: logbook_buoy_code_control", {
   # Created from @doctest for `logbook_buoy_code_control`
   # Source file: R/logbook_buoy_code_control.R
   # Source line: 15
-  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4"), transmittingbuoy_code = c("111111", "011111",
-    "1234567", NA), transmittingbuoytype_regex = c("[0-9]{6}", "[0-9]{6}", "[0-9]{6}", "[0-9]{6}"))
-  expect_equal(logbook_buoy_code_control(dataframe1, output = "report"), structure(list(transmittingbuoy_id = c("1", "2",
-    "3", "4"), transmittingbuoy_code = c("111111", "011111", "1234567", NA), logical = c(TRUE, FALSE, FALSE, FALSE),
-  transmittingbuoytype_regex = c("[0-9]{6}", "[0-9]{6}", "[0-9]{6}", "[0-9]{6}")), row.names = c(NA, 4L), class = "data.frame"))
+  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4"), transmittingbuoy_code = c("111111",
+    "011111", "1234567", NA), transmittingbuoytype_regex = c("[0-9]{6}", "[0-9]{6}", "[0-9]{6}", "[0-9]{6}"))
+  expect_equal(logbook_buoy_code_control(dataframe1, output = "report"), structure(list(transmittingbuoy_id = c(
+    "1", "2", "3", "4"), transmittingbuoy_code = c("111111", "011111", "1234567", NA), logical = c(TRUE,
+    FALSE, FALSE, FALSE), transmittingbuoytype_regex = c("[0-9]{6}", "[0-9]{6}", "[0-9]{6}", "[0-9]{6}")),
+  row.names = c(NA, 4L), class = "data.frame"))
 })
 
