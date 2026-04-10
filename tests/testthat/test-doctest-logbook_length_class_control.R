@@ -5,10 +5,10 @@ test_that("Doctest: logbook_length_class_control", {
   # Created from @doctest for `logbook_length_class_control`
   # Source file: R/logbook_length_class_control.R
   # Source line: 17
-  dataframe1 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5"), sizemeasuretype_code = c(
-    "FL", "PD1", "PD1", "FL", "FL"), samplespeciesmeasure_sizeclass = c(25, 75, 5, 83, NA))
-  expect_equal(logbook_length_class_control(dataframe1, output = "report"), structure(list(
-    samplespeciesmeasure_id = c("1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE),
-    samplespeciesmeasure_sizeclass = c(25, 75, 5, 83, NA)), row.names = c(NA, 5L), class = "data.frame"))
+  dataframe1 <- data.frame(samplespeciesmeasure_id = c("1", "2", "3", "4", "5"), sizemeasuretype_code = c("FL", "PD1",
+    "PD1", "FL", "FL"), samplespeciesmeasure_sizeclass = c(25, 75, 5, 83, NA))
+  expect_equal(logbook_length_class_control(dataframe1, output = "report"), structure(list(samplespeciesmeasure_id = c(
+    "1", "2", "3", "4", "5"), logical = c(TRUE, TRUE, FALSE, FALSE, FALSE), samplespeciesmeasure_sizeclass = c(25, 75, 5,
+    83, NA)), row.names = c(NA, 5L), class = "data.frame"))
 })
 
