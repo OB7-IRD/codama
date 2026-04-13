@@ -1,8 +1,8 @@
-#' @name logbook_floating_object_part_when_leaving_control
+#' @name logbook_floating_object_part_when_arriving_and_leaving_control
 #' @title Identification of incoherent between the number of part of objects for floating object when arriving and when leaving
-#' @description The purpose of the logbook_floating_object_part_when_leaving_control function is to provide a table of data that contains a incoherent with the number of part of objects for floating object when arriving are  greater than  when leaving
-#' @param dataframe1 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_floating_object_part_when_leaving_control.
-#' @param dataframe2 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_floating_object_part_when_leaving_control.
+#' @description The purpose of the logbook_floating_object_part_when_arriving_and_leaving_control function is to provide a table of data that contains a incoherent with the number of part of objects for floating object when arriving are  greater than  when leaving
+#' @param dataframe1 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_floating_object_part_when_arriving_and_leaving_control.
+#' @param dataframe2 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_floating_object_part_when_arriving_and_leaving_control.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
 #' @param object_operation {\link[base]{character}} expected. Default values: c("8"). Vector containing the codes for object operation with traditionally more items at the end than at the beginning
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical".
@@ -31,9 +31,11 @@
 #'                                                             "true", "false", "true"),
 #'                          floatingobject_id = c("1", "2", "2", "3", "3", "4", "5", "5"))
 #' @expect equal (.,structure(list(floatingobject_id = c("1", "2", "3", "4", "5"), objectoperation_code = c("1", "8", "8", "8", "8"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE), objet_part_additional_leaving = c(FALSE, TRUE, TRUE, FALSE, TRUE), objet_part_retained_leaving = c(FALSE, TRUE, TRUE, TRUE, FALSE)), row.names = c(NA, 5L), class = "data.frame"))
-#' logbook_floating_object_part_when_leaving_control(dataframe1, dataframe2, output = "report")
+#' logbook_floating_object_part_when_arriving_and_leaving_control(dataframe1,
+#'                                                                dataframe2,
+#'                                                                output = "report")
 #' @export
-logbook_floating_object_part_when_leaving_control <- function(dataframe1,
+logbook_floating_object_part_when_arriving_and_leaving_control <- function(dataframe1,
                                                               dataframe2,
                                                               output,
                                                               object_operation = c("8")) {

@@ -5,10 +5,8 @@ test_that("Doctest: obs_catch_reason_for_discard_unknown_control", {
   # Created from @doctest for `obs_catch_reason_for_discard_unknown_control`
   # Source file: R/obs_catch_reason_for_discard_unknown_control.R
   # Source line: 16
-  catch <- data.frame(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("6", "4", "5", "14"), reasonfordiscard_code = c(
-    NA, "1", NA, "99"))
-  expect_equal(obs_catch_reason_for_discard_unknown_control(catch), structure(list(catch_id = c("1", "2", "3", "4"),
-  speciesfate_code = c("6", "4", "5", "14"), reasonfordiscard_code = c(NA, "1", NA, "99"), logical = c(TRUE, TRUE, FALSE,
-    FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+  catch <- data.frame(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("6", "4", "5", "14"), reasonfordiscard_code = c(NA, "1", NA, "99"))
+  expect_equal(obs_catch_reason_for_discard_unknown_control(catch), structure(list(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("6", "4", "5", "14"),
+  reasonfordiscard_code = c(NA, "1", NA, "99"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
 })
 
