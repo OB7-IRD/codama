@@ -295,12 +295,19 @@ logbook_position_control <- function(dataframe1,
     terra::buffer(width = buffer_sea) %>%
     sf::st_as_sf()
   # Calculates the intersection between activity and sea and logical in sea, indicates whether the ocean is the same
-  intersect <- data_geo_activity %>%
-    dplyr::mutate(intersect_indice = sf::st_intersects(data_geo_activity, shape_sea_buffer)) %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(logical_ocean = ocean_label %in% shape_sea_buffer$ID[unlist(intersect_indice)],
-                  ocean_calculate = ifelse(length(shape_sea_buffer$ID[unlist(intersect_indice)]) > 0, paste0(shape_sea_buffer$ID[unlist(intersect_indice)], collapse = " "), NA)) %>%
-    dplyr::ungroup()
+  if (nrow(data_geo_activity) > 0) {
+    intersect <- data_geo_activity %>%
+      dplyr::mutate(intersect_indice = sf::st_intersects(data_geo_activity, shape_sea_buffer)) %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(logical_ocean = ocean_label %in% shape_sea_buffer$ID[unlist(intersect_indice)],
+                    ocean_calculate = ifelse(length(shape_sea_buffer$ID[unlist(intersect_indice)]) > 0, paste0(shape_sea_buffer$ID[unlist(intersect_indice)], collapse = " "), NA)) %>%
+      dplyr::ungroup() %>%
+      dplyr::select(!(intersect_indice))
+  } else {
+    intersect <- data_geo_activity %>%
+      dplyr::mutate(logical_ocean = logical(),
+                    ocean_calculate = character())
+  }
   dataframe1 <- dplyr::left_join(dataframe1, data.frame(intersect)[, c("activity_id", "logical_ocean", "ocean_calculate")], by = dplyr::join_by(activity_id))
   dataframe1$logical_ocean[is.na(dataframe1$logical_ocean)] <- FALSE
   # Case of harbour in sea : not in harbour
