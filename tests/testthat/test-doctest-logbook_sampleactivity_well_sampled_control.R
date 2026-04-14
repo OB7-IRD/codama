@@ -5,10 +5,10 @@ test_that("Doctest: logbook_sampleactivity_well_sampled_control", {
   # Created from @doctest for `logbook_sampleactivity_well_sampled_control`
   # Source file: R/logbook_sampleactivity_well_sampled_control.R
   # Source line: 23
-  dataframe1 <- data.frame(wellactivity_id = c("1", "2", "3", "4"), well_label = c("well_1", "well_2", "well_3", "well_3"), activity_id = c("1", "2", "3", "4"),
-  well_id = c("1", "2", "3", "3"))
+  dataframe1 <- data.frame(wellactivity_id = c("1", "2", "3", "4"), well_label = c("well_1", "well_2", "well_3", "well_3"), activity_id = c("1", "2", "3", "4"), well_id = c(
+    "1", "2", "3", "3"))
   dataframe2 <- data.frame(sampleactivity_id = c("1", "2"), sample_well = c("well_1", "well_3"), activity_id = c("1", "3"))
-  expect_equal(logbook_sampleactivity_well_sampled_control(dataframe1, dataframe2, output = "report"), structure(list(wellactivity_id = c("1", "2", "3", "4"),
-  logical = c(TRUE, TRUE, TRUE, FALSE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -4L)))
+  expect_equal(logbook_sampleactivity_well_sampled_control(dataframe1, dataframe2, output = "report"), structure(list(wellactivity_id = c("1", "2", "3", "4"), logical = c(
+    TRUE, TRUE, TRUE, FALSE)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, -4L)))
 })
 

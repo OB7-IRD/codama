@@ -5,16 +5,15 @@ test_that("Doctest: logbook_buoy_time_control", {
   # Created from @doctest for `logbook_buoy_time_control`
   # Source file: R/logbook_buoy_time_control.R
   # Source line: 25
-  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"), transmittingbuoy_code = c("1", "1", "1", "1", "2", "3", "3", "4",
-    "4"), transmittingbuoytype_id = c("1", "2", "2", "2", "2", "1", "1", "2", "2"), activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "8"))
-  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8"), activity_date = as.Date(c("2020/01/01", "2020/01/01", "2020/01/01",
-    "2020/01/01", "2020/01/01", "2020/01/02", "2020/01/02", "2020/01/03")), activity_time = c("15:26:01", "15:36:01", "17:49:00", "18:30:00", "18:31:00",
-    "09:26:01", "09:42:01", "21:35:01"), trip_id = c("1", "1", "1", "2", "2", "2", "2", "2"))
-  expect_equal(logbook_buoy_time_control(dataframe1, dataframe2, output = "report"), structure(list(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6", "7", "8",
-    "9"), transmittingbuoy_code = c("1", "1", "1", "1", "2", "3", "3", "4", "4"), activity_date = structure(c(18262, 18262, 18262, 18262, 18262, 18263, 18263,
-    18264, 18264), class = "Date"), activity_time = c("15:26:01", "15:36:01", "17:49:00", "18:30:00", "18:31:00", "09:26:01", "09:42:01", "21:35:01", "21:35:01"),
-  time_interval_before = structure(c(NA, NA, 132.983333333333, NA, NA, NA, 16, NA, 0), class = "difftime", units = "mins"), time_interval_after = structure(c(NA,
-    132.983333333333, NA, NA, NA, 16, NA, 0, NA), class = "difftime", units = "mins"), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)),
-  row.names = c(NA, -9L), class = c("tbl_df", "tbl", "data.frame")))
+  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"), transmittingbuoy_code = c("1", "1", "1", "1", "2", "3", "3", "4", "4"),
+  transmittingbuoytype_id = c("1", "2", "2", "2", "2", "1", "1", "2", "2"), activity_id = c("1", "2", "3", "4", "5", "6", "7", "8", "8"))
+  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8"), activity_date = as.Date(c("2020/01/01", "2020/01/01", "2020/01/01", "2020/01/01",
+    "2020/01/01", "2020/01/02", "2020/01/02", "2020/01/03")), activity_time = c("15:26:01", "15:36:01", "17:49:00", "18:30:00", "18:31:00", "09:26:01", "09:42:01", "21:35:01"),
+  trip_id = c("1", "1", "1", "2", "2", "2", "2", "2"))
+  expect_equal(logbook_buoy_time_control(dataframe1, dataframe2, output = "report"), structure(list(transmittingbuoy_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9"),
+  transmittingbuoy_code = c("1", "1", "1", "1", "2", "3", "3", "4", "4"), activity_date = structure(c(18262, 18262, 18262, 18262, 18262, 18263, 18263, 18264, 18264), class = "Date"),
+  activity_time = c("15:26:01", "15:36:01", "17:49:00", "18:30:00", "18:31:00", "09:26:01", "09:42:01", "21:35:01", "21:35:01"), time_interval_before = structure(c(NA, NA,
+    132.983333333333, NA, NA, NA, 16, NA, 0), class = "difftime", units = "mins"), time_interval_after = structure(c(NA, 132.983333333333, NA, NA, NA, 16, NA, 0, NA), class = "difftime",
+  units = "mins"), logical = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)), row.names = c(NA, -9L), class = c("tbl_df", "tbl", "data.frame")))
 })
 

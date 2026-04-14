@@ -6,7 +6,7 @@ test_that("Doctest: obs_catch_or_sample_fate_unknown_control", {
   # Source file: R/obs_catch_or_sample_fate_unknown_control.R
   # Source line: 21
   catch <- data.frame(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("4", "15", "9", "11"))
-  expect_equal(obs_catch_or_sample_fate_unknown_control(catch), structure(list(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("4", "15", "9", "11"),
-  logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+  expect_equal(obs_catch_or_sample_fate_unknown_control(catch), structure(list(catch_id = c("1", "2", "3", "4"), speciesfate_code = c("4", "15", "9", "11"), logical = c(TRUE,
+    TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
 })
 
