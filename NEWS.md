@@ -1,3 +1,18 @@
+# codama 1.4.8 - 2026.04.16
+
+## Added
+AkadoR check added : 
+* obs_catch_or_sample_fate_unknown_control.R : Identifies in the observer data catches or samples where fate code 9 (other) or 11 (discarded unknown) were used
+* obs_catch_or_sample_fate_by_species_group_control.R : Identifies in the observer data all the species with an inconsistent fate according to their species group.
+* logbook_floating_object_part_dimensions_when_leaving_control.R : Identification of incoherent between the number of dimensions element of part of objects DFAD for floating object when leaving and the object operation
+* logbook_floating_object_operation_buoy_control.R : Identification of incoherent between the floating object operation and buoy operation
+* logbook_floating_object_part_DFAD_when_leaving_control.R : Identification of incoherent between the number of element of part of objects DFAD for floating object when leaving and the object operation
+
+## Changed
+* function_reason_for_discard_unknown_control.R : Rename obs_catch_reason_for_discard_unknown_control.R
+* logbook_floating_object_part_when_leaving_control.R : Rename logbook_floating_object_part_when_arriving_and_leaving_control.R
+* logbook_position_control.R : Patch if dataframe1 and dataframe2 are empty
+
 # codama 1.4.7 - 2026.03.30
 
 ## Added
