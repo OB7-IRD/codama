@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.8</span>
       </span>
     </div>
 
@@ -52,6 +52,19 @@
       <small>Source: <a href="https://github.com/OB7-IRD/codama/blob/development/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.8" id="codama-148---20260416">codama 1.4.8 - 2026.04.16<a class="anchor" aria-label="anchor" href="#codama-148---20260416"></a></h2>
+<div class="section level3">
+<h3 id="added-1-4-8">Added<a class="anchor" aria-label="anchor" href="#added-1-4-8"></a></h3>
+<p>AkadoR check added : * obs_catch_or_sample_fate_unknown_control.R : Identifies in the observer data catches or samples where fate code 9 (other) or 11 (discarded unknown) were used * obs_catch_or_sample_fate_by_species_group_control.R : Identifies in the observer data all the species with an inconsistent fate according to their species group. * logbook_floating_object_part_dimensions_when_leaving_control.R : Identification of incoherent between the number of dimensions element of part of objects DFAD for floating object when leaving and the object operation * logbook_floating_object_operation_buoy_control.R : Identification of incoherent between the floating object operation and buoy operation * logbook_floating_object_part_DFAD_when_leaving_control.R : Identification of incoherent between the number of element of part of objects DFAD for floating object when leaving and the object operation</p>
+</div>
+<div class="section level3">
+<h3 id="changed-1-4-8">Changed<a class="anchor" aria-label="anchor" href="#changed-1-4-8"></a></h3>
+<ul><li>function_reason_for_discard_unknown_control.R : Rename obs_catch_reason_for_discard_unknown_control.R</li>
+<li>logbook_floating_object_part_when_leaving_control.R : Rename logbook_floating_object_part_when_arriving_and_leaving_control.R</li>
+<li>logbook_position_control.R : Patch if dataframe1 and dataframe2 are empty</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.7" id="codama-147---20260330">codama 1.4.7 - 2026.03.30<a class="anchor" aria-label="anchor" href="#codama-147---20260330"></a></h2>
 <div class="section level3">
