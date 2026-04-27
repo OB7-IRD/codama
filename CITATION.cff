@@ -8,7 +8,7 @@ message: 'To cite package "codama" in publications use:'
 type: software
 license: GPL-3.0-only
 title: 'codama: Common prOcesses for Data quAlity Monitoring'
-version: 1.1.0
+version: 1.4.8
 abstract: This package aims is to provide a series of standardised and generic controls
   processes for data quality assessment and monitoring.
 authors:
@@ -36,6 +36,18 @@ authors:
   given-names: Esther
   email: esther.mollier@ird.fr
   orcid: https://orcid.org/0000-0001-8921-079X
+- family-names: Tellier
+  given-names: Chloé
+  email: chloe.tellier@ird.fr
+  orcid: https://orcid.org/0009-0007-5988-3310
+- family-names: Sabarros
+  given-names: Philippe
+  email: philippe.sabarros@ird.fr
+  orcid: https://orcid.org/0000-0001-6135-9015
+- family-names: Faucheux--Bourlot
+  given-names: Caroline
+  email: caroline.faucheux-bourlot@ird.fr
+  orcid: https://orcid.org/0009-0008-7418-4072
 repository-code: https://github.com/OB7-IRD/codama
 url: https://github.com/OB7-IRD/codama
 contact:

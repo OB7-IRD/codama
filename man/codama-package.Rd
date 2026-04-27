@@ -28,6 +28,7 @@ Authors:
   \item Esther Mollier \email{esther.mollier@ird.fr} (\href{https://orcid.org/0000-0001-8921-079X}{ORCID})
   \item Chloé Tellier \email{chloe.tellier@ird.fr} (\href{https://orcid.org/0009-0007-5988-3310}{ORCID})
   \item Philippe Sabarros \email{philippe.sabarros@ird.fr} (\href{https://orcid.org/0000-0001-6135-9015}{ORCID})
+  \item Caroline Faucheux--Bourlot \email{caroline.faucheux-bourlot@ird.fr} (\href{https://orcid.org/0009-0008-7418-4072}{ORCID})
 }
 
 Other contributors:
