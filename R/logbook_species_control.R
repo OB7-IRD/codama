@@ -3,7 +3,7 @@
 #' @description The purpose of the logbook_species_control function is to provide a table of data that contains an inconsistency between the species sampled and species authorized
 #' @param dataframe1 {\link[base]{data.frame}} expected. Csv or output of the function {\link[furdeb]{data_extraction}}, which must be done before using the logbook_species_control () function.
 #' @param output {\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".
-#' @param species {\link[base]{character}} expected. Default values: c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT"). Vector of the species authorized.
+#' @param species {\link[base]{character}} expected. Default values: c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT", "FRZ", "BLT"). Vector of the species authorized.
 #' @return The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 #' @details
 #' The input dataframe must contain all these columns for the function to work :
@@ -22,7 +22,7 @@
 #' @export
 logbook_species_control <- function(dataframe1,
                                     output,
-                                    species = c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT")) {
+                                    species = c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT", "FRZ", "BLT")) {
   # 0 - Global variables assignement ----
   species_fao_code <- NULL
   # 1 - Arguments verification ----

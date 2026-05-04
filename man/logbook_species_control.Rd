@@ -7,7 +7,8 @@
 logbook_species_control(
   dataframe1,
   output,
-  species = c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT")
+  species = c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT", "FRZ",
+    "BLT")
 )
 }
 \arguments{
@@ -15,7 +16,7 @@ logbook_species_control(
 
 \item{output}{{\link[base]{character}} expected. Kind of expected output. You can choose between "message", "report" or "logical".}
 
-\item{species}{{\link[base]{character}} expected. Default values: c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT"). Vector of the species authorized.}
+\item{species}{{\link[base]{character}} expected. Default values: c("YFT", "SKJ", "BET", "ALB", "LTA", "FRI", "TUN", "KAW", "LOT", "FRZ", "BLT"). Vector of the species authorized.}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
