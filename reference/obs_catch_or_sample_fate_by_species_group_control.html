@@ -78,11 +78,11 @@
     <p>The input dataframes must contain all these columns for the function to work :</p><ul><li><p><code>  catch_id</code></p></li>
 <li><p><code>  speciesfate_code</code></p></li>
 <li><p><code>  species_faocode</code></p></li>
-<li><p><code>  speciesgroup_label1</code></p></li>
+<li><p><code>  speciesgroup_label</code></p></li>
 </ul><p>Or</p><ul><li><p><code>  samplemeasure_id</code></p></li>
 <li><p><code>  speciesfate_code</code></p></li>
 <li><p><code>  species_faocode</code></p></li>
-<li><p><code>  speciesgroup_label1</code></p></li>
+<li><p><code>  speciesgroup_label</code></p></li>
 </ul></div>
     <div id="note">
     <h2>Note</h2>
@@ -106,11 +106,19 @@
 <span class="r-in"><span><span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>catch_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                    speciesfate_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"4"</span>, <span class="st">"6"</span>, <span class="st">"6"</span>, <span class="st">"15"</span>, <span class="st">"15"</span>, <span class="st">"10"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                    species_faocode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MYS"</span>, <span class="st">"ALM"</span>, <span class="st">"MYS"</span>, <span class="st">"YFT"</span>, <span class="st">"CNT"</span>, <span class="st">"LTA"</span>, <span class="st">"BET"</span>, <span class="st">"MOP"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                    speciesgroup_label1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cetaceans"</span>, <span class="st">"Other bony fishes"</span>,</span></span>
+<span class="r-in"><span>                    speciesgroup_label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cetaceans"</span>, <span class="st">"Other bony fishes"</span>,</span></span>
 <span class="r-in"><span>                                             <span class="st">"Cetaceans"</span>, <span class="st">"Tunas nei"</span>, <span class="st">"Other bony fishes"</span>,</span></span>
 <span class="r-in"><span>                                            <span class="st">"Tunas nei"</span>, <span class="st">"Tunas nei"</span>, <span class="st">"Other bony fishes"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">obs_catch_or_sample_fate_by_species_group_control</span><span class="op">(</span><span class="va">catch</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .makeMessage(..., domain = domain):</span> argument is missing, with no default</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   catch_id speciesfate_code species_faocode speciesgroup_label logical</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        1                1             MYS          Cetaceans    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        2                2             ALM  Other bony fishes   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        3                4             MYS          Cetaceans   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        4                6             YFT          Tunas nei    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        5                6             CNT  Other bony fishes   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        6               15             LTA          Tunas nei    TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        7               15             BET          Tunas nei   FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        8               10             MOP  Other bony fishes   FALSE</span>
 </code></pre></div>
     </div>
   </div>
