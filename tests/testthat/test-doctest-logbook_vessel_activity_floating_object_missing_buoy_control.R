@@ -5,12 +5,18 @@ test_that("Doctest: logbook_vessel_activity_floating_object_missing_buoy_control
   # Created from @doctest for `logbook_vessel_activity_floating_object_missing_buoy_control`
   # Source file: R/logbook_vessel_activity_floating_object_missing_buoy_control.R
   # Source line: 29
-  dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5", "6"), objectoperation_code = c("1", "1", "2", "1", "1", "1"), activity_id = c("1", "2", "3", "4",
-    "4", "5"))
-  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"), vesselactivity_code = c("13", "1", "13", "13", NA))
-  dataframe3 <- data.frame(transmittingbuoy_id = c("1", "2"), floatingobject_id = c("1", "4"))
-  expect_equal(logbook_vessel_activity_floating_object_missing_buoy_control(dataframe1, dataframe2, dataframe3, output = "report"), structure(list(floatingobject_id = c("1",
-    "2", "3", "4", "5", "6"), objectoperation_code = c("1", "1", "2", "1", "1", "1"), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE), count_buoy = c(1, 0, 0, 1, 0, 0),
-  vesselactivity_code = c("13", "1", "13", "13", "13", NA)), row.names = c(NA, 6L), class = "data.frame"))
+  dataframe1 <- data.frame(floatingobject_id = c("1", "2", "3", "4", "5", "6"),
+  objectoperation_code = c("1", "1", "2", "1", "1", "1"), activity_id = c("1",
+    "2", "3", "4", "4", "5"))
+  dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
+  vesselactivity_code = c("13", "1", "13", "13", NA))
+  dataframe3 <- data.frame(transmittingbuoy_id = c("1", "2"),
+  floatingobject_id = c("1", "4"))
+  expect_equal(logbook_vessel_activity_floating_object_missing_buoy_control(
+    dataframe1, dataframe2, dataframe3, output = "report"), structure(list(
+    floatingobject_id = c("1", "2", "3", "4", "5", "6"), objectoperation_code = c(
+      "1", "1", "2", "1", "1", "1"), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE,
+      FALSE), count_buoy = c(1, 0, 0, 1, 0, 0), vesselactivity_code = c("13",
+      "1", "13", "13", "13", NA)), row.names = c(NA, 6L), class = "data.frame"))
 })
 

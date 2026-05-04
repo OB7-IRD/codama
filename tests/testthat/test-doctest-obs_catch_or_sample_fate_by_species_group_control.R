@@ -5,12 +5,19 @@ test_that("Doctest: obs_catch_or_sample_fate_by_species_group_control", {
   # Created from @doctest for `obs_catch_or_sample_fate_by_species_group_control`
   # Source file: R/obs_catch_or_sample_fate_by_species_group_control.R
   # Source line: 25
-  catch <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8"), speciesfate_code = c("1", "2", "4", "6", "6", "15", "15", "10"), species_faocode = c("MYS", "ALM",
-    "MYS", "YFT", "CNT", "LTA", "BET", "MOP"), speciesgroup_label1 = c("Cetaceans", "Other bony fishes", "Cetaceans", "Tunas nei", "Other bony fishes", "Tunas nei",
-    "Tunas nei", "Other bony fishes"))
-  expect_equal(obs_catch_or_sample_fate_by_species_group_control(catch), structure(list(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8"), speciesfate_code = c("1", "2",
-    "4", "6", "6", "15", "15", "10"), species_faocode = c("MYS", "ALM", "MYS", "YFT", "CNT", "LTA", "BET", "MOP"), speciesgroup_label1 = c("Cetaceans", "Other bony fishes",
-    "Cetaceans", "Tunas nei", "Other bony fishes", "Tunas nei", "Tunas nei", "Other bony fishes"), logical = c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE)), class = "data.frame",
-  row.names = c(NA, -8L)))
+  catch <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
+  speciesfate_code = c("1", "2", "4", "6", "6", "15", "15", "10"),
+  species_faocode = c("MYS", "ALM", "MYS", "YFT", "CNT", "LTA", "BET", "MOP"),
+  speciesgroup_label = c("Cetaceans", "Other bony fishes", "Cetaceans",
+    "Tunas nei", "Other bony fishes", "Tunas nei", "Tunas nei",
+    "Other bony fishes"))
+  expect_equal(obs_catch_or_sample_fate_by_species_group_control(catch),
+  structure(list(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
+  speciesfate_code = c("1", "2", "4", "6", "6", "15", "15", "10"),
+  species_faocode = c("MYS", "ALM", "MYS", "YFT", "CNT", "LTA", "BET", "MOP"),
+  speciesgroup_label = c("Cetaceans", "Other bony fishes", "Cetaceans",
+    "Tunas nei", "Other bony fishes", "Tunas nei", "Tunas nei",
+    "Other bony fishes"), logical = c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE,
+    FALSE, FALSE)), class = "data.frame", row.names = c(NA, -8L)))
 })
 

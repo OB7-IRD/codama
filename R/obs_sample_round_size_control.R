@@ -56,7 +56,7 @@ obs_sample_round_size_control <- function(sample) {
   # sizetype_code PD1 and length not rounded to .5
   sample_length_error <- sample %>%
     dplyr::mutate(logical = !(
-      (sizetype_code != "PD1" & sample_length != floor(as.numeric(sample_length))) | (sizetype_code == "PD1" & sample_length != floor(as.numeric(sample_length) * 2) / 2)
+      (sizetype_code != "PD1" & as.numeric(sample_length) != floor(as.numeric(sample_length))) | (sizetype_code == "PD1" & as.numeric(sample_length) != floor(as.numeric(sample_length) * 2) / 2)
     ))
   # 3 - Return ----
   return(sample_length_error)

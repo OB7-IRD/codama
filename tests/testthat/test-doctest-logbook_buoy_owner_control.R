@@ -5,7 +5,10 @@ test_that("Doctest: logbook_buoy_owner_control", {
   # Created from @doctest for `logbook_buoy_owner_control`
   # Source file: R/logbook_buoy_owner_control.R
   # Source line: 14
-  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2"), transmittingbuoyownership_id = c("1", NA))
-  expect_equal(logbook_buoy_owner_control(dataframe1, output = "report"), structure(list(transmittingbuoy_id = c("1", "2"), logical = c(TRUE, FALSE)), row.names = 1:2, class = "data.frame"))
+  dataframe1 <- data.frame(transmittingbuoy_id = c("1", "2"),
+  transmittingbuoyownership_id = c("1", NA))
+  expect_equal(logbook_buoy_owner_control(dataframe1, output = "report"),
+  structure(list(transmittingbuoy_id = c("1", "2"), logical = c(TRUE, FALSE)),
+  row.names = 1:2, class = "data.frame"))
 })
 

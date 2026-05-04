@@ -6,8 +6,10 @@ test_that("Doctest: logbook_sample_without_measure_control", {
   # Source file: R/logbook_sample_without_measure_control.R
   # Source line: 19
   dataframe1 <- data.frame(samplespecies_id = c("1", "2"))
-  dataframe2 <- data.frame(samplespeciesmeasure_id = c("1", "2"), samplespecies_id = c("1", "1"))
-  expect_equal(logbook_sample_without_measure_control(dataframe1, dataframe2, output = "report"), structure(list(samplespecies_id = c("1", "2"), logical = c(TRUE, FALSE)),
-  row.names = c(NA, -2L), class = "data.frame"))
+  dataframe2 <- data.frame(samplespeciesmeasure_id = c("1", "2"),
+  samplespecies_id = c("1", "1"))
+  expect_equal(logbook_sample_without_measure_control(dataframe1, dataframe2,
+    output = "report"), structure(list(samplespecies_id = c("1", "2"), logical = c(
+    TRUE, FALSE)), row.names = c(NA, -2L), class = "data.frame"))
 })
 
