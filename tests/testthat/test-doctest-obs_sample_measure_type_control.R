@@ -4,12 +4,16 @@
 test_that("Doctest: obs_sample_measure_type_control", {
   # Created from @doctest for `obs_sample_measure_type_control`
   # Source file: R/obs_sample_measure_type_control.R
-  # Source line: 16
-  sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"), sizetype_code = c(
-    "TL", "TL", "SCL", "FL"), defaultsizetype_code = c("TL", "TL", "SCL", "TL"))
+  # Source line: 17
+  sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4", "5"),
+  species_faocode = c("CNT", "FAL", "LKV", "YFT", "FAL"), sizetype_code = c(
+    "TL", "TL", "SCL", "PD1", "FL"), defaultsizetype_code = c("TL", "TL", "SCL",
+    "FL", "TL"))
   expect_equal(obs_sample_measure_type_control(sample), structure(list(
-    samplemeasure_id = c("1", "2", "3", "4"), sizetype_code = c("TL", "TL",
-      "SCL", "FL"), defaultsizetype_code = c("TL", "TL", "SCL", "TL"), logical = c(
-      TRUE, TRUE, TRUE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+    samplemeasure_id = c("1", "2", "3", "4", "5"), species_faocode = c("CNT",
+      "FAL", "LKV", "YFT", "FAL"), sizetype_code = c("TL", "TL", "SCL", "PD1",
+      "FL"), defaultsizetype_code = c("TL", "TL", "SCL", "FL", "TL"), logical = c(
+      TRUE, TRUE, TRUE, TRUE, FALSE)), class = "data.frame", row.names = c(NA,
+    -5L)))
 })
 
