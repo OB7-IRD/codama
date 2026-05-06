@@ -21,7 +21,6 @@ The input dataframe must contain all these columns for the function to work :
 Dataframe sample:
 \item{\code{  samplemeasure_id}}
 \item{\code{  sample_length}}
-\item{\code{  sample_islengthcomputed}}
 \item{\code{  sizetype_code}}
 }
 }
@@ -38,7 +37,6 @@ Chloé Tellier, Philippe S. Sabarros
 #Sample 4 is not ok: the size type is PD1 and the length is not rounded to .5
 sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"),
                      sample_length = c("112", "35.5", "119.3", "43.7"),
-                     sample_islengthcomputed = c("FALSE", "FALSE", "FALSE", "FALSE"),
                      sizetype_code = c("TL", "PD1", "TL", "PD1"))
 obs_sample_round_size_control(sample)
 }

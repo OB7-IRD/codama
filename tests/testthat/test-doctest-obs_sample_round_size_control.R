@@ -4,14 +4,12 @@
 test_that("Doctest: obs_sample_round_size_control", {
   # Created from @doctest for `obs_sample_round_size_control`
   # Source file: R/obs_sample_round_size_control.R
-  # Source line: 17
+  # Source line: 16
   sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c(
-    "112", "35.5", "119.3", "43.7"), sample_islengthcomputed = c("FALSE",
-    "FALSE", "FALSE", "FALSE"), sizetype_code = c("TL", "PD1", "TL", "PD1"))
+    "112", "35.5", "119.3", "43.7"), sizetype_code = c("TL", "PD1", "TL", "PD1"))
   expect_equal(obs_sample_round_size_control(sample), structure(list(
     samplemeasure_id = c("1", "2", "3", "4"), sample_length = c("112", "35.5",
-      "119.3", "43.7"), sample_islengthcomputed = c("FALSE", "FALSE", "FALSE",
-      "FALSE"), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE,
-      TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+      "119.3", "43.7"), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(
+      TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
 })
 

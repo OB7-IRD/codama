@@ -11,7 +11,6 @@
 #' Dataframe sample:
 #'  \item{\code{  samplemeasure_id}}
 #'  \item{\code{  sample_length}}
-#'  \item{\code{  sample_islengthcomputed}}
 #'  \item{\code{  sizetype_code}}
 #' }
 #' @doctest
@@ -21,9 +20,8 @@
 #' #Sample 4 is not ok: the size type is PD1 and the length is not rounded to .5
 #' sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"),
 #'                      sample_length = c("112", "35.5", "119.3", "43.7"),
-#'                      sample_islengthcomputed = c("FALSE", "FALSE", "FALSE", "FALSE"),
 #'                      sizetype_code = c("TL", "PD1", "TL", "PD1"))
-#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c("112", "35.5", "119.3", "43.7"), sample_islengthcomputed = c("FALSE", "FALSE", "FALSE", "FALSE"), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c("112", "35.5", "119.3", "43.7"), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
 #' obs_sample_round_size_control(sample)
 #' @export
 obs_sample_round_size_control <- function(sample) {
@@ -34,19 +32,19 @@ obs_sample_round_size_control <- function(sample) {
   if (!codama::r_table_checking(
     r_table = sample,
     type = "data.frame",
-    column_name = c("samplemeasure_id", "sample_length", "sample_islengthcomputed", "sizetype_code"),
-    column_type = c("character", "character", "character", "character"),
+    column_name = c("samplemeasure_id", "sample_length", "sizetype_code"),
+    column_type = c("character", "character", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = sample,
       type = "data.frame",
-      column_name = c("samplemeasure_id", "sample_length", "sample_islengthcomputed", "sizetype_code"),
-      column_type = c("character", "character", "character", "character"),
+      column_name = c("samplemeasure_id", "sample_length", "sizetype_code"),
+      column_type = c("character", "character", "character"),
       output = "error"
     )
   } else {
-    sample <- sample[, c("samplemeasure_id", "sample_length", "sample_islengthcomputed", "sizetype_code")]
+    sample <- sample[, c("samplemeasure_id", "sample_length", "sizetype_code")]
   }
   # 2 - Data manipulation ----
   # sizetype_code :
