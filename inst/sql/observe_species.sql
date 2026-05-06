@@ -6,8 +6,8 @@ sp.faocode::text as fao_code
 ,sp.maxlength::numeric as max_length
 
 FROM common.species sp
-INNER JOIN common.sizemeasuretype smt on (sp.sizemeasuretype = smt.topiaid)
 INNER JOIN common.species_ocean so on (sp.topiaid = so.species)
 INNER JOIN common.ocean o on (so.ocean = o.topiaid)
+LEFT OUTER JOIN common.sizemeasuretype smt on (sp.sizemeasuretype = smt.topiaid)
 
 ;
