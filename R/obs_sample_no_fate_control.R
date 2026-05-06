@@ -18,7 +18,7 @@
 #' #Sample 3 is not ok: the fate code is NA
 #' sample <- data.frame(samplemeasure_id = c("1", "2", "3"),
 #'                      speciesfate_code = c("6", "4", NA))
-#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3"), speciesfate_code = c("6", "4", NA), logical = c(FALSE, FALSE, TRUE)), class = "data.frame", row.names = c(NA, -3L)))
+#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3"), speciesfate_code = c("6", "4", NA), logical = c(TRUE, TRUE, FALSE)), class = "data.frame", row.names = c(NA, -3L)))
 #' obs_sample_no_fate_control(sample)
 #' @export
 obs_sample_no_fate_control <- function(sample) {
@@ -45,7 +45,7 @@ obs_sample_no_fate_control <- function(sample) {
   # 2 - Data manipulation ----
   ## Filter sample to find all the samplemeasure without no fate
   sample_with_no_fate <- sample %>%
-    dplyr::mutate(logical = is.na(speciesfate_code))
+    dplyr::mutate(logical = !(is.na(speciesfate_code)))
   # 3 - Return ----
   return(sample_with_no_fate)
 }

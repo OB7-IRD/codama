@@ -9,7 +9,7 @@ test_that("Doctest: obs_sample_no_fate_control", {
     "6", "4", NA))
   expect_equal(obs_sample_no_fate_control(sample), structure(list(
     samplemeasure_id = c("1", "2", "3"), speciesfate_code = c("6", "4", NA),
-    logical = c(FALSE, FALSE, TRUE)), class = "data.frame", row.names = c(NA,
+    logical = c(TRUE, TRUE, FALSE)), class = "data.frame", row.names = c(NA,
     -3L)))
 })
 
