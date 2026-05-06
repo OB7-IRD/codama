@@ -20,7 +20,7 @@ The input dataframe must contain all these columns for the function to work :
 \itemize{
 Dataframe sample:
 \item{\code{  samplemeasure_id}}
-\item{\code{  samplefate_code}}
+\item{\code{  speciesfate_code}}
 }
 }
 \note{
@@ -34,6 +34,6 @@ Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 #Sample 2 is ok: the fate code is 4 (discarded alive)
 #Sample 3 is not ok: the fate code is NA
 sample <- data.frame(samplemeasure_id = c("1", "2", "3"),
-                     samplefate_code = c("6", "4", NA))
+                     speciesfate_code = c("6", "4", NA))
 obs_sample_no_fate_control(sample)
 }
