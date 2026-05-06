@@ -13,7 +13,7 @@ obs_sample_sex_control(sample)
 The function returns one {\link[base]{data.frame}}.
 }
 \description{
-This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species. For each inconsistency, it returns a table containing the details of the observation to correct.
+This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species.
 }
 \details{
 The input dataframe must contain all these columns for the function to work :

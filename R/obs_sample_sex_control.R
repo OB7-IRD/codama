@@ -2,7 +2,7 @@
 #' @title Sex control
 #' @author Chloé Tellier, Philippe S. Sabarros
 #' @note Version 1.0
-#' @description This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species. For each inconsistency, it returns a table containing the details of the observation to correct.
+#' @description This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species.
 #' @param sample {\link[base]{data.frame}} expected. All samples during the time range selected.
 #' @return The function returns one {\link[base]{data.frame}}.
 #' @details
