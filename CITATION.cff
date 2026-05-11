@@ -8,7 +8,7 @@ message: 'To cite package "codama" in publications use:'
 type: software
 license: GPL-3.0-only
 title: 'codama: Common prOcesses for Data quAlity Monitoring'
-version: 1.4.8
+version: 1.4.9
 abstract: This package aims is to provide a series of standardised and generic controls
   processes for data quality assessment and monitoring.
 authors:
