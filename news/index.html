@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.9</span>
       </span>
     </div>
 
@@ -52,6 +52,21 @@
       <small>Source: <a href="https://github.com/OB7-IRD/codama/blob/development/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.4.9" id="codama-149---20260511">codama 1.4.9 - 2026.05.11<a class="anchor" aria-label="anchor" href="#codama-149---20260511"></a></h2>
+<div class="section level3">
+<h3 id="added-1-4-9">Added<a class="anchor" aria-label="anchor" href="#added-1-4-9"></a></h3>
+<p>AkadoR check added : * obs_sample_round_size_control.R : This function controls the accuracy (decimals) of size samples. Returns samples with decimal values that are not rounded to the inferior centimeter (or to the nearest half centimeter for PD1 measurements). * obs_sample_no_fate_control.R : This function aims to find all the samples in the observer data that don’t have a fate. * obs_sample_sex_control.R : This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species. * obs_sample_measure_type_control.R : This function allows to check the coherence of a sampled species measure type according to its default measure type. Major tunas (YFT, BET, SKJ and ALB) could also be measured in PD1.</p>
+</div>
+<div class="section level3">
+<h3 id="changed-1-4-9">Changed<a class="anchor" aria-label="anchor" href="#changed-1-4-9"></a></h3>
+<ul><li>logbook_species_control.R : Add species FRZ and BLT in default species</li>
+<li>obs_catch_or_sample_fate_by_species_group_control.R : Rename column speciesgroup_label1 to speciesgroup_label</li>
+<li>observe_species.sql : Change join sizemeasuretype from INNER JOIN to LEFT OUTER</li>
+<li>DESCRIPTION : Add Caroline in contributor</li>
+<li>CITATION.cff : Update contributor and version</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.4.8" id="codama-148---20260416">codama 1.4.8 - 2026.04.16<a class="anchor" aria-label="anchor" href="#codama-148---20260416"></a></h2>
 <div class="section level3">
