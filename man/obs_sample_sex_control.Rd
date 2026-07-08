@@ -2,7 +2,7 @@
 % Please edit documentation in R/obs_sample_sex_control.R
 \name{obs_sample_sex_control}
 \alias{obs_sample_sex_control}
-\title{Sex control}
+\title{Sample sex control}
 \usage{
 obs_sample_sex_control(sample)
 }

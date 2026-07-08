@@ -1,5 +1,5 @@
 #' @name obs_sample_measure_type_control
-#' @title Measure type control
+#' @title Sample measure type control
 #' @author Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description This function allows to check the coherence of a sampled species measure type according to its default measure type. Major tunas (YFT, BET, SKJ and ALB) could also be measured in PD1.

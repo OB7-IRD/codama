@@ -6,7 +6,7 @@ test_that("Doctest: obs_catch_or_sample_weight_null_control", {
   # Source file: R/obs_catch_or_sample_weight_null_control.R
   # Source line: 21
   catch <- data.frame(catch_id = c("1", "2", "3"), catch_weight = c("5", "0", NA))
-  expect_equal(obs_catch_or_sample_weight_null_control(catch), structure(list(catch_id = c("1", "2", "3"),
-  weight = c("5", "0", NA), logical = c(TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -3L)))
+  expect_equal(obs_catch_or_sample_weight_null_control(catch), structure(list(catch_id = c("1", "2", "3"), weight = c("5", "0", NA), logical = c(TRUE, FALSE,
+    FALSE)), class = "data.frame", row.names = c(NA, -3L)))
 })
 

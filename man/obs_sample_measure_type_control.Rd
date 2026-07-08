@@ -2,7 +2,7 @@
 % Please edit documentation in R/obs_sample_measure_type_control.R
 \name{obs_sample_measure_type_control}
 \alias{obs_sample_measure_type_control}
-\title{Measure type control}
+\title{Sample measure type control}
 \usage{
 obs_sample_measure_type_control(sample)
 }
