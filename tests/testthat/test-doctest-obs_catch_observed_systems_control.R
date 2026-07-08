@@ -5,12 +5,13 @@ test_that("Doctest: obs_catch_observed_systems_control", {
   # Created from @doctest for `obs_catch_observed_systems_control`
   # Source file: R/obs_catch_observed_systems_control.R
   # Source line: 23
-  catch <- data.frame(activity_id = c("1", "2", "3", "4", "5"), catch_id = c("1", "2", "3", "4", "5"), species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET",
-    "SKJ, YFT", "SKJ, MYS, BUM", "YFT"))
-  observedsystem <- data.frame(activity_id = c("1", "2", "3", "4", "5"), observedsystem_id = c("1", "2", "3", "4", "5"), observedsystem_code = c("22", "112", "0",
-    "0", "21"))
-  expect_equal(obs_catch_observed_systems_control(catch, observedsystem), structure(list(activity_id = c("1", "2", "3", "4", "5"), species_faocode = c(
-    "RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT", "SKJ, MYS, BUM", "YFT"), observedsystem_code = c("22", "112", "0", "0", "21"), logical = c(TRUE, TRUE, TRUE,
-    FALSE, FALSE)), row.names = c(NA, -5L), class = c("tbl_df", "tbl", "data.frame")))
+  catch <- data.frame(activity_id = c("1", "2", "3", "4", "5"), catch_id = c("1", "2", "3", "4", "5"),
+  species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT", "SKJ, MYS, BUM", "YFT"))
+  observedsystem <- data.frame(activity_id = c("1", "2", "3", "4", "5"), observedsystem_id = c("1", "2", "3", "4",
+    "5"), observedsystem_code = c("22", "112", "0", "0", "21"))
+  expect_equal(obs_catch_observed_systems_control(catch, observedsystem), structure(list(activity_id = c("1", "2",
+    "3", "4", "5"), species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT", "SKJ, MYS, BUM", "YFT"),
+  observedsystem_code = c("22", "112", "0", "0", "21"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE)), row.names = c(
+    NA, -5L), class = c("tbl_df", "tbl", "data.frame")))
 })
 
