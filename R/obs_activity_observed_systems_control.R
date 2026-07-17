@@ -1,5 +1,5 @@
-#' @name obs_catch_observed_systems_control
-#' @title Catch observed systems control
+#' @name obs_activity_observed_systems_control
+#' @title Activity observed systems control
 #' @author Chloé Tellier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description Identifies in the observer data any inconsistencies between observed systems and species caught.
@@ -33,10 +33,10 @@
 #'                              observedsystem_id = c("1", "2", "3", "4", "5"),
 #'                              observedsystem_code = c("22", "112", "0", "0", "21"))
 #' @expect equal(., structure(list(activity_id = c("1", "2", "3", "4", "5"), species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT", "SKJ, MYS, BUM", "YFT"), observedsystem_code = c("22", "112", "0", "0", "21"), logical = c(TRUE, TRUE, TRUE, FALSE, FALSE)), row.names = c(NA, -5L), class = c("tbl_df", "tbl", "data.frame")))
-#' obs_catch_observed_systems_control(catch, observedsystem)
+#' obs_activity_observed_systems_control(catch, observedsystem)
 #' @export
-obs_catch_observed_systems_control <- function(catch,
-                                               observedsystem) {
+obs_activity_observed_systems_control <- function(catch,
+                                                  observedsystem) {
   # 0 - Global variables assignment ----
   activity_id <- NULL
   observedsystem_code <- NULL
