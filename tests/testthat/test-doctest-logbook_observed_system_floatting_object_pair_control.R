@@ -12,8 +12,8 @@ test_that("Doctest: logbook_observed_system_floatting_object_pair_control", {
     "2", "20", "20"), activity_id = c("1", "2", "3", "5", "7", "8"))
   expect_equal(logbook_observed_system_floatting_object_pair_control(dataframe1, dataframe2, dataframe3, output = "report"),
   structure(list(activity_id = c("1", "2", "3", "4", "5", "6", "7", "8"), vesselactivity_code = c("6", "6", "1", "2", "6",
-    "6", "6", NA), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), flotting_object = c(TRUE, FALSE,
-    FALSE, TRUE, TRUE, TRUE, FALSE, TRUE), observed_system = c(TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE)),
-  row.names = c(NA, -8L), class = "data.frame"))
+    "6", "6", NA), logical = c(TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE), flotting_object = c(TRUE, FALSE, FALSE,
+    TRUE, TRUE, TRUE, FALSE, TRUE), observed_system = c(TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE)), row.names = c(
+    NA, -8L), class = "data.frame"))
 })
 

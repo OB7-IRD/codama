@@ -36,7 +36,7 @@ Chloé Tellier, Philippe S. Sabarros
 #Sample 3 is not ok: the size type is TL and the length is not rounded to .0
 #Sample 4 is not ok: the size type is PD1 and the length is not rounded to .5
 sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"),
-                     sample_length = c("112", "35.5", "119.3", "43.7"),
+                     sample_length = c(112, 35.5, 119.3, 43.7),
                      sizetype_code = c("TL", "PD1", "TL", "PD1"))
 obs_sample_round_size_control(sample)
 }

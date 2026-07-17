@@ -10,7 +10,7 @@ test_that("Doctest: logbook_floating_object_part_dimensions_when_leaving_control
     "1-1-1-1-7", "1-1"), floatingobjectpart_whenleaving = c("3", "5", "1", "true"), floatingobject_id = c("1", "1", "3",
     "3"))
   expect_equal(logbook_floating_object_part_dimensions_when_leaving_control(dataframe1, dataframe2, output = "report"),
-  structure(list(floatingobject_id = c("1", "2", "3", "4"), objectoperation_code = c("1", "8", "1", "1"), logical = c(
-    TRUE, TRUE, FALSE, FALSE), count_objet_part = c(2, 0, 1, 0)), row.names = c(NA, -4L), class = "data.frame"))
+  structure(list(floatingobject_id = c("1", "2", "3", "4"), objectoperation_code = c("1", "8", "1", "1"), logical = c(TRUE,
+    TRUE, FALSE, FALSE), count_objet_part = c(2, 0, 1, 0)), row.names = c(NA, -4L), class = "data.frame"))
 })
 

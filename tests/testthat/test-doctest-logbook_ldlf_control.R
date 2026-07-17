@@ -13,7 +13,7 @@ test_that("Doctest: logbook_ldlf_control", {
   expect_equal(logbook_ldlf_control(dataframe1, dataframe2, output = "report"), structure(list(samplespecies_id = c("1",
     "2", "3", "4", "5", "6"), logical = c(TRUE, FALSE, TRUE, TRUE, FALSE, FALSE), sizemeasuretype_code = c("FL", "PD1",
     "PD1", "FL", "FL", "PD1"), species_fao_code = c("SKJ", "SKJ", "JOS", "SKJ", "SKJ", "JOS"), sample_bigsweight = c(12,
-    12, 12, NA, 6, 0), sample_smallsweight = c(5, 5, 5, 0, 0, 7), sample_totalweight = c(0, 0, 0, 23, NA, NA)),
-  row.names = c(NA, 6L), class = "data.frame"))
+    12, 12, NA, 6, 0), sample_smallsweight = c(5, 5, 5, 0, 0, 7), sample_totalweight = c(0, 0, 0, 23, NA, NA)), row.names = c(
+    NA, 6L), class = "data.frame"))
 })
 

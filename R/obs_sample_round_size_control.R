@@ -19,9 +19,9 @@
 #' #Sample 3 is not ok: the size type is TL and the length is not rounded to .0
 #' #Sample 4 is not ok: the size type is PD1 and the length is not rounded to .5
 #' sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"),
-#'                      sample_length = c("112", "35.5", "119.3", "43.7"),
+#'                      sample_length = c(112, 35.5, 119.3, 43.7),
 #'                      sizetype_code = c("TL", "PD1", "TL", "PD1"))
-#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c("112", "35.5", "119.3", "43.7"), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
+#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c(112, 35.5, 119.3, 43.7), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L))
 #' obs_sample_round_size_control(sample)
 #' @export
 obs_sample_round_size_control <- function(sample) {
@@ -33,14 +33,14 @@ obs_sample_round_size_control <- function(sample) {
     r_table = sample,
     type = "data.frame",
     column_name = c("samplemeasure_id", "sample_length", "sizetype_code"),
-    column_type = c("character", "character", "character"),
+    column_type = c("character", "numeric", "character"),
     output = "logical"
   )) {
     codama::r_table_checking(
       r_table = sample,
       type = "data.frame",
       column_name = c("samplemeasure_id", "sample_length", "sizetype_code"),
-      column_type = c("character", "character", "character"),
+      column_type = c("character", "numeric", "character"),
       output = "error"
     )
   } else {
@@ -54,7 +54,7 @@ obs_sample_round_size_control <- function(sample) {
   # sizetype_code PD1 and length not rounded to .5
   sample_length_error <- sample %>%
     dplyr::mutate(logical = !(
-      (sizetype_code != "PD1" & as.numeric(sample_length) != floor(as.numeric(sample_length))) | (sizetype_code == "PD1" & as.numeric(sample_length) != floor(as.numeric(sample_length) * 2) / 2)
+      (sizetype_code != "PD1" & sample_length != floor(sample_length)) | (sizetype_code == "PD1" & sample_length != floor(sample_length * 2) / 2)
     ))
   # 3 - Return ----
   return(sample_length_error)
