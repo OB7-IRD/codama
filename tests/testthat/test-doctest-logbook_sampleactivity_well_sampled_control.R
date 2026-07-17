@@ -9,7 +9,7 @@ test_that("Doctest: logbook_sampleactivity_well_sampled_control", {
   activity_id = c("1", "2", "3", "4"), well_id = c("1", "2", "3", "3"))
   dataframe2 <- data.frame(sampleactivity_id = c("1", "2"), sample_well = c("well_1", "well_3"), activity_id = c("1", "3"))
   expect_equal(logbook_sampleactivity_well_sampled_control(dataframe1, dataframe2, output = "report"), structure(list(
-    wellactivity_id = c("1", "2", "3", "4"), logical = c(TRUE, TRUE, TRUE, FALSE)), class = c("tbl_df", "tbl", "data.frame"),
-  row.names = c(NA, -4L)))
+    wellactivity_id = c("1", "2", "3", "4"), logical = c(TRUE, TRUE, TRUE, FALSE)), class = c("tbl_df", "tbl",
+    "data.frame"), row.names = c(NA, -4L)))
 })
 

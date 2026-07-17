@@ -104,6 +104,6 @@ obs_catch_or_sample_fate_by_species_group_control <- function(data) {
     data_fate_by_species_group <- data %>%
       dplyr::mutate(logical = !(samplemeasure_id %in% data_fate_by_species_group_pb$samplemeasure_id))
   }
-  # 4 - Export ----
+  # 3 - Export ----
   return(data_fate_by_species_group)
 }

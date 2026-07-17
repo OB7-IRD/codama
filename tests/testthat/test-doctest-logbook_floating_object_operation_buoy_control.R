@@ -9,7 +9,7 @@ test_that("Doctest: logbook_floating_object_operation_buoy_control", {
   floatingobject_id = c("1", "2", "2"))
   dataframe2 <- data.frame(floatingobject_id = c("1", "2"), objectoperation_code = c("1", "11"))
   expect_equal(logbook_floating_object_operation_buoy_control(dataframe1, dataframe2, output = "report"), structure(list(
-    transmittingbuoy_id = c("1", "2", "3"), transmittingbuoyoperation_code = c("1", "4", "1"), objectoperation_code = c("1", "11",
-      "11"), logical = c(TRUE, TRUE, FALSE)), row.names = c(NA, 3L), class = "data.frame"))
+    transmittingbuoy_id = c("1", "2", "3"), transmittingbuoyoperation_code = c("1", "4", "1"), objectoperation_code = c(
+      "1", "11", "11"), logical = c(TRUE, TRUE, FALSE)), row.names = c(NA, 3L), class = "data.frame"))
 })
 
