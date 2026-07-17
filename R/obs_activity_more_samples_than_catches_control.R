@@ -1,5 +1,5 @@
-#' @name obs_sample_more_than_catch_control
-#' @title Sample more than catch control
+#' @name obs_activity_more_samples_than_catches_control
+#' @title Activity more samples than catches control
 #' @author Chloé Tellier, Esther Mollier, Philippe S. Sabarros
 #' @note Version 1.0
 #' @description Identifies in the observer data all the observations with a number of samples superior to the number of catches.
@@ -39,9 +39,9 @@
 #'                      speciesfate_code = c("15", "4", "4", "5"),
 #'                      sample_count = c("1", "1", "1", "2"))
 #' @expect equal(., structure(list(activity_id = c("1", "2", "3"), species_faocode = c("BLT", "FAL", "CNT"), speciesfate_code = c("15", "4", "5"), nb_catch = c(2, 2, 1), nb_measure = c(1, 2, 2), logical = c(TRUE, TRUE, FALSE)), row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame")))
-#' obs_sample_more_than_catch_control(catch, sample)
+#' obs_activity_more_samples_than_catches_control(catch, sample)
 #' @export
-obs_sample_more_than_catch_control <- function(catch, sample) {
+obs_activity_more_samples_than_catches_control <- function(catch, sample) {
   # 0 - Global variables assignment ----
   activity_id <- NULL
   species_faocode <- NULL
