@@ -23,12 +23,14 @@
 #' @doctest
 #' #Catch 1 is ok: there is a whale shark in the catches, and a whale shark in the observed systems.
 #' #Catch 2 is ok: there is a whale in the catches, and a whale in the observed systems.
-#' #Catch 3 is ok: there is no whale or whale shark in the catches, and no whale or whale shark in the observed systems.
+#' #Catch 3 is ok: there is no whale or whale shark in the catches, and no whale or whale shark in the
+#' #                observed systems.
 #' #Catch 4 is not ok: there is a whale in the catches, but not in the observed systems.
 #' #Catch 5 is not ok: there is a whale shark in the observed systems, but not in the catches.
 #' catch <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
 #'                     catch_id = c("1", "2", "3", "4", "5"),
-#'                     species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT", "SKJ, MYS, BUM", "YFT"))
+#'                     species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT",
+#'                                         "SKJ, MYS, BUM", "YFT"))
 #' observedsystem <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
 #'                              observedsystem_id = c("1", "2", "3", "4", "5"),
 #'                              observedsystem_code = c("22", "112", "0", "0", "21"))

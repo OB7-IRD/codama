@@ -2,10 +2,10 @@
 
 ## Added
 AkadoR check added : 
-* obs_sample_round_size_control.R :  This function controls the accuracy (decimals) of size samples. Returns samples with decimal values that are not rounded to the inferior centimeter (or to the nearest half centimeter for PD1 measurements).
+* obs_sample_round_size_control.R : This function controls the accuracy (decimals) of size samples. Returns samples with decimal values that are not rounded to the inferior centimeter (or to the nearest half centimeter for PD1 measurements).
 * obs_sample_no_fate_control.R : This function aims to find all the samples in the observer data that don't have a fate.
 * obs_sample_sex_control.R : This function aims to check the coherence of the sex of a sample according to the possibility of sexing this species.
-* obs_sample_measure_type_control.R :  This function allows to check the coherence of a sampled species measure type according to its default measure type. Major tunas (YFT, BET, SKJ and ALB) could also be measured in PD1.
+* obs_sample_measure_type_control.R : This function allows to check the coherence of a sampled species measure type according to its default measure type. Major tunas (YFT, BET, SKJ and ALB) could also be measured in PD1.
 
 ## Changed
 * logbook_species_control.R : Add species FRZ and BLT in default species

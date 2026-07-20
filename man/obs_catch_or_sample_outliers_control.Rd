@@ -42,13 +42,18 @@ Version 1.0
 Chloé Tellier, Esther Mollier, Flore Moussy, Philippe S. Sabarros
 }
 \examples{
-#Catch 1 is ok: the catch is 30 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#Catch 2 is not ok: the catch is 12 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#Catch 3 is not ok: the catch is 59 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#Catch 4 is not ok: the catch is 30 cm, its computed source is NA, its mean length is NA and its max length is NA.
+#Catch 1 is ok: the catch is 30 cm, its computed source is NA, its mean length is 10 and
+#                its max length is 60,
+#Catch 2 is not ok: the catch is 12 cm, its computed source is NA, its mean length is 10 and
+#                   its max length is 60,
+#Catch 3 is not ok: the catch is 59 cm, its computed source is NA, its mean length is 10 and
+#                   its max length is 60,
+#Catch 4 is not ok: the catch is 30 cm, its computed source is NA, its mean length is NA and
+#                   its max length is NA.
 catch <- data.frame(catch_id = c("1", "2", "3", "4"),
                     catch_meanlength = c(30, 12, 59, 30),
-                    catch_meanlengthcomputedsource = c(NA_integer_, NA_integer_, NA_integer_, NA_integer_),
+                    catch_meanlengthcomputedsource = c(NA_integer_, NA_integer_, NA_integer_,
+                                                       NA_integer_),
                     species_minlength = c(10, 10, 10, NA),
                     species_maxlength = c(60, 60, 60, NA))
 obs_catch_or_sample_outliers_control(catch)

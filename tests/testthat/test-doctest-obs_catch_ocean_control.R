@@ -5,10 +5,9 @@ test_that("Doctest: obs_catch_ocean_control", {
   # Created from @doctest for `obs_catch_ocean_control`
   # Source file: R/obs_catch_ocean_control.R
   # Source line: 17
-  catch <- data.frame(catch_id = c("1", "2", "3"), species_faocode = c("BUM", "BLM", "BLM"), ocean_label = c("Indian",
-    "Indian", "Atlantic"), speciesocean_label = c("Indian", "Indian", NA))
-  expect_equal(obs_catch_ocean_control(catch), structure(list(catch_id = c("1", "2", "3"), species_faocode = c("BUM",
-    "BLM", "BLM"), ocean_label = c("Indian", "Indian", "Atlantic"), logical = c(TRUE, TRUE, FALSE)), class = "data.frame",
-  row.names = c(NA, -3L)))
+  catch <- data.frame(catch_id = c("1", "2", "3"), species_faocode = c("BUM", "BLM", "BLM"), ocean_label = c("Indian", "Indian", "Atlantic"), speciesocean_label = c(
+    "Indian", "Indian", NA))
+  expect_equal(obs_catch_ocean_control(catch), structure(list(catch_id = c("1", "2", "3"), species_faocode = c("BUM", "BLM", "BLM"), ocean_label = c("Indian",
+    "Indian", "Atlantic"), logical = c(TRUE, TRUE, FALSE)), class = "data.frame", row.names = c(NA, -3L)))
 })
 

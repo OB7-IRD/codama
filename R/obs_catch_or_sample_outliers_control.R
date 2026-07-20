@@ -25,13 +25,18 @@
 #'  \item{\code{  species_maxlength}}
 #' }
 #' @doctest
-#' #Catch 1 is ok: the catch is 30 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#' #Catch 2 is not ok: the catch is 12 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#' #Catch 3 is not ok: the catch is 59 cm, its computed source is NA, its mean length is 10 and its max length is 60,
-#' #Catch 4 is not ok: the catch is 30 cm, its computed source is NA, its mean length is NA and its max length is NA.
+#' #Catch 1 is ok: the catch is 30 cm, its computed source is NA, its mean length is 10 and
+#' #                its max length is 60,
+#' #Catch 2 is not ok: the catch is 12 cm, its computed source is NA, its mean length is 10 and
+#' #                   its max length is 60,
+#' #Catch 3 is not ok: the catch is 59 cm, its computed source is NA, its mean length is 10 and
+#' #                   its max length is 60,
+#' #Catch 4 is not ok: the catch is 30 cm, its computed source is NA, its mean length is NA and
+#' #                   its max length is NA.
 #' catch <- data.frame(catch_id = c("1", "2", "3", "4"),
 #'                     catch_meanlength = c(30, 12, 59, 30),
-#'                     catch_meanlengthcomputedsource = c(NA_integer_, NA_integer_, NA_integer_, NA_integer_),
+#'                     catch_meanlengthcomputedsource = c(NA_integer_, NA_integer_, NA_integer_,
+#'                                                        NA_integer_),
 #'                     species_minlength = c(10, 10, 10, NA),
 #'                     species_maxlength = c(60, 60, 60, NA))
 #' @expect equal(., structure(list(catch_id = c("1", "2", "3", "4"), length = c(30, 12, 59, 30), species_minlength = c(10, 10, 10, NA), species_maxlength = c(60, 60, 60, NA), logical = c(TRUE, FALSE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))

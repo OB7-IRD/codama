@@ -21,7 +21,7 @@
 #' sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"),
 #'                      sample_length = c(112, 35.5, 119.3, 43.7),
 #'                      sizetype_code = c("TL", "PD1", "TL", "PD1"))
-#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c(112, 35.5, 119.3, 43.7), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L))
+#' @expect equal(., structure(list(samplemeasure_id = c("1", "2", "3", "4"), sample_length = c(112, 35.5, 119.3, 43.7), sizetype_code = c("TL", "PD1", "TL", "PD1"), logical = c(TRUE, TRUE, FALSE, FALSE)), class = "data.frame", row.names = c(NA, -4L)))
 #' obs_sample_round_size_control(sample)
 #' @export
 obs_sample_round_size_control <- function(sample) {

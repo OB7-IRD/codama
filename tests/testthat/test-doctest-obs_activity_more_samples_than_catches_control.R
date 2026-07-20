@@ -5,12 +5,12 @@ test_that("Doctest: obs_activity_more_samples_than_catches_control", {
   # Created from @doctest for `obs_activity_more_samples_than_catches_control`
   # Source file: R/obs_activity_more_samples_than_catches_control.R
   # Source line: 27
-  catch <- data.frame(catch_id = c("1", "2", "3", "4"), activity_id = c("1", "2", "2", "3"), species_faocode = c("BLT",
-    "FAL", "FAL", "CNT"), speciesfate_code = c("15", "4", "4", "5"), catch_count = c("2", "1", "1", "1"))
-  sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"), activity_id = c("1", "2", "2", "3"), species_faocode = c(
-    "BLT", "FAL", "FAL", "CNT"), speciesfate_code = c("15", "4", "4", "5"), sample_count = c("1", "1", "1", "2"))
-  expect_equal(obs_activity_more_samples_than_catches_control(catch, sample), structure(list(activity_id = c("1", "2", "3"),
-  species_faocode = c("BLT", "FAL", "CNT"), speciesfate_code = c("15", "4", "5"), nb_catch = c(2, 2, 1), nb_measure = c(1,
-    2, 2), logical = c(TRUE, TRUE, FALSE)), row.names = c(NA, -3L), class = c("tbl_df", "tbl", "data.frame")))
+  catch <- data.frame(catch_id = c("1", "2", "3", "4"), activity_id = c("1", "2", "2", "3"), species_faocode = c("BLT", "FAL", "FAL", "CNT"), speciesfate_code = c(
+    "15", "4", "4", "5"), catch_count = c("2", "1", "1", "1"))
+  sample <- data.frame(samplemeasure_id = c("1", "2", "3", "4"), activity_id = c("1", "2", "2", "3"), species_faocode = c("BLT", "FAL", "FAL", "CNT"),
+  speciesfate_code = c("15", "4", "4", "5"), sample_count = c("1", "1", "1", "2"))
+  expect_equal(obs_activity_more_samples_than_catches_control(catch, sample), structure(list(activity_id = c("1", "2", "3"), species_faocode = c("BLT", "FAL",
+    "CNT"), speciesfate_code = c("15", "4", "5"), nb_catch = c(2, 2, 1), nb_measure = c(1, 2, 2), logical = c(TRUE, TRUE, FALSE)), row.names = c(NA, -3L), class = c(
+    "tbl_df", "tbl", "data.frame")))
 })
 
