@@ -21,8 +21,8 @@ Identifies in the observer data any inconsistencies between observed systems and
 The input dataframes must contain all these columns for the function to work :
 \itemize{
 Dataframe catch:
-\item{\code{  activity_id}}
 \item{\code{  catch_id}}
+\item{\code{  activity_id}}
 \item{\code{  species_faocode}}
 }
 \itemize{
@@ -45,10 +45,10 @@ Chloé Tellier, Philippe S. Sabarros
 #                observed systems.
 #Catch 4 is not ok: there is a whale in the catches, but not in the observed systems.
 #Catch 5 is not ok: there is a whale shark in the observed systems, but not in the catches.
-catch <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
-                    catch_id = c("1", "2", "3", "4", "5"),
-                    species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET", "SKJ, YFT",
-                                        "SKJ, MYS, BUM", "YFT"))
+catch <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"),
+                   activity_id = c("1", "1", "1", "2", "2", "2", "3", "3", "4", "4", "4", "5"),
+                   species_faocode = c("RHN", "SKJ", "BLT", "MYS", "YFT", "BET", "SKJ", "YFT",
+                                       "SKJ", "MYS", "BUM", "YFT"))
 observedsystem <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
                              observedsystem_id = c("1", "2", "3", "4", "5"),
                              observedsystem_code = c("22", "112", "0", "0", "21"))

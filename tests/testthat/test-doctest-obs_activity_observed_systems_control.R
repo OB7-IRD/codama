@@ -5,8 +5,8 @@ test_that("Doctest: obs_activity_observed_systems_control", {
   # Created from @doctest for `obs_activity_observed_systems_control`
   # Source file: R/obs_activity_observed_systems_control.R
   # Source line: 23
-  catch <- data.frame(activity_id = c("1", "2", "3", "4", "5"), catch_id = c("1", "2", "3", "4", "5"), species_faocode = c("RHN, SKJ, BLT", "MYS, YFT, BET",
-    "SKJ, YFT", "SKJ, MYS, BUM", "YFT"))
+  catch <- data.frame(catch_id = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"), activity_id = c("1", "1", "1", "2", "2", "2", "3", "3", "4",
+    "4", "4", "5"), species_faocode = c("RHN", "SKJ", "BLT", "MYS", "YFT", "BET", "SKJ", "YFT", "SKJ", "MYS", "BUM", "YFT"))
   observedsystem <- data.frame(activity_id = c("1", "2", "3", "4", "5"), observedsystem_id = c("1", "2", "3", "4", "5"), observedsystem_code = c("22", "112", "0",
     "0", "21"))
   expect_equal(obs_activity_observed_systems_control(catch, observedsystem), structure(list(activity_id = c("1", "2", "3", "4", "5"), species_faocode = c(
