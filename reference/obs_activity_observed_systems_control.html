@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">codama</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.10</span>
       </span>
     </div>
 
@@ -79,8 +79,8 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>The input dataframes must contain all these columns for the function to work :</p><ul><li><p><code>  activity_id</code></p></li>
-<li><p><code>  catch_id</code></p></li>
+    <p>The input dataframes must contain all these columns for the function to work :</p><ul><li><p><code>  catch_id</code></p></li>
+<li><p><code>  activity_id</code></p></li>
 <li><p><code>  species_faocode</code></p></li>
 </ul><ul><li><p><code>  activity_id</code></p></li>
 <li><p><code>  observedsystem_id</code></p></li>
@@ -103,10 +103,10 @@
 <span class="r-in"><span><span class="co">#                observed systems.</span></span></span>
 <span class="r-in"><span><span class="co">#Catch 4 is not ok: there is a whale in the catches, but not in the observed systems.</span></span></span>
 <span class="r-in"><span><span class="co">#Catch 5 is not ok: there is a whale shark in the observed systems, but not in the catches.</span></span></span>
-<span class="r-in"><span><span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                    catch_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                    species_faocode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RHN, SKJ, BLT"</span>, <span class="st">"MYS, YFT, BET"</span>, <span class="st">"SKJ, YFT"</span>,</span></span>
-<span class="r-in"><span>                                        <span class="st">"SKJ, MYS, BUM"</span>, <span class="st">"YFT"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>catch_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>, <span class="st">"8"</span>, <span class="st">"9"</span>, <span class="st">"10"</span>, <span class="st">"11"</span>, <span class="st">"12"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                   species_faocode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RHN"</span>, <span class="st">"SKJ"</span>, <span class="st">"BLT"</span>, <span class="st">"MYS"</span>, <span class="st">"YFT"</span>, <span class="st">"BET"</span>, <span class="st">"SKJ"</span>, <span class="st">"YFT"</span>,</span></span>
+<span class="r-in"><span>                                       <span class="st">"SKJ"</span>, <span class="st">"MYS"</span>, <span class="st">"BUM"</span>, <span class="st">"YFT"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">observedsystem</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>activity_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                             observedsystem_id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                             observedsystem_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"22"</span>, <span class="st">"112"</span>, <span class="st">"0"</span>, <span class="st">"0"</span>, <span class="st">"21"</span><span class="op">)</span><span class="op">)</span></span></span>
