@@ -1,3 +1,18 @@
+# codama 1.4.10 - 2026.07.20
+
+## Added
+AkadoR check added :
+* obs_catch_or_sample_weight_null_control : Identifies in the observer data catches or samples all individual weights = 0 or NA.
+* obs_activity_observed_systems_control : Identifies in the observer data any inconsistencies between observed systems and species caught.
+* obs_activity_more_samples_than_catches_control : Identifies in the observer data all the observations with a number of samples superior to the number of catches.
+* obs_catch_ocean_control : Checks the coherence of the species caught according to their distribution area.
+* obs_catch_or_sample_outliers_control : Identifies for each species in the observer data the individuals with outliers lengths.
+
+## Changed
+* obs_sample_measure_type_control : Update title
+* obs_sample_sex_control : Update title
+* obs_sample_round_size_control : Change type of sample_length, from character to numeric
+
 # codama 1.4.9 - 2026.05.11
 
 ## Added
