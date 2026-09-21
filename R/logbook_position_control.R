@@ -9,6 +9,7 @@
 #' @param harbour_crs {\link[base]{numeric}} expected. Default values: 4326. Coordinate Reference Systems for the position harbour
 #' @param buffer_harbour {\link[base]{numeric}} expected. Default values: 11100. Buffer to be used for harbour, in meter
 #' @param buffer_sea {\link[base]{numeric}} expected. Default values: 925. Buffer to be used for seas, in meter
+#' @param simplify_tolerance {\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification.
 #' @return The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first without geographical location and the second with geographical location), a {\link[base]{logical}} with output is "logical"
 #' @details
 #' The input dataframe must contain all these columns for the function to work :
@@ -63,7 +64,8 @@ logbook_position_control <- function(dataframe1,
                                      activity_crs = 4326,
                                      harbour_crs = 4326,
                                      buffer_harbour = 11100,
-                                     buffer_sea = 925) {
+                                     buffer_sea = 925,
+                                     simplify_tolerance = 50) {
   # 0 - Global variables assignement ----
   . <- NULL
   type <- NULL
@@ -200,6 +202,19 @@ logbook_position_control <- function(dataframe1,
       output = "error"
     ))
   }
+  if (!codama::r_type_checking(
+    r_object = simplify_tolerance,
+    type = "numeric",
+    length = 1L,
+    output = "logical"
+  )) {
+    return(codama::r_type_checking(
+      r_object = simplify_tolerance,
+      type = "numeric",
+      length = 1L,
+      output = "error"
+    ))
+  }
   select <- dataframe1$activity_id
   nrow_first <- length(select)
   # 2 - Data design ----
@@ -237,6 +252,7 @@ logbook_position_control <- function(dataframe1,
       dplyr::mutate(harbour_buffer_departure = harbour_position_departure) %>%
       sf::st_as_sf(., wkt = "harbour_buffer_departure", crs = harbour_crs) %>%
       sf::st_transform(harbour_buffer_departure, crs = 4326) %>%
+      sf::st_simplify(dTolerance = simplify_tolerance) %>%
       terra::vect() %>%
       terra::buffer(width = buffer_harbour) %>%
       sf::st_as_sf()
@@ -267,6 +283,7 @@ logbook_position_control <- function(dataframe1,
       dplyr::mutate(harbour_buffer_landing = harbour_position_landing) %>%
       sf::st_as_sf(., wkt = "harbour_buffer_landing", crs = harbour_crs) %>%
       sf::st_transform(harbour_buffer_landing, crs = 4326) %>%
+      sf::st_simplify(dTolerance = simplify_tolerance) %>%
       terra::vect() %>%
       terra::buffer(width = buffer_harbour) %>%
       sf::st_as_sf()
@@ -290,7 +307,11 @@ logbook_position_control <- function(dataframe1,
   # Logical in harbour
   dataframe1$logical_harbour <- dataframe1$logical_harbour | dataframe1$logical_harbourdeparture | dataframe1$logical_harbourlanding
   # Buffer sea in degrees
+  # Simplified before buffering: sea/EEZ shapefiles can carry far more vertices
+  # (e.g. coastline detail) than the buffer resolution needs, which otherwise
+  # dominates both runtime and native (non-R-managed) memory of terra::buffer().
   shape_sea_buffer <- dataframe3 %>%
+    sf::st_simplify(dTolerance = simplify_tolerance) %>%
     terra::vect() %>%
     terra::buffer(width = buffer_sea) %>%
     sf::st_as_sf()

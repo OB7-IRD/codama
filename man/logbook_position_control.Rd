@@ -12,7 +12,8 @@ logbook_position_control(
   activity_crs = 4326,
   harbour_crs = 4326,
   buffer_harbour = 11100,
-  buffer_sea = 925
+  buffer_sea = 925,
+  simplify_tolerance = 50
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ logbook_position_control(
 \item{buffer_harbour}{{\link[base]{numeric}} expected. Default values: 11100. Buffer to be used for harbour, in meter}
 
 \item{buffer_sea}{{\link[base]{numeric}} expected. Default values: 925. Buffer to be used for seas, in meter}
+
+\item{simplify_tolerance}{{\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification.}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first without geographical location and the second with geographical location), a {\link[base]{logical}} with output is "logical"
