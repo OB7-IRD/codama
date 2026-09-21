@@ -9,7 +9,8 @@
 #' @param harbour_crs {\link[base]{numeric}} expected. Default values: 4326. Coordinate Reference Systems for the position harbour
 #' @param buffer_harbour {\link[base]{numeric}} expected. Default values: 11100. Buffer to be used for harbour, in meter
 #' @param buffer_sea {\link[base]{numeric}} expected. Default values: 925. Buffer to be used for seas, in meter
-#' @param simplify_tolerance {\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification.
+#' @param simplify_tolerance {\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification. Ignored for the sea layer when sea_buffer is provided.
+#' @param sea_buffer {\link[sf]{sf}} expected, or NULL. Default value: NULL. Precomputed buffered sea layer, as returned by {\link[codama]{build_sea_buffer}} called with the same dataframe3/buffer_sea/simplify_tolerance. When provided, the (costly) sea buffering step is skipped and this is used directly, which is useful when logbook_position_control() is called several times in a row against the same reference geometry (typical of an interactive session): compute it once with build_sea_buffer() and reuse it across calls. When NULL (default), the sea buffer is (re)computed internally exactly as before, with no behaviour change for existing callers.
 #' @return The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first without geographical location and the second with geographical location), a {\link[base]{logical}} with output is "logical"
 #' @details
 #' The input dataframe must contain all these columns for the function to work :
@@ -65,7 +66,8 @@ logbook_position_control <- function(dataframe1,
                                      harbour_crs = 4326,
                                      buffer_harbour = 11100,
                                      buffer_sea = 925,
-                                     simplify_tolerance = 50) {
+                                     simplify_tolerance = 50,
+                                     sea_buffer = NULL) {
   # 0 - Global variables assignement ----
   . <- NULL
   type <- NULL
@@ -215,6 +217,9 @@ logbook_position_control <- function(dataframe1,
       output = "error"
     ))
   }
+  if (!is.null(sea_buffer) && !inherits(sea_buffer, "sf")) {
+    stop("sea_buffer must be NULL or an sf object, such as the one returned by build_sea_buffer().", call. = FALSE)
+  }
   select <- dataframe1$activity_id
   nrow_first <- length(select)
   # 2 - Data design ----
@@ -310,11 +315,17 @@ logbook_position_control <- function(dataframe1,
   # Simplified before buffering: sea/EEZ shapefiles can carry far more vertices
   # (e.g. coastline detail) than the buffer resolution needs, which otherwise
   # dominates both runtime and native (non-R-managed) memory of terra::buffer().
-  shape_sea_buffer <- dataframe3 %>%
-    sf::st_simplify(dTolerance = simplify_tolerance) %>%
-    terra::vect() %>%
-    terra::buffer(width = buffer_sea) %>%
-    sf::st_as_sf()
+  # If the caller already precomputed it (build_sea_buffer(), reused across
+  # several calls in the same session), skip recomputing it entirely.
+  if (is.null(sea_buffer)) {
+    shape_sea_buffer <- codama::build_sea_buffer(
+      dataframe3 = dataframe3,
+      buffer_sea = buffer_sea,
+      simplify_tolerance = simplify_tolerance
+    )
+  } else {
+    shape_sea_buffer <- sea_buffer
+  }
   # Calculates the intersection between activity and sea and logical in sea, indicates whether the ocean is the same
   if (nrow(data_geo_activity) > 0) {
     intersect <- data_geo_activity %>%

@@ -13,7 +13,8 @@ logbook_position_control(
   harbour_crs = 4326,
   buffer_harbour = 11100,
   buffer_sea = 925,
-  simplify_tolerance = 50
+  simplify_tolerance = 50,
+  sea_buffer = NULL
 )
 }
 \arguments{
@@ -33,7 +34,9 @@ logbook_position_control(
 
 \item{buffer_sea}{{\link[base]{numeric}} expected. Default values: 925. Buffer to be used for seas, in meter}
 
-\item{simplify_tolerance}{{\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification.}
+\item{simplify_tolerance}{{\link[base]{numeric}} expected. Default values: 50. Tolerance (in meter) used to simplify dataframe3 and harbour geometries before buffering, to avoid unnecessary cost on high-vertex-count polygons (e.g. coastline shapefiles). Kept well below buffer_sea/buffer_harbour so it does not affect the control result. Set to 0 to disable simplification. Ignored for the sea layer when sea_buffer is provided.}
+
+\item{sea_buffer}{{\link[sf]{sf}} expected, or NULL. Default value: NULL. Precomputed buffered sea layer, as returned by {\link[codama]{build_sea_buffer}} called with the same dataframe3/buffer_sea/simplify_tolerance. When provided, the (costly) sea buffering step is skipped and this is used directly, which is useful when logbook_position_control() is called several times in a row against the same reference geometry (typical of an interactive session): compute it once with build_sea_buffer() and reuse it across calls. When NULL (default), the sea buffer is (re)computed internally exactly as before, with no behaviour change for existing callers.}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", two {\link[base]{data.frame}} with output is "report" (the first without geographical location and the second with geographical location), a {\link[base]{logical}} with output is "logical"
