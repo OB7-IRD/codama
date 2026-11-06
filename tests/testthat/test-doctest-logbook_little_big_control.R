@@ -17,7 +17,7 @@ test_that("Doctest: logbook_little_big_control", {
     "4", "5", "6", "7", "8", "9"), logical = c(TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE), sample_smallsweight = c(10, 0, 3, 0,
     20, 1, 30, 3, 7, 4, 12, 0), sample_bigsweight = c(NA, NA, 0, 4, 2, 9, 3, 5, 4, 13, 5, 0), sample_totalweight = c(NA, 5, 0, 0, NA, NA, 33, NA, NA, 7, 2, 0),
   little_percentage = c(1, 1, 0, 0, 0.9, 1, 1, 0.925925925925926, 0.8, 0, 0, 1), big_percentage = c(0, 0, 0, 0, 0.1, 0, 0, 0.0740740740740741, 0.2, 0, 1, 0),
-  measure1_percentage = c(0, 0, 0, 0, 0.9, 0, 1, 0.925925925925926, 0.8, 0, 0, 0), measure2_percentage = c(1, 1, 0, 0, 0.1, 1, 0, 0.0740740740740741, 0.2, 0, 1, 1)),
-  row.names = c(NA, -12L), class = "data.frame"))
+  measure1_percentage = c(0, 0, 0, 0, 0.9, 0, 1, 0.925925925925926, 0.8, 0, 0, 0), measure2_percentage = c(1, 1, 0, 0, 0.1, 1, 0, 0.0740740740740741, 0.2, 0, 1,
+    1)), row.names = c(NA, -12L), class = "data.frame"))
 })
 

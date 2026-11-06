@@ -2,7 +2,7 @@
 % Please edit documentation in R/logbook_time_route_control.R
 \name{logbook_time_route_control}
 \alias{logbook_time_route_control}
-\title{Gives the inconsistencies between the fishing times or sea times indicated for the route and activities carried out}
+\title{Gives the inconsistencies between the sea times indicated for the route and activities carried out}
 \usage{
 logbook_time_route_control(
   dataframe1,
@@ -10,19 +10,13 @@ logbook_time_route_control(
   dataframe3,
   output,
   threshold_sea_time = 24,
-  threshold_fishing_time = 13,
   vessel_activity_sea_time = c("1", "2", "3", "4", "6", "6", "8", "9", "10", "11", "12",
     "13", "13", "13", "13", "13", "13", "14", "15", "17", "18", "19", "20", "22", "23",
     "24", "25", "26", "27", "29", "30", "31", "32", "36", "37", "38", "39", "50", "99",
     "101", "101", "102", "102", "103"),
   object_operation_sea_time = c(NA, NA, NA, NA, "99", NA, NA, NA, NA, NA, NA, "1", "2",
     "4", "6", "8", "9", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,
-    NA, NA, NA, NA, NA, NA, "99", NA, "99", NA, NA),
-  vessel_activity_fishing_time = c("2", "3", "4", "6", "6", "8", "12", "13", "13", "13",
-    "13", "13", "13", "14", "15", "17", "19", "20", "23", "25", "26", "27", "29", "30",
-    "31", "102", "102"),
-  object_operation_fishing_time = c(NA, NA, NA, "99", NA, NA, NA, "1", "2", "4", "6",
-    "8", "9", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "99", NA)
+    NA, NA, NA, NA, NA, NA, "99", NA, "99", NA, NA)
 )
 }
 \arguments{
@@ -36,21 +30,15 @@ logbook_time_route_control(
 
 \item{threshold_sea_time}{{\link[base]{numeric}} expected. Default values: 24. Maximum valid time for sea time}
 
-\item{threshold_fishing_time}{{\link[base]{numeric}} expected. Default values: 13. Maximum valid time for fishing time}
-
 \item{vessel_activity_sea_time}{{\link[base]{character}} expected. Default values: c("1", "2", "3", "4", "6", "6", "8", "9", "10", "11", "12", "13", "13", "13", "13", "13", "13", "14", "15", "17", "18", "19", "20", "22", "23", "24", "25", "26", "27", "29", "30", "31", "32", "36", "37", "38", "39", "50", "99", "101", "101", "102", "102", "103"). Code activities. First criterion for identifying activities that must have sea time}
 
 \item{object_operation_sea_time}{{\link[base]{character}} expected. Default values: c(NA, NA, NA, NA, "99", NA, NA, NA, NA, NA, NA, "1", "2", "4", "6", "8", "9", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "99", NA, "99", NA, NA). Code object operation. Second criterion for identifying activities that must have sea time (Indicate NA if you want the code object operation to be missing)}
-
-\item{vessel_activity_fishing_time}{{\link[base]{character}} expected. Default values: c("2", "3", "4", "6", '6', "8", "12", "13", "13", "13", "13", "13", "13", "14", "15", "17", "19", "20", "23", "25", "26", "27", "29", "30", "31", "102", "102"). Code activities. First criterion for identifying activities that must have fishing time}
-
-\item{object_operation_fishing_time}{{\link[base]{character}} expected. Default values: c(NA, NA, NA, "99", NA, NA, NA, "1", "2", "4", "6", "8", "9", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "99", NA). Code object operation. Second criterion for identifying activities that must have fishing time (Indicate NA if you want the code object operation to be missing)}
 }
 \value{
 The function returns a {\link[base]{character}} with output is "message", a {\link[base]{data.frame}} with output is "report", a {\link[base]{logical}} with output is "logical"
 }
 \description{
-The purpose of the logbook_time_route_control function is to provide a table of data that contains an inconsistency between the fishing times or sea times indicated for the route and activities carried out
+The purpose of the logbook_time_route_control function is to provide a table of data that contains an inconsistency between the sea times indicated for the route and activities carried out
 }
 \details{
 The input dataframe must contain all these columns for the function to work :
@@ -58,7 +46,6 @@ The input dataframe must contain all these columns for the function to work :
 Dataframe 1:
 \item{\code{  route_id}}
 \item{\code{  route_seatime}}
-\item{\code{  route_fishingtime}}
 }
 \itemize{
 Dataframe 2:
@@ -75,19 +62,14 @@ Dataframe 3:
 }
 \examples{
 #Day 1 is ok,
-#Day 2 has a fishing time equal to 0 but includes 1 fishing activitie
-#Day 3 has a sea time equal to 0 but includes 1 activitie on the sea
-#Day 4 has a missing sea time,
-#Day 5 has a missing fishing time,
-#Day 6 has a sea time greater than threshold (threshold_sea_time),
-#Day 7 has a fishing time greater than threshold (threshold_fishing_time),
-#Day 8 has a fishing time greater than sea time
-dataframe1 <- data.frame(route_id = c("1", "2", "3", "4", "5", "6", "7", "8"),
-                         route_seatime = c(6, 2, 0, NA, 8, 26, 15, 8),
-                         route_fishingtime = c(5, 0, 2, 4, NA, 7, 14, 9))
-dataframe2 <- data.frame(activity_id = c("1", "2", "3", "4", "5"),
-                         vesselactivity_code = c("2","13", "103","15", "6"),
-                         route_id = c("1", "1", "2", "2", "3"))
+#Day 2 has a sea time equal to 0 but includes 1 activitie on the sea
+#Day 3 has a missing sea time,
+#Day 4 has a sea time greater than threshold (threshold_sea_time),
+dataframe1 <- data.frame(route_id = c("1", "2", "3", "4"),
+                         route_seatime = c(6, 0, NA, 26))
+dataframe2 <- data.frame(activity_id = c("1", "2", "3"),
+                         vesselactivity_code = c("2","13", "6"),
+                         route_id = c("1", "1", "2"))
 dataframe3 <- data.frame(floatingobject_id = c("1"),
                          objectoperation_code = c("1"),
                          activity_id = c("2"))
